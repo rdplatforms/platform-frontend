@@ -53,6 +53,17 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Not Started | P0       | Authentication         | No auth exists yet — required before any real functionality         |
 | Not Started | P1       | Business/content CRUD  | Depends on Phase 4 backend                                          |
 
+## Business Owner Dashboard
+
+| Status      | Priority | Item                                 | Description                                                                               |
+| ----------- | -------- | ------------------------------------ | ----------------------------------------------------------------------------------------- |
+| Done        | P1       | Sales logging (`/dashboard`)         | Log a service/product sale, view totals (today/week/month/all-time), delete an entry      |
+| Done        | P1       | `SalesDataSource` (localStorage)     | First write-capable data source; per-business namespaced, unit tested with a fake storage |
+| Not Started | P0       | Real authentication                  | Passcode gate is a placeholder — see `docs/business-dashboard.md`                         |
+| Not Started | P1       | MongoDB-backed `HttpSalesDataSource` | Needs a small API in front of Mongo; same swap pattern as `HttpDataSource`                |
+| Not Started | P2       | Edit an existing sale entry          | v1 only supports create + delete                                                          |
+| Not Started | P2       | Real product catalog                 | Products are free-text on the entry today, not their own type                             |
+
 ## Backend Integration
 
 | Status      | Priority | Item                                     | Description                                                  |

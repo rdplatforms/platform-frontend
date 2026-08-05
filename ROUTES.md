@@ -9,12 +9,13 @@ different auth models, different themes, and scale independently.
 ## `apps/website`
 
 Router: `apps/website/src/routes/router.tsx` (`react-router-dom`
-`createBrowserRouter`, both routes lazy-loaded).
+`createBrowserRouter`, all routes lazy-loaded).
 
-| Path | Component      | Notes                                                                                                                      |
-| ---- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `/`  | `HomePage`     | Renders the resolved business's enabled sections via `SectionRenderer`, driven by `PageConfig` in `static-data/pages.json` |
-| `*`  | `NotFoundPage` | Catch-all 404                                                                                                              |
+| Path         | Component       | Notes                                                                                                                                                         |
+| ------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`          | `HomePage`      | Renders the resolved business's enabled sections via `SectionRenderer`, driven by `PageConfig` in `static-data/pages.json`                                    |
+| `/dashboard` | `DashboardPage` | Owner-facing sales log for this business, passcode-gated — see [docs/business-dashboard.md](docs/business-dashboard.md). Not linked from the public `Navbar`. |
+| `*`          | `NotFoundPage`  | Catch-all 404                                                                                                                                                 |
 
 Every demo business today only defines a single `/` page (see
 `static-data/pages.json`). Adding a second page for a business is:

@@ -29,3 +29,7 @@ All notable changes to this project are documented here. Format follows
 - Full documentation set: README, ARCHITECTURE, ROADMAP, TODO, PROGRESS,
   CODING_STANDARDS, COMPONENT_GUIDELINES, DESIGN_SYSTEM, ROUTES,
   CONTRIBUTING, AI_OPERATING_INSTRUCTIONS, `/docs` deep dives, and ADRs.
+- Per-business owner dashboard (`/dashboard` on `apps/website`) for logging
+  sales and viewing totals, backed by a new `SalesDataSource` (the
+  platform's first write-capable data source) with a localStorage-backed
+  implementation, gated by a placeholder per-business passcode.
