@@ -4,7 +4,9 @@ import type {
   BusinessTheme,
   FaqItem,
   GalleryItem,
+  NewSaleEntry,
   PageConfig,
+  SaleEntry,
   SeoConfig,
   ServiceItem,
   TeamMember,
@@ -58,4 +60,15 @@ export interface TeamDataSource {
 
 export interface SettingsDataSource {
   getSettingsByBusiness(businessId: string): Promise<BusinessSettings | undefined>;
+}
+
+/**
+ * The first write-capable data source in the platform — logging sales
+ * (services rendered, products sold) for the per-business owner
+ * dashboard. See docs/business-dashboard.md.
+ */
+export interface SalesDataSource {
+  listSalesByBusiness(businessId: string): Promise<SaleEntry[]>;
+  createSale(entry: NewSaleEntry): Promise<SaleEntry>;
+  deleteSale(id: string, businessId: string): Promise<void>;
 }

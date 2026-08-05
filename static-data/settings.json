@@ -6,7 +6,8 @@
     "timezone": "America/Chicago",
     "bookingEnabled": false,
     "whatsappEnabled": true,
-    "maintenanceMode": false
+    "maintenanceMode": false,
+    "dashboardPasscode": "1234"
   },
   "urban-bistro": {
     "businessId": "urban-bistro",
@@ -15,7 +16,8 @@
     "timezone": "America/Los_Angeles",
     "bookingEnabled": false,
     "whatsappEnabled": true,
-    "maintenanceMode": false
+    "maintenanceMode": false,
+    "dashboardPasscode": "5678"
   },
   "vision3d": {
     "businessId": "vision3d",
@@ -24,6 +26,7 @@
     "timezone": "America/Denver",
     "bookingEnabled": false,
     "whatsappEnabled": false,
-    "maintenanceMode": false
+    "maintenanceMode": false,
+    "dashboardPasscode": "9999"
   }
 }

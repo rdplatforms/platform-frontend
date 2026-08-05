@@ -96,4 +96,11 @@ export interface BusinessSettings {
   bookingEnabled: boolean;
   whatsappEnabled: boolean;
   maintenanceMode: boolean;
+  /**
+   * Placeholder gate for the per-business owner dashboard (see
+   * docs/business-dashboard.md) — a plain-text passcode, not real
+   * authentication. Undefined disables the dashboard entirely for this
+   * business until real auth exists (see docs/future-admin.md).
+   */
+  dashboardPasscode?: string;
 }

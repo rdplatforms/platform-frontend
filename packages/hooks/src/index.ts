@@ -7,3 +7,7 @@ export * from './useFaqs';
 export * from './useTeam';
 export * from './useSeo';
 export * from './usePageSections';
+export * from './useSettings';
+export * from './useSales';
+export * from './useCreateSale';
+export * from './useDeleteSale';
