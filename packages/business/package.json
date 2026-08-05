@@ -1,0 +1,19 @@
+{
+  "name": "@rdplatforms/business",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@rdplatforms/services": "workspace:*",
+    "@rdplatforms/types": "workspace:*",
+    "@rdplatforms/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2"
+  }
+}
