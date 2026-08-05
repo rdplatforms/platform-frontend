@@ -1,0 +1,24 @@
+{
+  "name": "@rdplatforms/hooks",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@rdplatforms/contexts": "workspace:*",
+    "@rdplatforms/services": "workspace:*",
+    "@rdplatforms/types": "workspace:*",
+    "@tanstack/react-query": "^5.62.0"
+  },
+  "peerDependencies": {
+    "react": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "typescript": "~5.7.2"
+  }
+}
