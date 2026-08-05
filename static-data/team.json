@@ -1,0 +1,28 @@
+{
+  "vision3d": [
+    {
+      "id": "v3d-team-1",
+      "businessId": "vision3d",
+      "name": "Elena Vasquez",
+      "role": "Founder & Creative Director",
+      "photoUrl": "/assets/businesses/vision3d/team/elena.svg",
+      "bio": "15 years directing visualization for award-winning architecture firms before founding Vision3D Studio."
+    },
+    {
+      "id": "v3d-team-2",
+      "businessId": "vision3d",
+      "name": "Marcus Webb",
+      "role": "Lead 3D Artist",
+      "photoUrl": "/assets/businesses/vision3d/team/marcus.svg",
+      "bio": "Specializes in photorealistic lighting and material studies for high-end residential projects."
+    },
+    {
+      "id": "v3d-team-3",
+      "businessId": "vision3d",
+      "name": "Ines Kovac",
+      "role": "Animation & Walkthrough Lead",
+      "photoUrl": "/assets/businesses/vision3d/team/ines.svg",
+      "bio": "Produces cinematic walkthroughs and VR experiences for investor and leasing presentations."
+    }
+  ]
+}

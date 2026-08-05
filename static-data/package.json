@@ -1,0 +1,19 @@
+{
+  "name": "@rdplatforms/static-data",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Temporary static JSON data source. Consumed only through @rdplatforms/services — never import these files directly from UI code. See docs/future-backend-contract.md.",
+  "exports": {
+    "./businesses/index": "./businesses/index.json",
+    "./businesses/*": "./businesses/*.json",
+    "./services": "./services.json",
+    "./gallery": "./gallery.json",
+    "./testimonials": "./testimonials.json",
+    "./theme": "./theme.json",
+    "./seo": "./seo.json",
+    "./pages": "./pages.json",
+    "./settings": "./settings.json",
+    "./faq": "./faq.json",
+    "./team": "./team.json"
+  }
+}

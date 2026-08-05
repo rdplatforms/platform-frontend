@@ -1,0 +1,42 @@
+{
+  "id": "vision3d",
+  "slug": "vision3d",
+  "legalName": "Vision3D Studio Inc.",
+  "displayName": "Vision3D Studio",
+  "tagline": "Architecture & 3D Visualization That Sells the Vision",
+  "category": "design-studio",
+  "logoUrl": "/assets/businesses/vision3d/logo.svg",
+  "faviconUrl": "/assets/businesses/vision3d/favicon.svg",
+  "description": "Vision3D Studio partners with architects, developers, and interior designers to produce photorealistic 3D renders, walkthroughs, and architectural visualization.",
+  "contact": {
+    "phone": "5557890003",
+    "email": "studio@vision3d.example.com",
+    "whatsapp": "5557890003",
+    "address": {
+      "line1": "902 Foundry Loop, Suite 4",
+      "city": "Denver",
+      "state": "CO",
+      "postalCode": "80202",
+      "country": "USA",
+      "mapEmbedUrl": "https://maps.google.com/maps?q=Denver%2C%20CO&output=embed",
+      "latitude": 39.7392,
+      "longitude": -104.9903
+    }
+  },
+  "hours": [
+    { "day": "monday", "opensAt": "09:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "tuesday", "opensAt": "09:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "wednesday", "opensAt": "09:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "thursday", "opensAt": "09:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "friday", "opensAt": "09:00", "closesAt": "17:00", "isClosed": false },
+    { "day": "saturday", "opensAt": null, "closesAt": null, "isClosed": true },
+    { "day": "sunday", "opensAt": null, "closesAt": null, "isClosed": true }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/vision3dstudio",
+    "linkedin": "https://linkedin.com/company/vision3dstudio",
+    "pinterest": "https://pinterest.com/vision3dstudio"
+  },
+  "domains": ["vision3d.rdplatforms.dev"],
+  "isActive": true
+}

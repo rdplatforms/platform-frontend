@@ -1,0 +1,56 @@
+{
+  "royal-salon": {
+    "businessId": "royal-salon",
+    "primaryColor": "#9C2B4E",
+    "secondaryColor": "#D9A441",
+    "accentColor": "#2B2024",
+    "backgroundColor": "#FFF8F5",
+    "textColor": "#231B1E",
+    "typography": {
+      "fontFamily": "'Poppins', sans-serif",
+      "headingFontFamily": "'Playfair Display', serif",
+      "pairing": "editorial"
+    },
+    "borderRadius": 16,
+    "buttonStyle": "pill",
+    "backgroundStyle": "soft-gradient",
+    "logoUrl": "/assets/businesses/royal-salon/logo.svg",
+    "darkModeEnabled": false
+  },
+  "urban-bistro": {
+    "businessId": "urban-bistro",
+    "primaryColor": "#B5482E",
+    "secondaryColor": "#2E4034",
+    "accentColor": "#E8C468",
+    "backgroundColor": "#FBF6EF",
+    "textColor": "#26211C",
+    "typography": {
+      "fontFamily": "'Inter', sans-serif",
+      "headingFontFamily": "'Fraunces', serif",
+      "pairing": "classic-serif"
+    },
+    "borderRadius": 8,
+    "buttonStyle": "square",
+    "backgroundStyle": "solid",
+    "logoUrl": "/assets/businesses/urban-bistro/logo.svg",
+    "darkModeEnabled": false
+  },
+  "vision3d": {
+    "businessId": "vision3d",
+    "primaryColor": "#1B1F3B",
+    "secondaryColor": "#3AAFA9",
+    "accentColor": "#EDEDED",
+    "backgroundColor": "#0F1117",
+    "textColor": "#F4F4F5",
+    "typography": {
+      "fontFamily": "'Sora', sans-serif",
+      "headingFontFamily": "'Sora', sans-serif",
+      "pairing": "modern-sans"
+    },
+    "borderRadius": 4,
+    "buttonStyle": "square",
+    "backgroundStyle": "image-overlay",
+    "logoUrl": "/assets/businesses/vision3d/logo.svg",
+    "darkModeEnabled": true
+  }
+}

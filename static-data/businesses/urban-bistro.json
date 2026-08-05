@@ -1,0 +1,42 @@
+{
+  "id": "urban-bistro",
+  "slug": "urban-bistro",
+  "legalName": "Urban Bistro Group LLC",
+  "displayName": "Urban Bistro",
+  "tagline": "Seasonal Plates, City Soul",
+  "category": "restaurant",
+  "logoUrl": "/assets/businesses/urban-bistro/logo.svg",
+  "faviconUrl": "/assets/businesses/urban-bistro/favicon.svg",
+  "description": "Urban Bistro serves modern comfort food built around seasonal, locally sourced ingredients in a warm, industrial-chic dining room.",
+  "contact": {
+    "phone": "5554560002",
+    "email": "reservations@urbanbistro.example.com",
+    "whatsapp": "5554560002",
+    "address": {
+      "line1": "47 Market Street",
+      "city": "Portland",
+      "state": "OR",
+      "postalCode": "97201",
+      "country": "USA",
+      "mapEmbedUrl": "https://maps.google.com/maps?q=Portland%2C%20OR&output=embed",
+      "latitude": 45.5152,
+      "longitude": -122.6784
+    }
+  },
+  "hours": [
+    { "day": "monday", "opensAt": null, "closesAt": null, "isClosed": true },
+    { "day": "tuesday", "opensAt": "11:30", "closesAt": "22:00", "isClosed": false },
+    { "day": "wednesday", "opensAt": "11:30", "closesAt": "22:00", "isClosed": false },
+    { "day": "thursday", "opensAt": "11:30", "closesAt": "22:00", "isClosed": false },
+    { "day": "friday", "opensAt": "11:30", "closesAt": "23:00", "isClosed": false },
+    { "day": "saturday", "opensAt": "10:00", "closesAt": "23:00", "isClosed": false },
+    { "day": "sunday", "opensAt": "10:00", "closesAt": "21:00", "isClosed": false }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/urbanbistro",
+    "facebook": "https://facebook.com/urbanbistro",
+    "tiktok": "https://tiktok.com/@urbanbistro"
+  },
+  "domains": ["urban-bistro.rdplatforms.dev"],
+  "isActive": true
+}

@@ -1,0 +1,159 @@
+{
+  "royal-salon": [
+    {
+      "id": "rs-svc-haircut",
+      "businessId": "royal-salon",
+      "name": "Signature Haircut & Style",
+      "description": "A precision cut tailored to your face shape, finished with a full blowout style.",
+      "price": 65,
+      "currency": "USD",
+      "durationMinutes": 60,
+      "imageUrl": "/assets/businesses/royal-salon/services/haircut.svg",
+      "category": "Hair",
+      "isFeatured": true
+    },
+    {
+      "id": "rs-svc-color",
+      "businessId": "royal-salon",
+      "name": "Full Color & Gloss",
+      "description": "Single-process color with a glossing treatment for long-lasting shine.",
+      "price": 140,
+      "currency": "USD",
+      "durationMinutes": 120,
+      "imageUrl": "/assets/businesses/royal-salon/services/color.svg",
+      "category": "Hair",
+      "isFeatured": true
+    },
+    {
+      "id": "rs-svc-balayage",
+      "businessId": "royal-salon",
+      "name": "Balayage Highlights",
+      "description": "Hand-painted highlights for a natural, sun-kissed dimension.",
+      "price": 220,
+      "currency": "USD",
+      "durationMinutes": 180,
+      "imageUrl": "/assets/businesses/royal-salon/services/balayage.svg",
+      "category": "Hair",
+      "isFeatured": false
+    },
+    {
+      "id": "rs-svc-facial",
+      "businessId": "royal-salon",
+      "name": "Royal Glow Facial",
+      "description": "A hydrating facial treatment with steam, extraction, and a calming mask.",
+      "price": 95,
+      "currency": "USD",
+      "durationMinutes": 50,
+      "imageUrl": "/assets/businesses/royal-salon/services/facial.svg",
+      "category": "Spa",
+      "isFeatured": false
+    },
+    {
+      "id": "rs-svc-manicure",
+      "businessId": "royal-salon",
+      "name": "Gel Manicure",
+      "description": "Long-lasting gel polish with cuticle care and hand massage.",
+      "price": 45,
+      "currency": "USD",
+      "durationMinutes": 40,
+      "imageUrl": "/assets/businesses/royal-salon/services/manicure.svg",
+      "category": "Nails",
+      "isFeatured": false
+    }
+  ],
+  "urban-bistro": [
+    {
+      "id": "ub-svc-tasting",
+      "businessId": "urban-bistro",
+      "name": "Chef's Tasting Menu",
+      "description": "Five courses showcasing the best of the current season, paired wines optional.",
+      "price": 85,
+      "currency": "USD",
+      "durationMinutes": 120,
+      "imageUrl": "/assets/businesses/urban-bistro/services/tasting-menu.svg",
+      "category": "Dining",
+      "isFeatured": true
+    },
+    {
+      "id": "ub-svc-brunch",
+      "businessId": "urban-bistro",
+      "name": "Weekend Brunch",
+      "description": "A relaxed weekend spread of house classics, fresh pastries, and craft cocktails.",
+      "price": 32,
+      "currency": "USD",
+      "durationMinutes": 90,
+      "imageUrl": "/assets/businesses/urban-bistro/services/brunch.svg",
+      "category": "Dining",
+      "isFeatured": true
+    },
+    {
+      "id": "ub-svc-private-dining",
+      "businessId": "urban-bistro",
+      "name": "Private Dining Room",
+      "description": "A semi-private space for up to 20 guests with a custom set menu.",
+      "price": 0,
+      "currency": "USD",
+      "durationMinutes": 180,
+      "imageUrl": "/assets/businesses/urban-bistro/services/private-dining.svg",
+      "category": "Events",
+      "isFeatured": false
+    },
+    {
+      "id": "ub-svc-catering",
+      "businessId": "urban-bistro",
+      "name": "Catering",
+      "description": "Full-service catering for corporate events and private gatherings.",
+      "price": 0,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/urban-bistro/services/catering.svg",
+      "category": "Events",
+      "isFeatured": false
+    }
+  ],
+  "vision3d": [
+    {
+      "id": "v3d-svc-exterior-render",
+      "businessId": "vision3d",
+      "name": "Exterior 3D Render",
+      "description": "Photorealistic exterior renders for marketing, permitting, or client presentations.",
+      "price": 450,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/vision3d/services/exterior-render.svg",
+      "category": "Visualization",
+      "isFeatured": true
+    },
+    {
+      "id": "v3d-svc-interior-render",
+      "businessId": "vision3d",
+      "name": "Interior 3D Render",
+      "description": "Detailed interior scenes with accurate lighting, materials, and furnishing.",
+      "price": 380,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/vision3d/services/interior-render.svg",
+      "category": "Visualization",
+      "isFeatured": true
+    },
+    {
+      "id": "v3d-svc-walkthrough",
+      "businessId": "vision3d",
+      "name": "Animated Walkthrough",
+      "description": "A cinematic fly-through animation ideal for investor pitches and leasing.",
+      "price": 2200,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/vision3d/services/walkthrough.svg",
+      "category": "Animation",
+      "isFeatured": true
+    },
+    {
+      "id": "v3d-svc-vr",
+      "businessId": "vision3d",
+      "name": "VR Walkable Model",
+      "description": "An interactive, walkable VR model for immersive client walkthroughs.",
+      "price": 3500,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/vision3d/services/vr-model.svg",
+      "category": "Immersive",
+      "isFeatured": false
+    }
+  ]
+}

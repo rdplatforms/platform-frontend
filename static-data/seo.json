@@ -1,0 +1,36 @@
+{
+  "royal-salon": {
+    "businessId": "royal-salon",
+    "title": "Royal Salon | Premium Hair & Beauty Studio in Austin, TX",
+    "description": "Royal Salon offers premium haircuts, color, balayage, and spa treatments in a relaxed, upscale studio in Austin, TX.",
+    "keywords": ["hair salon austin", "balayage austin", "premium salon", "hair color specialist"],
+    "ogImageUrl": "/assets/businesses/royal-salon/og-image.svg",
+    "canonicalUrl": "https://royal-salon.rdplatforms.dev"
+  },
+  "urban-bistro": {
+    "businessId": "urban-bistro",
+    "title": "Urban Bistro | Seasonal Dining in Portland, OR",
+    "description": "Urban Bistro serves modern, seasonal comfort food and weekend brunch in a warm industrial-chic dining room in Portland, OR.",
+    "keywords": [
+      "portland restaurant",
+      "seasonal dining",
+      "weekend brunch portland",
+      "private dining"
+    ],
+    "ogImageUrl": "/assets/businesses/urban-bistro/og-image.svg",
+    "canonicalUrl": "https://urban-bistro.rdplatforms.dev"
+  },
+  "vision3d": {
+    "businessId": "vision3d",
+    "title": "Vision3D Studio | Architectural 3D Visualization in Denver, CO",
+    "description": "Vision3D Studio produces photorealistic 3D renders, animated walkthroughs, and VR models for architects and developers.",
+    "keywords": [
+      "3d architectural rendering",
+      "denver render studio",
+      "animated walkthrough",
+      "vr real estate"
+    ],
+    "ogImageUrl": "/assets/businesses/vision3d/og-image.svg",
+    "canonicalUrl": "https://vision3d.rdplatforms.dev"
+  }
+}

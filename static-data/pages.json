@@ -1,0 +1,72 @@
+{
+  "royal-salon": [
+    {
+      "businessId": "royal-salon",
+      "path": "/",
+      "name": "Home",
+      "sections": [
+        {
+          "type": "hero",
+          "enabled": true,
+          "order": 1,
+          "title": "Where Every Visit Feels Like Royalty"
+        },
+        { "type": "about", "enabled": true, "order": 2, "title": "About Royal Salon" },
+        { "type": "services", "enabled": true, "order": 3, "title": "Our Services" },
+        { "type": "gallery", "enabled": true, "order": 4, "title": "Recent Work" },
+        { "type": "testimonials", "enabled": true, "order": 5, "title": "What Clients Say" },
+        { "type": "faq", "enabled": true, "order": 6, "title": "Frequently Asked Questions" },
+        { "type": "cta", "enabled": true, "order": 7, "title": "Ready For Your Next Look?" },
+        { "type": "contact", "enabled": true, "order": 8, "title": "Visit Us" },
+        { "type": "map", "enabled": true, "order": 9 }
+      ]
+    }
+  ],
+  "urban-bistro": [
+    {
+      "businessId": "urban-bistro",
+      "path": "/",
+      "name": "Home",
+      "sections": [
+        { "type": "hero", "enabled": true, "order": 1, "title": "Seasonal Plates, City Soul" },
+        { "type": "about", "enabled": true, "order": 2, "title": "Our Story" },
+        { "type": "services", "enabled": true, "order": 3, "title": "Menu Highlights" },
+        { "type": "gallery", "enabled": true, "order": 4, "title": "Inside The Bistro" },
+        { "type": "testimonials", "enabled": true, "order": 5, "title": "What Guests Are Saying" },
+        { "type": "faq", "enabled": false, "order": 6 },
+        { "type": "cta", "enabled": true, "order": 7, "title": "Reserve Your Table" },
+        { "type": "contact", "enabled": true, "order": 8, "title": "Get In Touch" },
+        { "type": "map", "enabled": true, "order": 9 }
+      ]
+    }
+  ],
+  "vision3d": [
+    {
+      "businessId": "vision3d",
+      "path": "/",
+      "name": "Home",
+      "sections": [
+        {
+          "type": "hero",
+          "enabled": true,
+          "order": 1,
+          "title": "Architecture & 3D Visualization That Sells The Vision"
+        },
+        { "type": "about", "enabled": true, "order": 2, "title": "About The Studio" },
+        { "type": "services", "enabled": true, "order": 3, "title": "What We Deliver" },
+        { "type": "gallery", "enabled": true, "order": 4, "title": "Selected Work" },
+        { "type": "team", "enabled": true, "order": 5, "title": "Meet The Studio" },
+        {
+          "type": "testimonials",
+          "enabled": true,
+          "order": 6,
+          "title": "Trusted By Architects & Developers"
+        },
+        { "type": "faq", "enabled": true, "order": 7, "title": "Common Questions" },
+        { "type": "cta", "enabled": true, "order": 8, "title": "Start Your Next Project" },
+        { "type": "contact", "enabled": true, "order": 9, "title": "Contact The Studio" },
+        { "type": "map", "enabled": false, "order": 10 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "royal-salon": [
+    {
+      "id": "rs-faq-1",
+      "businessId": "royal-salon",
+      "question": "Do I need an appointment?",
+      "answer": "Walk-ins are welcome when space allows, but we recommend booking ahead to guarantee your preferred stylist and time."
+    },
+    {
+      "id": "rs-faq-2",
+      "businessId": "royal-salon",
+      "question": "What is your cancellation policy?",
+      "answer": "We ask for at least 24 hours notice for cancellations or rescheduling to avoid a cancellation fee."
+    },
+    {
+      "id": "rs-faq-3",
+      "businessId": "royal-salon",
+      "question": "Do you offer consultations for color services?",
+      "answer": "Yes, every new color client receives a complimentary consultation before their appointment."
+    }
+  ],
+  "vision3d": [
+    {
+      "id": "v3d-faq-1",
+      "businessId": "vision3d",
+      "question": "What file formats do you accept for source drawings?",
+      "answer": "We work from CAD, Revit, SketchUp, and PDF drawing sets. If you're unsure, send what you have and we'll advise."
+    },
+    {
+      "id": "v3d-faq-2",
+      "businessId": "vision3d",
+      "question": "What is the typical turnaround for a still render?",
+      "answer": "Most single exterior or interior renders are delivered within 7-10 business days from final drawing approval."
+    },
+    {
+      "id": "v3d-faq-3",
+      "businessId": "vision3d",
+      "question": "How many revision rounds are included?",
+      "answer": "Every project includes two rounds of revisions. Additional rounds are billed at an hourly rate."
+    }
+  ]
+}

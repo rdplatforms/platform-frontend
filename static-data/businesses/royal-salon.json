@@ -1,0 +1,41 @@
+{
+  "id": "royal-salon",
+  "slug": "royal-salon",
+  "legalName": "Royal Salon LLC",
+  "displayName": "Royal Salon",
+  "tagline": "Where Every Visit Feels Like Royalty",
+  "category": "salon",
+  "logoUrl": "/assets/businesses/royal-salon/logo.svg",
+  "faviconUrl": "/assets/businesses/royal-salon/favicon.svg",
+  "description": "Royal Salon is a modern premium hair and beauty studio offering expert styling, coloring, and spa treatments in a relaxed, upscale environment.",
+  "contact": {
+    "phone": "5551230001",
+    "email": "hello@royalsalon.example.com",
+    "whatsapp": "5551230001",
+    "address": {
+      "line1": "128 Crown Avenue",
+      "city": "Austin",
+      "state": "TX",
+      "postalCode": "78701",
+      "country": "USA",
+      "mapEmbedUrl": "https://maps.google.com/maps?q=Austin%2C%20TX&output=embed",
+      "latitude": 30.2672,
+      "longitude": -97.7431
+    }
+  },
+  "hours": [
+    { "day": "monday", "opensAt": "09:00", "closesAt": "19:00", "isClosed": false },
+    { "day": "tuesday", "opensAt": "09:00", "closesAt": "19:00", "isClosed": false },
+    { "day": "wednesday", "opensAt": "09:00", "closesAt": "19:00", "isClosed": false },
+    { "day": "thursday", "opensAt": "09:00", "closesAt": "20:00", "isClosed": false },
+    { "day": "friday", "opensAt": "09:00", "closesAt": "20:00", "isClosed": false },
+    { "day": "saturday", "opensAt": "10:00", "closesAt": "17:00", "isClosed": false },
+    { "day": "sunday", "opensAt": null, "closesAt": null, "isClosed": true }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/royalsalon",
+    "facebook": "https://facebook.com/royalsalon"
+  },
+  "domains": ["royal-salon.rdplatforms.dev"],
+  "isActive": true
+}

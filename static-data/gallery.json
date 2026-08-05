@@ -1,0 +1,144 @@
+{
+  "royal-salon": [
+    {
+      "id": "rs-gal-1",
+      "businessId": "royal-salon",
+      "title": "Balayage Result",
+      "imageUrl": "/assets/businesses/royal-salon/gallery/1.svg",
+      "category": "Hair",
+      "order": 1
+    },
+    {
+      "id": "rs-gal-2",
+      "businessId": "royal-salon",
+      "title": "Salon Interior",
+      "imageUrl": "/assets/businesses/royal-salon/gallery/2.svg",
+      "category": "Studio",
+      "order": 2
+    },
+    {
+      "id": "rs-gal-3",
+      "businessId": "royal-salon",
+      "title": "Bridal Updo",
+      "imageUrl": "/assets/businesses/royal-salon/gallery/3.svg",
+      "category": "Hair",
+      "order": 3
+    },
+    {
+      "id": "rs-gal-4",
+      "businessId": "royal-salon",
+      "title": "Manicure Station",
+      "imageUrl": "/assets/businesses/royal-salon/gallery/4.svg",
+      "category": "Nails",
+      "order": 4
+    },
+    {
+      "id": "rs-gal-5",
+      "businessId": "royal-salon",
+      "title": "Facial Treatment Room",
+      "imageUrl": "/assets/businesses/royal-salon/gallery/5.svg",
+      "category": "Spa",
+      "order": 5
+    },
+    {
+      "id": "rs-gal-6",
+      "businessId": "royal-salon",
+      "title": "Color Transformation",
+      "imageUrl": "/assets/businesses/royal-salon/gallery/6.svg",
+      "category": "Hair",
+      "order": 6
+    }
+  ],
+  "urban-bistro": [
+    {
+      "id": "ub-gal-1",
+      "businessId": "urban-bistro",
+      "title": "Dining Room",
+      "imageUrl": "/assets/businesses/urban-bistro/gallery/1.svg",
+      "category": "Interior",
+      "order": 1
+    },
+    {
+      "id": "ub-gal-2",
+      "businessId": "urban-bistro",
+      "title": "Seared Scallops",
+      "imageUrl": "/assets/businesses/urban-bistro/gallery/2.svg",
+      "category": "Food",
+      "order": 2
+    },
+    {
+      "id": "ub-gal-3",
+      "businessId": "urban-bistro",
+      "title": "Craft Cocktail Bar",
+      "imageUrl": "/assets/businesses/urban-bistro/gallery/3.svg",
+      "category": "Bar",
+      "order": 3
+    },
+    {
+      "id": "ub-gal-4",
+      "businessId": "urban-bistro",
+      "title": "Weekend Brunch Spread",
+      "imageUrl": "/assets/businesses/urban-bistro/gallery/4.svg",
+      "category": "Food",
+      "order": 4
+    },
+    {
+      "id": "ub-gal-5",
+      "businessId": "urban-bistro",
+      "title": "Patio Seating",
+      "imageUrl": "/assets/businesses/urban-bistro/gallery/5.svg",
+      "category": "Interior",
+      "order": 5
+    }
+  ],
+  "vision3d": [
+    {
+      "id": "v3d-gal-1",
+      "businessId": "vision3d",
+      "title": "Modern Villa Exterior",
+      "imageUrl": "/assets/businesses/vision3d/gallery/1.svg",
+      "category": "Exterior",
+      "order": 1
+    },
+    {
+      "id": "v3d-gal-2",
+      "businessId": "vision3d",
+      "title": "Penthouse Living Room",
+      "imageUrl": "/assets/businesses/vision3d/gallery/2.svg",
+      "category": "Interior",
+      "order": 2
+    },
+    {
+      "id": "v3d-gal-3",
+      "businessId": "vision3d",
+      "title": "Mixed-Use Development",
+      "imageUrl": "/assets/businesses/vision3d/gallery/3.svg",
+      "category": "Exterior",
+      "order": 3
+    },
+    {
+      "id": "v3d-gal-4",
+      "businessId": "vision3d",
+      "title": "Rooftop Lounge Concept",
+      "imageUrl": "/assets/businesses/vision3d/gallery/4.svg",
+      "category": "Interior",
+      "order": 4
+    },
+    {
+      "id": "v3d-gal-5",
+      "businessId": "vision3d",
+      "title": "Night Render",
+      "imageUrl": "/assets/businesses/vision3d/gallery/5.svg",
+      "category": "Exterior",
+      "order": 5
+    },
+    {
+      "id": "v3d-gal-6",
+      "businessId": "vision3d",
+      "title": "VR Walkthrough Still",
+      "imageUrl": "/assets/businesses/vision3d/gallery/6.svg",
+      "category": "Immersive",
+      "order": 6
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "royal-salon": [
+    {
+      "id": "rs-test-1",
+      "businessId": "royal-salon",
+      "authorName": "Maria Gonzalez",
+      "authorRole": "Regular Client",
+      "avatarUrl": "/assets/businesses/royal-salon/testimonials/maria.svg",
+      "rating": 5,
+      "quote": "Every time I leave Royal Salon I feel like a completely different person, in the best way. My colorist truly listens."
+    },
+    {
+      "id": "rs-test-2",
+      "businessId": "royal-salon",
+      "authorName": "Devon Alvarez",
+      "authorRole": "First-Time Visitor",
+      "avatarUrl": "/assets/businesses/royal-salon/testimonials/devon.svg",
+      "rating": 5,
+      "quote": "The whole studio feels calm and upscale without being stuffy. Booked my next appointment before I even left."
+    },
+    {
+      "id": "rs-test-3",
+      "businessId": "royal-salon",
+      "authorName": "Priya Natarajan",
+      "authorRole": "Bridal Client",
+      "rating": 5,
+      "quote": "They did my entire bridal party's hair and everyone looked stunning. Incredibly organized on a big day."
+    }
+  ],
+  "urban-bistro": [
+    {
+      "id": "ub-test-1",
+      "businessId": "urban-bistro",
+      "authorName": "James Okafor",
+      "authorRole": "Food Critic, City Weekly",
+      "rating": 5,
+      "quote": "Urban Bistro's tasting menu is the most thoughtful seasonal cooking in the neighborhood right now."
+    },
+    {
+      "id": "ub-test-2",
+      "businessId": "urban-bistro",
+      "authorName": "Lena Schmidt",
+      "authorRole": "Regular Guest",
+      "rating": 4,
+      "quote": "Brunch here is our Sunday tradition. The staff remembers our order and the patio is unbeatable in spring."
+    },
+    {
+      "id": "ub-test-3",
+      "businessId": "urban-bistro",
+      "authorName": "Marcus Bell",
+      "authorRole": "Corporate Event Planner",
+      "rating": 5,
+      "quote": "We booked the private dining room for a 20-person offsite and the team made it completely seamless."
+    }
+  ],
+  "vision3d": [
+    {
+      "id": "v3d-test-1",
+      "businessId": "vision3d",
+      "authorName": "Anaya Chen",
+      "authorRole": "Principal Architect, Chen & Wells",
+      "rating": 5,
+      "quote": "Vision3D turns our schematic drawings into renders that win over clients before ground is even broken."
+    },
+    {
+      "id": "v3d-test-2",
+      "businessId": "vision3d",
+      "authorName": "Robert Fitzgerald",
+      "authorRole": "Development Director, Foundry Partners",
+      "rating": 5,
+      "quote": "The animated walkthrough they produced for our mixed-use project directly helped us close financing."
+    },
+    {
+      "id": "v3d-test-3",
+      "businessId": "vision3d",
+      "authorName": "Sofia Marchetti",
+      "authorRole": "Interior Designer",
+      "rating": 4,
+      "quote": "Fast turnaround, precise material accuracy, and they take revisions in stride. Our go-to render partner."
+    }
+  ]
+}

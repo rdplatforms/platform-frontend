@@ -1,0 +1,29 @@
+{
+  "royal-salon": {
+    "businessId": "royal-salon",
+    "currency": "USD",
+    "locale": "en-US",
+    "timezone": "America/Chicago",
+    "bookingEnabled": false,
+    "whatsappEnabled": true,
+    "maintenanceMode": false
+  },
+  "urban-bistro": {
+    "businessId": "urban-bistro",
+    "currency": "USD",
+    "locale": "en-US",
+    "timezone": "America/Los_Angeles",
+    "bookingEnabled": false,
+    "whatsappEnabled": true,
+    "maintenanceMode": false
+  },
+  "vision3d": {
+    "businessId": "vision3d",
+    "currency": "USD",
+    "locale": "en-US",
+    "timezone": "America/Denver",
+    "bookingEnabled": false,
+    "whatsappEnabled": false,
+    "maintenanceMode": false
+  }
+}
