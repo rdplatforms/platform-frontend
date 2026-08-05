@@ -1,0 +1,39 @@
+{
+  "name": "platform-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Reusable multi-tenant website platform frontend powering many businesses from a single codebase.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.25.0",
+  "type": "module",
+  "scripts": {
+    "dev:website": "pnpm --filter @rdplatforms/website dev",
+    "dev:admin": "pnpm --filter @rdplatforms/admin dev",
+    "build": "pnpm -r build",
+    "build:website": "pnpm --filter @rdplatforms/website build",
+    "build:admin": "pnpm --filter @rdplatforms/admin build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@types/node": "^22.10.5",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "prettier": "^3.4.2",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.19.1",
+    "vitest": "^2.1.8"
+  }
+}
