@@ -3,6 +3,9 @@ import { Box, CircularProgress } from '@mui/material';
 import { createBrowserRouter } from 'react-router-dom';
 
 const HomePage = lazy(() => import('../pages/HomePage').then((m) => ({ default: m.HomePage })));
+const DashboardPage = lazy(() =>
+  import('../dashboard/DashboardPage').then((m) => ({ default: m.DashboardPage })),
+);
 const NotFoundPage = lazy(() =>
   import('../pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 );
@@ -23,8 +26,13 @@ function withSuspense(element: ReactNode) {
  * a PageConfig entry plus a route here — not a new app. Routes are lazy
  * (see docs/frontend-architecture.md#performance) so page code splits out
  * of the main bundle rather than the vendor libraries a page happens to use.
+ *
+ * /dashboard is the business owner's own tool (see docs/business-dashboard.md)
+ * — deliberately not linked from the public Navbar, and scoped to whichever
+ * business this deployment resolves to, same as every other route here.
  */
 export const router = createBrowserRouter([
   { path: '/', element: withSuspense(<HomePage />) },
+  { path: '/dashboard', element: withSuspense(<DashboardPage />) },
   { path: '*', element: withSuspense(<NotFoundPage />) },
 ]);
