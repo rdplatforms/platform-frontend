@@ -17,19 +17,36 @@ For the runtime types themselves, see `packages/types/src/business.ts`.
 | `category`                  | One of a growing `BusinessCategory` union — see below                                                                                                                  |
 | `logoUrl` / `faviconUrl`    | Brand assets                                                                                                                                                           |
 | `description`               | Used in About section and as SEO fallback                                                                                                                              |
-| `contact`                   | Phone, email, optional WhatsApp, and a structured `address`                                                                                                            |
-| `hours`                     | Seven-day schedule, each day independently open/closed                                                                                                                 |
+| `contact`                   | Phone, optional email, optional WhatsApp, and a structured `address` — see below on why most of these are optional                                                     |
+| `hours`                     | Seven-day schedule, each day independently open/closed — an empty array is valid (hours not yet confirmed)                                                             |
 | `social`                    | Optional links per platform                                                                                                                                            |
 | `domains`                   | Every hostname this business should resolve on (custom domain + platform subdomain)                                                                                    |
 | `isActive`                  | A business `BusinessResolver` will never resolve to when `false` — the mechanism for suspending a tenant without deleting its data                                     |
+| `brandNote`                 | Optional short line shown near the logo (a motto, invocation, founding note) — localizable                                                                             |
+| `supportedLocales`          | Ordered locales this business's content is available in; absent means single-language — see [i18n.md](i18n.md)                                                         |
+
+`tagline` and `description` are `LocalizableText` (a plain string, or a
+per-locale object) — see [i18n.md](i18n.md) for how that resolves.
+`displayName`/`legalName` are always plain strings: a business's actual
+name is never translated per locale, only the surrounding content is.
+
+### Contact info is deliberately lenient
+
+Real small businesses often don't have every field a Western business
+form assumes — many have a phone number and nothing else. So
+`BusinessContact.email` is optional, and every field on `BusinessAddress`
+except the map/coordinate fields is optional. Render defensively (see
+`formatAddressLine` in `@rdplatforms/utils`) rather than assuming any
+particular field is present — a missing street address shouldn't produce
+`"undefined, undefined"` in the UI.
 
 ## Categories are additive, not exhaustive
 
 `BusinessCategory` (`packages/types/src/business.ts`) currently lists:
 `salon`, `restaurant`, `design-studio`, `gym`, `dental-clinic`, `hotel`,
 `interior-design`, `photography`, `legal`, `architecture`, `ecommerce`,
-`real-estate`. Only the first three have demo content today (Royal Salon,
-Urban Bistro, Vision3D Studio); the rest are reserved so the type doesn't
+`real-estate`. Only the first three have demo content today (Swami Hair
+Salon, Urban Bistro, Vision3D Studio); the rest are reserved so the type doesn't
 need a breaking change as the platform grows into them.
 
 **Category is metadata, not a behavior switch.** Nothing in `packages/ui`

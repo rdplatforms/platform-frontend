@@ -40,7 +40,7 @@
 
 - Nothing under `packages/ui` or `apps/website/src/pages` may hardcode a
   business slug, name, or category. If you're tempted to write
-  `if (business.slug === 'royal-salon')`, the correct fix is a new field on
+  `if (business.slug === 'swami-hair-salon')`, the correct fix is a new field on
   `Business`/`BusinessTheme`/`SectionConfig`, not a conditional.
 - Resolution strategies (`packages/business/src/resolvers/*`) must stay
   pure functions: same `(context, businesses)` in, same slug out, no I/O.

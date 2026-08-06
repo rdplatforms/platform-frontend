@@ -33,3 +33,9 @@ All notable changes to this project are documented here. Format follows
   sales and viewing totals, backed by a new `SalesDataSource` (the
   platform's first write-capable data source) with a localStorage-backed
   implementation, gated by a placeholder per-business passcode.
+- Per-business bilingual content support (`LocalizableText`, `LocaleProvider`,
+  a language switcher, and a UI-chrome string dictionary for en/mr) and a
+  fix for a gap where declared theme fonts were never actually loaded.
+- Rebranded the salon demo business from "Royal Salon" to a real business,
+  Swami Hair Salon (स्वामी हेअर सलून), with real contact/location details
+  and bilingual (Marathi/English) content.

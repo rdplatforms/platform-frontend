@@ -3,6 +3,52 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-08-06 — Bilingual content support + Swami Hair Salon rebrand
+
+Added per-business bilingual content and rebranded the salon demo business
+from the generic "Royal Salon" placeholder to a real business — see
+[docs/i18n.md](docs/i18n.md) and
+[docs/adr/0008-per-business-bilingual-content.md](docs/adr/0008-per-business-bilingual-content.md).
+
+- `LocalizableText`/`SupportedLocale` types (`@rdplatforms/types`) —
+  additive: existing single-language businesses (Urban Bistro, Vision3D)
+  are completely unaffected, still plain strings throughout
+- `resolveLocalizedText` + a `uiStrings.ts` platform-chrome dictionary
+  (`@rdplatforms/utils`), unit tested
+- `LocaleContext`/`LocaleProvider` (`@rdplatforms/contexts`,
+  `@rdplatforms/providers`) wired into `AppProviders`, plus a
+  `LanguageSwitcher` in `Navbar` that renders nothing for single-language
+  businesses
+- Every section component, `Navbar`, `Footer`, and `DocumentHead` updated
+  to resolve localized business content and translated chrome text
+- Fixed a real, unrelated gap surfaced by this work: declared theme fonts
+  (`typography.fontFamily`/`headingFontFamily`) were never actually
+  loaded anywhere — added `typography.googleFontsUrl` +
+  `loadGoogleFont()` to `AppThemeProvider`
+- `BusinessContact.email` and most of `BusinessAddress` made optional, plus
+  a defensive `formatAddressLine` helper — real small businesses often
+  don't have every field a Western contact form assumes
+- Rebranded `royal-salon` → `swami-hair-salon` (स्वामी हेअर सलून) across
+  every `static-data/` file, assets, the `JsonDataSource` registry, and
+  the website's default-business env var, with real contact/location
+  details (phone, WhatsApp, Google Maps coordinates and directions link)
+  and bilingual (Marathi/English) tagline, description, services, and
+  team (proprietor) content. Testimonials and FAQ sections disabled for
+  now — no real content confirmed yet, not invented.
+
+**Verification:** 65 tests passing, both apps build cleanly, and browser-
+driven checks confirmed: Marathi renders correctly with the intended
+Devanagari display font, the English toggle re-renders every string
+correctly while the business name itself stays in Devanagari (a brand
+name is never translated), mobile layout holds up, and the other two
+demo businesses render exactly as before with no language switcher shown.
+
+**Known limitations, called out in the docs:** the Marathi translations
+(UI chrome and business content) are a first pass, not verified by a
+native speaker; the business's exact street address, hours, service
+pricing, and the fourth tagline item ("ब्रिज इम्प्लांट") are still
+unconfirmed and were deliberately left out rather than guessed.
+
 ## 2026-08-05 — Business owner dashboard
 
 Added a basic, per-business owner dashboard at `/dashboard` on

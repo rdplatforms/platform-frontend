@@ -8,15 +8,16 @@ and the rules for using the output correctly.
 
 Defined in `packages/types/src/theme.ts`. Every business declares:
 
-| Field                                                     | Purpose                                               |
-| --------------------------------------------------------- | ----------------------------------------------------- |
-| `primaryColor` / `secondaryColor` / `accentColor`         | Brand colors                                          |
-| `backgroundColor` / `textColor`                           | Optional overrides of the default surface/text colors |
-| `typography.fontFamily` / `headingFontFamily` / `pairing` | Body and heading fonts                                |
-| `borderRadius`                                            | Base corner radius used across components             |
-| `buttonStyle`                                             | `'square' \| 'rounded' \| 'pill'`                     |
-| `backgroundStyle`                                         | `'solid' \| 'soft-gradient' \| 'image-overlay'`       |
-| `darkModeEnabled`                                         | Whether this business's site runs in dark mode        |
+| Field                                                     | Purpose                                                             |
+| --------------------------------------------------------- | ------------------------------------------------------------------- |
+| `primaryColor` / `secondaryColor` / `accentColor`         | Brand colors                                                        |
+| `backgroundColor` / `textColor`                           | Optional overrides of the default surface/text colors               |
+| `typography.fontFamily` / `headingFontFamily` / `pairing` | Body and heading fonts                                              |
+| `typography.googleFontsUrl`                               | A Google Fonts CSS2 URL actually loading those families — see below |
+| `borderRadius`                                            | Base corner radius used across components                           |
+| `buttonStyle`                                             | `'square' \| 'rounded' \| 'pill'`                                   |
+| `backgroundStyle`                                         | `'solid' \| 'soft-gradient' \| 'image-overlay'`                     |
+| `darkModeEnabled`                                         | Whether this business's site runs in dark mode                      |
 
 See `static-data/theme.json` for the three demo businesses' values.
 
@@ -40,14 +41,22 @@ constant keeps the app from rendering unstyled.
 `AppThemeProvider` (`packages/providers/src/AppThemeProvider.tsx`) is the
 only place this function is called in the running app: it loads the
 resolved business's theme via `ThemeService`, derives the MUI theme, and
-wraps children in MUI's `ThemeProvider` + `CssBaseline`.
+wraps children in MUI's `ThemeProvider` + `CssBaseline`. It also calls
+`loadGoogleFont(theme.typography.googleFontsUrl)`
+(`packages/providers/src/theme/loadGoogleFont.ts`), which idempotently
+injects a `<link>` into `<head>` — declaring a font family name in
+`fontFamily`/`headingFontFamily` alone does **not** load it; without a
+matching `googleFontsUrl`, the browser silently falls back to whatever
+system font happens to share (or not share) that name. This matters most
+for non-Latin scripts — see [docs/i18n.md](docs/i18n.md) — where the
+fallback is a generic OS font instead of the intended display face.
 
 ## Rules for consuming the theme
 
 1. **Never hardcode a color, font, or radius in a component.** Always read
    from `theme.palette.*` / `theme.typography.*` / `theme.shape.borderRadius`
    via the `sx` prop or `useTheme()`.
-2. **Never brand-check.** No `if (business.slug === 'royal-salon') return
+2. **Never brand-check.** No `if (business.slug === 'swami-hair-salon') return
 <PinkButton />`. If a business needs a visual capability the theme
    doesn't support yet, add a field to `BusinessTheme` — don't special-case
    the component.
@@ -68,11 +77,11 @@ drive behavior on its own today.
 
 ## Demo business themes at a glance
 
-| Business        | Mode  | Buttons | Heading style                      |
-| --------------- | ----- | ------- | ---------------------------------- |
-| Royal Salon     | Light | Pill    | Editorial serif (Playfair Display) |
-| Urban Bistro    | Light | Square  | Classic serif (Fraunces)           |
-| Vision3D Studio | Dark  | Square  | Modern sans (Sora)                 |
+| Business         | Mode  | Buttons | Heading style                                  |
+| ---------------- | ----- | ------- | ---------------------------------------------- |
+| Swami Hair Salon | Light | Square  | Yatra One (Devanagari display face), bilingual |
+| Urban Bistro     | Light | Square  | Classic serif (Fraunces)                       |
+| Vision3D Studio  | Dark  | Square  | Modern sans (Sora)                             |
 
 ## Spacing & layout
 

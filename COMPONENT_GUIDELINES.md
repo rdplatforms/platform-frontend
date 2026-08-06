@@ -3,7 +3,7 @@
 ## The rule
 
 Every component in `@rdplatforms/ui` must work for a business that doesn't
-exist yet. If a component only makes sense for Royal Salon, it doesn't
+exist yet. If a component only makes sense for Swami Hair Salon, it doesn't
 belong in `packages/ui` — and if you find yourself branching on
 `business.category` inside one, stop and reconsider the data model instead.
 

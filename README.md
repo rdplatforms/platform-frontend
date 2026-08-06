@@ -13,7 +13,7 @@ data.
 
 > One frontend. Many businesses. The difference between them is data.
 
-Every visual and structural difference between Royal Salon, Urban Bistro,
+Every visual and structural difference between Swami Hair Salon, Urban Bistro,
 and Vision3D Studio — colors, typography, which sections appear, what
 services are listed — comes from configuration, not from business-specific
 components or forked code paths. Onboarding business #4 should never require
@@ -71,14 +71,27 @@ Full rationale: [docs/folder-structure.md](docs/folder-structure.md).
 
 ## Demo businesses
 
-| Business            | Category      | What it demonstrates                                                                        |
-| ------------------- | ------------- | ------------------------------------------------------------------------------------------- |
-| **Royal Salon**     | Salon         | Light theme, pill buttons, editorial serif headings, full section set including FAQ and map |
-| **Urban Bistro**    | Restaurant    | Light theme, square buttons, classic serif, FAQ section disabled via config                 |
-| **Vision3D Studio** | Design studio | Dark theme, square buttons, modern sans, Team section enabled, map disabled                 |
+| Business             | Category      | What it demonstrates                                                                          |
+| -------------------- | ------------- | --------------------------------------------------------------------------------------------- |
+| **Swami Hair Salon** | Salon         | Real business, bilingual (Marathi/English) content with a language switcher, gold/black theme |
+| **Urban Bistro**     | Restaurant    | Light theme, square buttons, classic serif, FAQ section disabled via config                   |
+| **Vision3D Studio**  | Design studio | Dark theme, square buttons, modern sans, Team section enabled, map disabled                   |
 
 Switch between them locally with `?business=<slug>` — see
 [Getting started](#getting-started).
+
+## Localization
+
+Businesses can offer content in more than one language — Swami Hair Salon
+ships in Marathi and English with a switcher in the navbar. Single-language
+businesses (the common case) are entirely unaffected — see
+[docs/i18n.md](docs/i18n.md).
+
+## Owner dashboard
+
+Each business has a basic sales-logging tool at `/dashboard` on its own
+site (passcode-gated — a placeholder, not real auth). See
+[docs/business-dashboard.md](docs/business-dashboard.md).
 
 ## Tech stack
 
@@ -105,7 +118,7 @@ The website resolves which business to render from, in priority order: a
 Locally, use the query override to preview any demo business:
 
 ```
-http://localhost:5173/?business=royal-salon
+http://localhost:5173/?business=swami-hair-salon
 http://localhost:5173/?business=urban-bistro
 http://localhost:5173/?business=vision3d
 ```

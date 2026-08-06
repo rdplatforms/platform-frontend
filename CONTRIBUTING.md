@@ -9,7 +9,7 @@ pnpm dev:admin     # http://localhost:5174
 ```
 
 Copy `apps/website/.env.example` to `apps/website/.env` if you want a
-different default business than `royal-salon` when no hostname/query
+different default business than `swami-hair-salon` when no hostname/query
 override applies.
 
 ## Before opening a PR

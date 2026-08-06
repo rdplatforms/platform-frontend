@@ -64,6 +64,29 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Not Started | P2       | Edit an existing sale entry          | v1 only supports create + delete                                                          |
 | Not Started | P2       | Real product catalog                 | Products are free-text on the entry today, not their own type                             |
 
+## Localization
+
+| Status      | Priority | Item                                  | Description                                                                             |
+| ----------- | -------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
+| Done        | P0       | `LocalizableText` + resolution        | Additive to existing single-language businesses; `resolveLocalizedText` unit tested     |
+| Done        | P0       | `LocaleProvider` + `LanguageSwitcher` | Wired into `AppProviders`/`Navbar`; renders nothing for single-language businesses      |
+| Done        | P1       | UI-chrome string dictionary           | `translateUi` covers nav/section defaults/form labels/buttons for en/mr                 |
+| Done        | P1       | Font loading fix                      | `typography.googleFontsUrl` + `loadGoogleFont()` — was a real gap, not Marathi-specific |
+| Done        | P1       | Swami Hair Salon bilingual content    | Real business, Marathi-first with English toggle                                        |
+| Not Started | P2       | Native-speaker review of Marathi copy | Both `uiStrings.ts` and the demo business content are a first pass                      |
+| Not Started | P3       | Additional locales                    | Only `en`/`mr` exist in `SupportedLocale` today                                         |
+
+## Swami Hair Salon Content (Pending Confirmation)
+
+| Status      | Priority | Item                     | Description                                                            |
+| ----------- | -------- | ------------------------ | ---------------------------------------------------------------------- |
+| Not Started | P1       | Street address           | Only coordinates + Maps link confirmed; no formatted address text yet  |
+| Not Started | P1       | Business hours           | `hours: []` — none confirmed yet                                       |
+| Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                |
+| Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now |
+| Not Started | P2       | Real logo/photos         | Logo, gallery, and team photo are all placeholders                     |
+| Not Started | P2       | Testimonials / FAQ       | Sections disabled — no real reviews or confirmed FAQ content yet       |
+
 ## Backend Integration
 
 | Status      | Priority | Item                                     | Description                                                  |

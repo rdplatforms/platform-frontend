@@ -114,8 +114,8 @@ actually consider sensitive.
 
 For the three demo businesses (`static-data/settings.json`):
 
-| Business        | Passcode |
-| --------------- | -------- |
-| Royal Salon     | `1234`   |
-| Urban Bistro    | `5678`   |
-| Vision3D Studio | `9999`   |
+| Business         | Passcode |
+| ---------------- | -------- |
+| Swami Hair Salon | `7076`   |
+| Urban Bistro     | `5678`   |
+| Vision3D Studio  | `9999`   |

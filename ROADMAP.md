@@ -14,7 +14,7 @@ abstraction layer, and three demo businesses with full static content.
 - `@rdplatforms/utils` (formatters, slugs, validators)
 - `@rdplatforms/services` data access layer over `JsonDataSource`
 - `@rdplatforms/business` — `BusinessResolver` with hostname / query-param / env strategies
-- Three demo businesses: Royal Salon, Urban Bistro, Vision3D Studio
+- Three demo businesses: Swami Hair Salon (real business, bilingual mr/en), Urban Bistro, Vision3D Studio
 
 ## Phase 2 — Website Platform ✅ Complete
 
@@ -26,6 +26,8 @@ The reusable, config-driven public website.
 - `SectionRenderer` — enable/disable/reorder sections purely through data
 - `apps/website` — business resolution, lazy-loaded routing, SEO document head
 - Contact section using React Hook Form + Zod (client-side validation only — no backend yet)
+- Per-business bilingual content (`LocalizableText`, `LocaleProvider`, a `Navbar` language switcher) and dynamic Google Fonts loading — see [docs/i18n.md](docs/i18n.md)
+- A basic per-business owner dashboard (`/dashboard`) for logging sales — see [docs/business-dashboard.md](docs/business-dashboard.md)
 
 ## Phase 3 — Admin 🟡 Scaffolded
 

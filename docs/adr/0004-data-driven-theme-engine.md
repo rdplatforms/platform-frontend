@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Royal Salon, Urban Bistro, and Vision3D Studio need visibly distinct
+Swami Hair Salon, Urban Bistro, and Vision3D Studio need visibly distinct
 brands (colors, typography, button shape, light/dark mode) from the same
 component code. The obvious-but-wrong approaches are per-business CSS
 files/overrides, or components that branch on which business is rendering.
