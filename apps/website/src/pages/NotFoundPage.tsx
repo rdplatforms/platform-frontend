@@ -1,7 +1,11 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { useLocale } from '@rdplatforms/hooks';
+import { translateUi } from '@rdplatforms/utils';
 import { Button } from '@rdplatforms/ui';
 
 export function NotFoundPage() {
+  const { locale } = useLocale();
+
   return (
     <Box
       sx={{
@@ -16,8 +20,8 @@ export function NotFoundPage() {
         <Typography variant="h2" fontWeight={800}>
           404
         </Typography>
-        <Typography color="text.secondary">This page doesn&apos;t exist.</Typography>
-        <Button href="/">Back to Home</Button>
+        <Typography color="text.secondary">{translateUi('pageNotFound', locale)}</Typography>
+        <Button href="/">{translateUi('backToHome', locale)}</Button>
       </Stack>
     </Box>
   );

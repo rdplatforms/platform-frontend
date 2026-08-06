@@ -40,8 +40,8 @@ export function BusinessGate({ children }: BusinessGateProps) {
             We couldn&apos;t find this business
           </Typography>
           <Typography color="text.secondary">
-            Check the domain or, in local development, try adding <code>?business=royal-salon</code>{' '}
-            to the URL.
+            Check the domain or, in local development, try adding{' '}
+            <code>?business=swami-hair-salon</code> to the URL.
           </Typography>
         </Stack>
       </Box>

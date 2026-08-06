@@ -1,10 +1,14 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { toWhatsAppLink } from '@rdplatforms/utils';
+import { useLocale } from '@rdplatforms/hooks';
+import { resolveLocalizedText, toWhatsAppLink, translateUi } from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
 import { Container } from '../primitives/Container';
 import type { SectionProps } from './types';
 
 export function Cta({ business, config }: SectionProps) {
+  const { locale } = useLocale();
+  const subtitle = resolveLocalizedText(config.subtitle, locale);
+
   return (
     <Box
       component="section"
@@ -17,9 +21,9 @@ export function Cta({ business, config }: SectionProps) {
       <Container>
         <Stack spacing={2} alignItems="center" textAlign="center">
           <Typography variant="h4" fontWeight={700}>
-            {config.title ?? 'Ready To Get Started?'}
+            {resolveLocalizedText(config.title, locale) || translateUi('readyToGetStarted', locale)}
           </Typography>
-          {config.subtitle ? <Typography variant="body1">{config.subtitle}</Typography> : null}
+          {subtitle ? <Typography variant="body1">{subtitle}</Typography> : null}
           <Stack direction="row" spacing={2}>
             <Button
               href={`tel:${business.contact.phone}`}
@@ -27,7 +31,7 @@ export function Cta({ business, config }: SectionProps) {
               variant="contained"
               sx={{ color: 'primary.main', bgcolor: 'common.white' }}
             >
-              Call Us
+              {translateUi('callUs', locale)}
             </Button>
             {business.contact.whatsapp ? (
               <Button
@@ -37,7 +41,7 @@ export function Cta({ business, config }: SectionProps) {
                 variant="outlined"
                 color="inherit"
               >
-                WhatsApp Us
+                {translateUi('whatsappUs', locale)}
               </Button>
             ) : null}
           </Stack>

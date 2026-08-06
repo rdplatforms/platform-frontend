@@ -1,16 +1,26 @@
 import { Box, Grid, Typography } from '@mui/material';
+import { useLocale } from '@rdplatforms/hooks';
+import { getAboutHeading, resolveLocalizedText } from '@rdplatforms/utils';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 export function About({ business, config }: SectionProps) {
+  const { locale } = useLocale();
+
   return (
     <PageSection id="about">
       <Grid container spacing={6} alignItems="center">
         <Grid item xs={12} md={6}>
-          <SectionTitle title={config.title ?? `About ${business.displayName}`} align="left" />
+          <SectionTitle
+            title={
+              resolveLocalizedText(config.title, locale) ||
+              getAboutHeading(business.displayName, locale)
+            }
+            align="left"
+          />
           <Typography variant="body1" color="text.secondary">
-            {business.description}
+            {resolveLocalizedText(business.description, locale)}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>

@@ -1,17 +1,43 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import { useLocale } from '@rdplatforms/hooks';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
+import { Button } from '../primitives/Button';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 export function MapSection({ business, config }: SectionProps) {
-  const { mapEmbedUrl } = business.contact.address;
+  const { locale } = useLocale();
+  const { mapEmbedUrl, directionsUrl } = business.contact.address;
   if (!mapEmbedUrl) {
     return null;
   }
 
   return (
     <PageSection id="map" tone="subtle">
-      <SectionTitle title={config.title ?? 'Find Us'} subtitle={config.subtitle} />
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        justifyContent="space-between"
+        alignItems={{ xs: 'flex-start', sm: 'center' }}
+        spacing={2}
+      >
+        <SectionTitle
+          title={resolveLocalizedText(config.title, locale) || translateUi('findUs', locale)}
+          subtitle={resolveLocalizedText(config.subtitle, locale)}
+          align="left"
+        />
+        {directionsUrl ? (
+          <Button
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="outlined"
+            sx={{ flexShrink: 0 }}
+          >
+            {translateUi('getDirections', locale)}
+          </Button>
+        ) : null}
+      </Stack>
       <Box
         component="iframe"
         src={mapEmbedUrl}

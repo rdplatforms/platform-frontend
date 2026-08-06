@@ -1,15 +1,20 @@
 import { ImageList, ImageListItem, Skeleton } from '@mui/material';
-import { useGallery } from '@rdplatforms/hooks';
+import { useGallery, useLocale } from '@rdplatforms/hooks';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 export function Gallery({ business, config }: SectionProps) {
+  const { locale } = useLocale();
   const { data: items, isLoading } = useGallery(business.id);
 
   return (
     <PageSection id="gallery">
-      <SectionTitle title={config.title ?? 'Gallery'} subtitle={config.subtitle} />
+      <SectionTitle
+        title={resolveLocalizedText(config.title, locale) || translateUi('gallery', locale)}
+        subtitle={resolveLocalizedText(config.subtitle, locale)}
+      />
 
       {isLoading ? (
         <Skeleton variant="rounded" height={400} />
@@ -19,7 +24,7 @@ export function Gallery({ business, config }: SectionProps) {
             <ImageListItem key={item.id}>
               <img
                 src={item.imageUrl}
-                alt={item.title ?? business.displayName}
+                alt={resolveLocalizedText(item.title, locale) || business.displayName}
                 loading="lazy"
                 style={{ borderRadius: 8 }}
               />

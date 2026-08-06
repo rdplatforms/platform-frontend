@@ -1,15 +1,20 @@
 import { Avatar, Grid, Skeleton, Stack, Typography } from '@mui/material';
-import { useTeam } from '@rdplatforms/hooks';
+import { useLocale, useTeam } from '@rdplatforms/hooks';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 export function Team({ business, config }: SectionProps) {
+  const { locale } = useLocale();
   const { data: members, isLoading } = useTeam(business.id);
 
   return (
     <PageSection id="team" tone="subtle">
-      <SectionTitle title={config.title ?? 'Meet The Team'} subtitle={config.subtitle} />
+      <SectionTitle
+        title={resolveLocalizedText(config.title, locale) || translateUi('meetTheTeam', locale)}
+        subtitle={resolveLocalizedText(config.subtitle, locale)}
+      />
 
       {isLoading ? (
         <Skeleton variant="rounded" height={220} />
@@ -23,11 +28,11 @@ export function Team({ business, config }: SectionProps) {
                   {member.name}
                 </Typography>
                 <Typography variant="body2" color="primary.main">
-                  {member.role}
+                  {resolveLocalizedText(member.role, locale)}
                 </Typography>
                 {member.bio ? (
                   <Typography variant="body2" color="text.secondary">
-                    {member.bio}
+                    {resolveLocalizedText(member.bio, locale)}
                   </Typography>
                 ) : null}
               </Stack>

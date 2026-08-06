@@ -1,6 +1,14 @@
 import { Box, Divider, Link, Stack, Typography } from '@mui/material';
 import type { Business } from '@rdplatforms/types';
-import { formatDayLabel, formatHoursRange, formatPhoneForDisplay } from '@rdplatforms/utils';
+import { useLocale } from '@rdplatforms/hooks';
+import {
+  formatAddressLine,
+  formatDayLabel,
+  formatHoursRange,
+  formatPhoneForDisplay,
+  resolveLocalizedText,
+  translateUi,
+} from '@rdplatforms/utils';
 import { Container } from '../primitives/Container';
 
 export interface FooterProps {
@@ -18,8 +26,10 @@ const SOCIAL_LABELS: Record<string, string> = {
 };
 
 export function Footer({ business }: FooterProps) {
+  const { locale } = useLocale();
   const currentYear = new Date().getFullYear();
   const socialEntries = Object.entries(business.social).filter(([, url]) => Boolean(url));
+  const addressLine = formatAddressLine(business.contact.address);
 
   return (
     <Box component="footer" sx={{ bgcolor: 'action.hover', pt: 6, pb: 4, mt: 8 }}>
@@ -30,41 +40,47 @@ export function Footer({ business }: FooterProps) {
               {business.displayName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {business.description}
+              {resolveLocalizedText(business.description, locale)}
             </Typography>
           </Stack>
 
           <Stack spacing={1}>
             <Typography variant="subtitle2" fontWeight={700}>
-              Contact
+              {translateUi('contactLabel', locale)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {formatPhoneForDisplay(business.contact.phone)}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {business.contact.email}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {business.contact.address.line1}, {business.contact.address.city},{' '}
-              {business.contact.address.state} {business.contact.address.postalCode}
-            </Typography>
+            {business.contact.email ? (
+              <Typography variant="body2" color="text.secondary">
+                {business.contact.email}
+              </Typography>
+            ) : null}
+            {addressLine ? (
+              <Typography variant="body2" color="text.secondary">
+                {addressLine}
+              </Typography>
+            ) : null}
           </Stack>
 
-          <Stack spacing={1}>
-            <Typography variant="subtitle2" fontWeight={700}>
-              Hours
-            </Typography>
-            {business.hours.map((entry) => (
-              <Typography key={entry.day} variant="body2" color="text.secondary">
-                {formatDayLabel(entry.day)}: {formatHoursRange(entry.opensAt, entry.closesAt)}
+          {business.hours.length > 0 ? (
+            <Stack spacing={1}>
+              <Typography variant="subtitle2" fontWeight={700}>
+                {translateUi('hoursLabel', locale)}
               </Typography>
-            ))}
-          </Stack>
+              {business.hours.map((entry) => (
+                <Typography key={entry.day} variant="body2" color="text.secondary">
+                  {formatDayLabel(entry.day, locale)}:{' '}
+                  {formatHoursRange(entry.opensAt, entry.closesAt, locale)}
+                </Typography>
+              ))}
+            </Stack>
+          ) : null}
 
           {socialEntries.length > 0 ? (
             <Stack spacing={1}>
               <Typography variant="subtitle2" fontWeight={700}>
-                Follow
+                {translateUi('followLabel', locale)}
               </Typography>
               {socialEntries.map(([platform, url]) => (
                 <Link
@@ -85,7 +101,7 @@ export function Footer({ business }: FooterProps) {
         <Divider sx={{ my: 4 }} />
 
         <Typography variant="caption" color="text.secondary">
-          &copy; {currentYear} {business.legalName}. All rights reserved.
+          &copy; {currentYear} {business.legalName}. {translateUi('allRightsReserved', locale)}
         </Typography>
       </Container>
     </Box>

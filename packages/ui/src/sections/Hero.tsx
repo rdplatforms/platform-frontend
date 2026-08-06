@@ -1,9 +1,20 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { useLocale } from '@rdplatforms/hooks';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
 import { Container } from '../primitives/Container';
 import type { SectionProps } from './types';
 
 export function Hero({ business, config }: SectionProps) {
+  const { locale } = useLocale();
+  const title =
+    resolveLocalizedText(config.title, locale) ||
+    resolveLocalizedText(business.tagline, locale) ||
+    business.displayName;
+  const subtitle =
+    resolveLocalizedText(config.subtitle, locale) ||
+    resolveLocalizedText(business.description, locale);
+
   return (
     <Box
       component="section"
@@ -16,17 +27,17 @@ export function Hero({ business, config }: SectionProps) {
       <Container>
         <Stack spacing={3} alignItems="flex-start" maxWidth={720}>
           <Typography variant="h2" component="h1" fontWeight={800}>
-            {config.title ?? business.tagline ?? business.displayName}
+            {title}
           </Typography>
           <Typography variant="h6" component="p" color="text.secondary" fontWeight={400}>
-            {config.subtitle ?? business.description}
+            {subtitle}
           </Typography>
           <Stack direction="row" spacing={2}>
             <Button href="#contact" size="large">
-              Get In Touch
+              {translateUi('getInTouch', locale)}
             </Button>
             <Button href="#services" variant="outlined" size="large">
-              Explore Services
+              {translateUi('exploreServices', locale)}
             </Button>
           </Stack>
         </Stack>

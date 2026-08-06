@@ -1,27 +1,32 @@
 import { Box, CircularProgress } from '@mui/material';
-import type { SectionConfig } from '@rdplatforms/types';
-import { useBusiness, usePageSections } from '@rdplatforms/hooks';
+import type { SectionConfig, SupportedLocale } from '@rdplatforms/types';
+import { useBusiness, useLocale, usePageSections } from '@rdplatforms/hooks';
 import { Footer, Navbar, SectionRenderer, type NavItem } from '@rdplatforms/ui';
+import { translateUi, type UiStringKey } from '@rdplatforms/utils';
 
-const NAV_LABELS: Partial<Record<SectionConfig['type'], string>> = {
-  about: 'About',
-  services: 'Services',
-  gallery: 'Gallery',
-  team: 'Team',
-  testimonials: 'Reviews',
-  faq: 'FAQ',
-  pricing: 'Pricing',
-  contact: 'Contact',
+const NAV_LABEL_KEYS: Partial<Record<SectionConfig['type'], UiStringKey>> = {
+  about: 'navAbout',
+  services: 'navServices',
+  gallery: 'navGallery',
+  team: 'navTeam',
+  testimonials: 'navReviews',
+  faq: 'navFaq',
+  pricing: 'navPricing',
+  contact: 'navContact',
 };
 
-function toNavItems(sections: SectionConfig[]): NavItem[] {
+function toNavItems(sections: SectionConfig[], locale: SupportedLocale): NavItem[] {
   return sections
-    .filter((section) => NAV_LABELS[section.type])
-    .map((section) => ({ label: NAV_LABELS[section.type] as string, href: `#${section.type}` }));
+    .filter((section) => NAV_LABEL_KEYS[section.type])
+    .map((section) => ({
+      label: translateUi(NAV_LABEL_KEYS[section.type] as UiStringKey, locale),
+      href: `#${section.type}`,
+    }));
 }
 
 export function HomePage() {
   const { business } = useBusiness();
+  const { locale } = useLocale();
   const { data: sections, isLoading } = usePageSections(business?.id, '/');
 
   if (!business) {
@@ -38,7 +43,11 @@ export function HomePage() {
 
   return (
     <>
-      <Navbar business={business} navItems={toNavItems(sections)} ctaLabel="Contact Us" />
+      <Navbar
+        business={business}
+        navItems={toNavItems(sections, locale)}
+        ctaLabel={translateUi('contactUs', locale)}
+      />
       <SectionRenderer business={business} sections={sections} />
       <Footer business={business} />
     </>

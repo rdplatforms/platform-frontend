@@ -3,7 +3,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Alert, Grid, Stack, TextField, Typography } from '@mui/material';
-import { formatPhoneForDisplay } from '@rdplatforms/utils';
+import { useLocale } from '@rdplatforms/hooks';
+import {
+  formatAddressLine,
+  formatPhoneForDisplay,
+  resolveLocalizedText,
+  translateUi,
+} from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
@@ -23,6 +29,8 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
  * change the form contract — see docs/future-backend-contract.md.
  */
 export function Contact({ business, config }: SectionProps) {
+  const { locale } = useLocale();
+  const addressLine = formatAddressLine(business.contact.address);
   const [submitted, setSubmitted] = useState(false);
   const {
     control,
@@ -42,7 +50,10 @@ export function Contact({ business, config }: SectionProps) {
 
   return (
     <PageSection id="contact">
-      <SectionTitle title={config.title ?? 'Get In Touch'} subtitle={config.subtitle} />
+      <SectionTitle
+        title={resolveLocalizedText(config.title, locale) || translateUi('getInTouch', locale)}
+        subtitle={resolveLocalizedText(config.subtitle, locale)}
+      />
 
       <Grid container spacing={6}>
         <Grid item xs={12} md={5}>
@@ -53,18 +64,17 @@ export function Contact({ business, config }: SectionProps) {
             <Typography color="text.secondary">
               {formatPhoneForDisplay(business.contact.phone)}
             </Typography>
-            <Typography color="text.secondary">{business.contact.email}</Typography>
-            <Typography color="text.secondary">
-              {business.contact.address.line1}, {business.contact.address.city},{' '}
-              {business.contact.address.state} {business.contact.address.postalCode}
-            </Typography>
+            {business.contact.email ? (
+              <Typography color="text.secondary">{business.contact.email}</Typography>
+            ) : null}
+            {addressLine ? <Typography color="text.secondary">{addressLine}</Typography> : null}
           </Stack>
         </Grid>
 
         <Grid item xs={12} md={7}>
           {submitted ? (
             <Alert severity="success" onClose={() => setSubmitted(false)}>
-              Thanks for reaching out — we&apos;ll be in touch shortly.
+              {translateUi('thankYouMessage', locale)}
             </Alert>
           ) : (
             <Stack component="form" spacing={2} onSubmit={onSubmit} noValidate>
@@ -74,7 +84,7 @@ export function Contact({ business, config }: SectionProps) {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Name"
+                    label={translateUi('name', locale)}
                     error={!!errors.name}
                     helperText={errors.name?.message}
                     fullWidth
@@ -87,7 +97,7 @@ export function Contact({ business, config }: SectionProps) {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Email"
+                    label={translateUi('email', locale)}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                     fullWidth
@@ -100,7 +110,7 @@ export function Contact({ business, config }: SectionProps) {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Message"
+                    label={translateUi('message', locale)}
                     error={!!errors.message}
                     helperText={errors.message?.message}
                     multiline
@@ -115,7 +125,7 @@ export function Contact({ business, config }: SectionProps) {
                 disabled={isSubmitting}
                 sx={{ alignSelf: 'flex-start' }}
               >
-                Send Message
+                {translateUi('sendMessage', locale)}
               </Button>
             </Stack>
           )}

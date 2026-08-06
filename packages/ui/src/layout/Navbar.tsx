@@ -15,7 +15,10 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import type { Business } from '@rdplatforms/types';
+import { useLocale } from '@rdplatforms/hooks';
+import { resolveLocalizedText } from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export interface NavItem {
   label: string;
@@ -33,18 +36,27 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { locale } = useLocale();
+  const brandNote = resolveLocalizedText(business.brandNote, locale);
 
   const brand = (
-    <Stack direction="row" spacing={1.5} alignItems="center">
-      <Box
-        component="img"
-        src={business.logoUrl}
-        alt={`${business.displayName} logo`}
-        sx={{ height: 36, width: 36, objectFit: 'contain' }}
-      />
-      <Typography variant="h6" component="span" fontWeight={700}>
-        {business.displayName}
-      </Typography>
+    <Stack spacing={0}>
+      {brandNote ? (
+        <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2 }}>
+          {brandNote}
+        </Typography>
+      ) : null}
+      <Stack direction="row" spacing={1.5} alignItems="center">
+        <Box
+          component="img"
+          src={business.logoUrl}
+          alt={`${business.displayName} logo`}
+          sx={{ height: 36, width: 36, objectFit: 'contain' }}
+        />
+        <Typography variant="h6" component="span" fontWeight={700}>
+          {business.displayName}
+        </Typography>
+      </Stack>
     </Stack>
   );
 
@@ -59,9 +71,12 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
         {brand}
 
         {isMobile ? (
-          <IconButton onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu">
-            <MenuIcon />
-          </IconButton>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <LanguageSwitcher />
+            <IconButton onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu">
+              <MenuIcon />
+            </IconButton>
+          </Stack>
         ) : (
           <Stack direction="row" spacing={3} alignItems="center">
             {navItems.map((item) => (
@@ -74,6 +89,7 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
                 {item.label}
               </Typography>
             ))}
+            <LanguageSwitcher />
             {ctaLabel ? (
               <Button href={ctaHref} size="medium">
                 {ctaLabel}

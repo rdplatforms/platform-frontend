@@ -1,17 +1,26 @@
 import { Grid, Skeleton, Typography } from '@mui/material';
-import { useServices } from '@rdplatforms/hooks';
-import { formatCurrency, formatDurationMinutes } from '@rdplatforms/utils';
+import { useLocale, useServices } from '@rdplatforms/hooks';
+import {
+  formatCurrency,
+  formatDurationMinutes,
+  resolveLocalizedText,
+  translateUi,
+} from '@rdplatforms/utils';
 import { Card } from '../primitives/Card';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 export function Services({ business, config }: SectionProps) {
+  const { locale } = useLocale();
   const { data: services, isLoading } = useServices(business.id);
 
   return (
     <PageSection id="services" tone="subtle">
-      <SectionTitle title={config.title ?? 'Our Services'} subtitle={config.subtitle} />
+      <SectionTitle
+        title={resolveLocalizedText(config.title, locale) || translateUi('ourServices', locale)}
+        subtitle={resolveLocalizedText(config.subtitle, locale)}
+      />
 
       {isLoading ? (
         <Grid container spacing={3}>
@@ -26,8 +35,8 @@ export function Services({ business, config }: SectionProps) {
           {(services ?? []).map((service) => (
             <Grid item xs={12} sm={6} md={4} key={service.id}>
               <Card
-                title={service.name}
-                description={service.description}
+                title={resolveLocalizedText(service.name, locale)}
+                description={resolveLocalizedText(service.description, locale)}
                 imageUrl={service.imageUrl}
                 footer={
                   <Typography variant="subtitle2" color="primary.main" fontWeight={700}>

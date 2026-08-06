@@ -1,15 +1,20 @@
 import { Grid, Rating, Skeleton, Stack, Typography } from '@mui/material';
-import { useTestimonials } from '@rdplatforms/hooks';
+import { useLocale, useTestimonials } from '@rdplatforms/hooks';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
 import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 export function Testimonials({ business, config }: SectionProps) {
+  const { locale } = useLocale();
   const { data: testimonials, isLoading } = useTestimonials(business.id);
 
   return (
     <PageSection id="testimonials" tone="subtle">
-      <SectionTitle title={config.title ?? 'What People Say'} subtitle={config.subtitle} />
+      <SectionTitle
+        title={resolveLocalizedText(config.title, locale) || translateUi('whatPeopleSay', locale)}
+        subtitle={resolveLocalizedText(config.subtitle, locale)}
+      />
 
       {isLoading ? (
         <Skeleton variant="rounded" height={200} />
@@ -23,14 +28,14 @@ export function Testimonials({ business, config }: SectionProps) {
               >
                 <Rating value={testimonial.rating} readOnly size="small" />
                 <Typography variant="body1" fontStyle="italic">
-                  &ldquo;{testimonial.quote}&rdquo;
+                  &ldquo;{resolveLocalizedText(testimonial.quote, locale)}&rdquo;
                 </Typography>
                 <Typography variant="subtitle2" fontWeight={700}>
                   {testimonial.authorName}
                 </Typography>
                 {testimonial.authorRole ? (
                   <Typography variant="caption" color="text.secondary">
-                    {testimonial.authorRole}
+                    {resolveLocalizedText(testimonial.authorRole, locale)}
                   </Typography>
                 ) : null}
               </Stack>
