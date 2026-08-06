@@ -1,24 +1,4 @@
 {
-  "royal-salon": [
-    {
-      "id": "rs-faq-1",
-      "businessId": "royal-salon",
-      "question": "Do I need an appointment?",
-      "answer": "Walk-ins are welcome when space allows, but we recommend booking ahead to guarantee your preferred stylist and time."
-    },
-    {
-      "id": "rs-faq-2",
-      "businessId": "royal-salon",
-      "question": "What is your cancellation policy?",
-      "answer": "We ask for at least 24 hours notice for cancellations or rescheduling to avoid a cancellation fee."
-    },
-    {
-      "id": "rs-faq-3",
-      "businessId": "royal-salon",
-      "question": "Do you offer consultations for color services?",
-      "answer": "Yes, every new color client receives a complimentary consultation before their appointment."
-    }
-  ],
   "vision3d": [
     {
       "id": "v3d-faq-1",

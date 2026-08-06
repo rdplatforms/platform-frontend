@@ -12,7 +12,7 @@ describe('PageService', () => {
   });
 
   it('returns an empty array for a business with no matching page', async () => {
-    const sections = await pageService.getEnabledSections('royal-salon', '/careers');
+    const sections = await pageService.getEnabledSections('swami-hair-salon', '/careers');
     expect(sections).toEqual([]);
   });
 });

@@ -1,24 +1,20 @@
 {
-  "royal-salon": [
+  "swami-hair-salon": [
     {
-      "businessId": "royal-salon",
+      "businessId": "swami-hair-salon",
       "path": "/",
       "name": "Home",
       "sections": [
-        {
-          "type": "hero",
-          "enabled": true,
-          "order": 1,
-          "title": "Where Every Visit Feels Like Royalty"
-        },
-        { "type": "about", "enabled": true, "order": 2, "title": "About Royal Salon" },
-        { "type": "services", "enabled": true, "order": 3, "title": "Our Services" },
-        { "type": "gallery", "enabled": true, "order": 4, "title": "Recent Work" },
-        { "type": "testimonials", "enabled": true, "order": 5, "title": "What Clients Say" },
-        { "type": "faq", "enabled": true, "order": 6, "title": "Frequently Asked Questions" },
-        { "type": "cta", "enabled": true, "order": 7, "title": "Ready For Your Next Look?" },
-        { "type": "contact", "enabled": true, "order": 8, "title": "Visit Us" },
-        { "type": "map", "enabled": true, "order": 9 }
+        { "type": "hero", "enabled": true, "order": 1 },
+        { "type": "about", "enabled": true, "order": 2 },
+        { "type": "services", "enabled": true, "order": 3 },
+        { "type": "gallery", "enabled": true, "order": 4 },
+        { "type": "team", "enabled": true, "order": 5 },
+        { "type": "cta", "enabled": true, "order": 6 },
+        { "type": "contact", "enabled": true, "order": 7 },
+        { "type": "map", "enabled": true, "order": 8 },
+        { "type": "testimonials", "enabled": false, "order": 9 },
+        { "type": "faq", "enabled": false, "order": 10 }
       ]
     }
   ],

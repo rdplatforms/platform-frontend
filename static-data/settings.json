@@ -1,13 +1,13 @@
 {
-  "royal-salon": {
-    "businessId": "royal-salon",
-    "currency": "USD",
-    "locale": "en-US",
-    "timezone": "America/Chicago",
+  "swami-hair-salon": {
+    "businessId": "swami-hair-salon",
+    "currency": "INR",
+    "locale": "en-IN",
+    "timezone": "Asia/Kolkata",
     "bookingEnabled": false,
     "whatsappEnabled": true,
     "maintenanceMode": false,
-    "dashboardPasscode": "1234"
+    "dashboardPasscode": "7076"
   },
   "urban-bistro": {
     "businessId": "urban-bistro",

@@ -1,52 +1,28 @@
 {
-  "royal-salon": [
+  "swami-hair-salon": [
     {
-      "id": "rs-gal-1",
-      "businessId": "royal-salon",
-      "title": "Balayage Result",
-      "imageUrl": "/assets/businesses/royal-salon/gallery/1.svg",
-      "category": "Hair",
+      "id": "shs-gal-1",
+      "businessId": "swami-hair-salon",
+      "title": { "mr": "बाहेरील दृश्य", "en": "Exterior" },
+      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/1.svg",
+      "category": "Exterior",
       "order": 1
     },
     {
-      "id": "rs-gal-2",
-      "businessId": "royal-salon",
-      "title": "Salon Interior",
-      "imageUrl": "/assets/businesses/royal-salon/gallery/2.svg",
-      "category": "Studio",
+      "id": "shs-gal-2",
+      "businessId": "swami-hair-salon",
+      "title": { "mr": "आतील भाग", "en": "Interior" },
+      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/2.svg",
+      "category": "Interior",
       "order": 2
     },
     {
-      "id": "rs-gal-3",
-      "businessId": "royal-salon",
-      "title": "Bridal Updo",
-      "imageUrl": "/assets/businesses/royal-salon/gallery/3.svg",
-      "category": "Hair",
+      "id": "shs-gal-3",
+      "businessId": "swami-hair-salon",
+      "title": { "mr": "स्टाइलिंग चेअर", "en": "Styling Chair" },
+      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/3.svg",
+      "category": "Interior",
       "order": 3
-    },
-    {
-      "id": "rs-gal-4",
-      "businessId": "royal-salon",
-      "title": "Manicure Station",
-      "imageUrl": "/assets/businesses/royal-salon/gallery/4.svg",
-      "category": "Nails",
-      "order": 4
-    },
-    {
-      "id": "rs-gal-5",
-      "businessId": "royal-salon",
-      "title": "Facial Treatment Room",
-      "imageUrl": "/assets/businesses/royal-salon/gallery/5.svg",
-      "category": "Spa",
-      "order": 5
-    },
-    {
-      "id": "rs-gal-6",
-      "businessId": "royal-salon",
-      "title": "Color Transformation",
-      "imageUrl": "/assets/businesses/royal-salon/gallery/6.svg",
-      "category": "Hair",
-      "order": 6
     }
   ],
   "urban-bistro": [

@@ -12,7 +12,7 @@ import type {
 } from '@rdplatforms/types';
 
 import businessIndex from '@rdplatforms/static-data/businesses/index';
-import royalSalon from '@rdplatforms/static-data/businesses/royal-salon';
+import swamiHairSalon from '@rdplatforms/static-data/businesses/swami-hair-salon';
 import urbanBistro from '@rdplatforms/static-data/businesses/urban-bistro';
 import vision3d from '@rdplatforms/static-data/businesses/vision3d';
 import servicesData from '@rdplatforms/static-data/services';
@@ -45,7 +45,7 @@ import type {
  * and one JSON file, never touching a component or hook.
  */
 const BUSINESSES_BY_SLUG: Record<string, Business> = {
-  'royal-salon': royalSalon as Business,
+  'swami-hair-salon': swamiHairSalon as Business,
   'urban-bistro': urbanBistro as Business,
   vision3d: vision3d as Business,
 };

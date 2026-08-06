@@ -1,64 +1,40 @@
 {
-  "royal-salon": [
+  "swami-hair-salon": [
     {
-      "id": "rs-svc-haircut",
-      "businessId": "royal-salon",
-      "name": "Signature Haircut & Style",
-      "description": "A precision cut tailored to your face shape, finished with a full blowout style.",
-      "price": 65,
-      "currency": "USD",
-      "durationMinutes": 60,
-      "imageUrl": "/assets/businesses/royal-salon/services/haircut.svg",
+      "id": "shs-svc-haircut",
+      "businessId": "swami-hair-salon",
+      "name": { "mr": "हेअर कटिंग", "en": "Hair Cutting" },
+      "description": {
+        "mr": "अनुभवी कारागिरांकडून व्यावसायिक हेअर कटिंग.",
+        "en": "Professional hair cutting from experienced barbers."
+      },
+      "imageUrl": "/assets/businesses/swami-hair-salon/services/haircut.svg",
       "category": "Hair",
       "isFeatured": true
     },
     {
-      "id": "rs-svc-color",
-      "businessId": "royal-salon",
-      "name": "Full Color & Gloss",
-      "description": "Single-process color with a glossing treatment for long-lasting shine.",
-      "price": 140,
-      "currency": "USD",
-      "durationMinutes": 120,
-      "imageUrl": "/assets/businesses/royal-salon/services/color.svg",
-      "category": "Hair",
-      "isFeatured": true
-    },
-    {
-      "id": "rs-svc-balayage",
-      "businessId": "royal-salon",
-      "name": "Balayage Highlights",
-      "description": "Hand-painted highlights for a natural, sun-kissed dimension.",
-      "price": 220,
-      "currency": "USD",
-      "durationMinutes": 180,
-      "imageUrl": "/assets/businesses/royal-salon/services/balayage.svg",
-      "category": "Hair",
-      "isFeatured": false
-    },
-    {
-      "id": "rs-svc-facial",
-      "businessId": "royal-salon",
-      "name": "Royal Glow Facial",
-      "description": "A hydrating facial treatment with steam, extraction, and a calming mask.",
-      "price": 95,
-      "currency": "USD",
-      "durationMinutes": 50,
-      "imageUrl": "/assets/businesses/royal-salon/services/facial.svg",
+      "id": "shs-svc-hairspa",
+      "businessId": "swami-hair-salon",
+      "name": { "mr": "हेअर स्पा", "en": "Hair Spa" },
+      "description": {
+        "mr": "केसांच्या पोषणासाठी आणि आरामासाठी हेअर स्पा ट्रीटमेंट.",
+        "en": "A nourishing hair spa treatment for healthy, relaxed hair."
+      },
+      "imageUrl": "/assets/businesses/swami-hair-salon/services/hair-spa.svg",
       "category": "Spa",
-      "isFeatured": false
+      "isFeatured": true
     },
     {
-      "id": "rs-svc-manicure",
-      "businessId": "royal-salon",
-      "name": "Gel Manicure",
-      "description": "Long-lasting gel polish with cuticle care and hand massage.",
-      "price": 45,
-      "currency": "USD",
-      "durationMinutes": 40,
-      "imageUrl": "/assets/businesses/royal-salon/services/manicure.svg",
-      "category": "Nails",
-      "isFeatured": false
+      "id": "shs-svc-hairstyling",
+      "businessId": "swami-hair-salon",
+      "name": { "mr": "हेअर स्टाइल", "en": "Hair Styling" },
+      "description": {
+        "mr": "प्रत्येक प्रसंगासाठी खास हेअर स्टाइलिंग.",
+        "en": "Custom hair styling for every occasion."
+      },
+      "imageUrl": "/assets/businesses/swami-hair-salon/services/hair-styling.svg",
+      "category": "Hair",
+      "isFeatured": true
     }
   ],
   "urban-bistro": [

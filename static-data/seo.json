@@ -1,11 +1,24 @@
 {
-  "royal-salon": {
-    "businessId": "royal-salon",
-    "title": "Royal Salon | Premium Hair & Beauty Studio in Austin, TX",
-    "description": "Royal Salon offers premium haircuts, color, balayage, and spa treatments in a relaxed, upscale studio in Austin, TX.",
-    "keywords": ["hair salon austin", "balayage austin", "premium salon", "hair color specialist"],
-    "ogImageUrl": "/assets/businesses/royal-salon/og-image.svg",
-    "canonicalUrl": "https://royal-salon.rdplatforms.dev"
+  "swami-hair-salon": {
+    "businessId": "swami-hair-salon",
+    "title": {
+      "mr": "स्वामी हेअर सलून | प्रीमियम हेअर कटिंग, स्पा आणि स्टाइलिंग",
+      "en": "Swami Hair Salon | Premium Hair Cutting, Spa & Styling"
+    },
+    "description": {
+      "mr": "स्वामी हेअर सलून येथे व्यावसायिक हेअर कटिंग, हेअर स्पा आणि हेअर स्टाइलिंग सेवा मिळवा.",
+      "en": "Professional hair cutting, hair spa, and hair styling services at Swami Hair Salon."
+    },
+    "keywords": [
+      "hair salon",
+      "hair cutting",
+      "hair spa",
+      "hair styling",
+      "barber",
+      "स्वामी हेअर सलून"
+    ],
+    "ogImageUrl": "/assets/businesses/swami-hair-salon/og-image.svg",
+    "canonicalUrl": "https://swami-hair-salon.rdplatforms.dev"
   },
   "urban-bistro": {
     "businessId": "urban-bistro",

@@ -5,12 +5,12 @@ describe('BusinessService', () => {
   it('lists all registered demo businesses', async () => {
     const businesses = await businessService.getAll();
     const slugs = businesses.map((business) => business.slug).sort();
-    expect(slugs).toEqual(['royal-salon', 'urban-bistro', 'vision3d']);
+    expect(slugs).toEqual(['swami-hair-salon', 'urban-bistro', 'vision3d']);
   });
 
   it('resolves a business by slug', async () => {
-    const business = await businessService.getBySlug('royal-salon');
-    expect(business?.displayName).toBe('Royal Salon');
+    const business = await businessService.getBySlug('swami-hair-salon');
+    expect(business?.displayName).toBe('स्वामी हेअर सलून');
     expect(business?.category).toBe('salon');
   });
 

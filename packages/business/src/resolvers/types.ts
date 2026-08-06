@@ -8,7 +8,7 @@ import type { Business } from '@rdplatforms/types';
 export interface BusinessResolutionContext {
   /** e.g. window.location.hostname, or a request's Host header */
   hostname?: string;
-  /** dev/staging convenience override, e.g. ?business=royal-salon */
+  /** dev/staging convenience override, e.g. ?business=swami-hair-salon */
   queryParamSlug?: string;
   /** deployment-level fallback, e.g. VITE_DEFAULT_BUSINESS_SLUG */
   envDefaultSlug?: string;

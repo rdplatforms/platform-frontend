@@ -1,4 +1,13 @@
 {
+  "swami-hair-salon": [
+    {
+      "id": "shs-team-1",
+      "businessId": "swami-hair-salon",
+      "name": "शंकर राऊत",
+      "role": { "mr": "मालक", "en": "Proprietor" },
+      "photoUrl": "/assets/businesses/swami-hair-salon/team/shankar-raut.svg"
+    }
+  ],
   "vision3d": [
     {
       "id": "v3d-team-1",

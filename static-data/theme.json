@@ -1,20 +1,21 @@
 {
-  "royal-salon": {
-    "businessId": "royal-salon",
-    "primaryColor": "#9C2B4E",
-    "secondaryColor": "#D9A441",
-    "accentColor": "#2B2024",
-    "backgroundColor": "#FFF8F5",
-    "textColor": "#231B1E",
+  "swami-hair-salon": {
+    "businessId": "swami-hair-salon",
+    "primaryColor": "#C9973E",
+    "secondaryColor": "#141414",
+    "accentColor": "#4A2F23",
+    "backgroundColor": "#FFFFFF",
+    "textColor": "#1A1A1A",
     "typography": {
-      "fontFamily": "'Poppins', sans-serif",
-      "headingFontFamily": "'Playfair Display', serif",
-      "pairing": "editorial"
+      "fontFamily": "'Noto Sans Devanagari', 'Inter', sans-serif",
+      "headingFontFamily": "'Yatra One', 'Noto Sans Devanagari', serif",
+      "pairing": "modern-sans",
+      "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"
     },
-    "borderRadius": 16,
-    "buttonStyle": "pill",
-    "backgroundStyle": "soft-gradient",
-    "logoUrl": "/assets/businesses/royal-salon/logo.svg",
+    "borderRadius": 4,
+    "buttonStyle": "square",
+    "backgroundStyle": "solid",
+    "logoUrl": "/assets/businesses/swami-hair-salon/logo.svg",
     "darkModeEnabled": false
   },
   "urban-bistro": {
