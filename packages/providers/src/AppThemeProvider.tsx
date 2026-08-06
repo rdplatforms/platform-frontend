@@ -4,6 +4,7 @@ import type { BusinessTheme } from '@rdplatforms/types';
 import { themeService } from '@rdplatforms/services';
 import { useBusinessContext } from '@rdplatforms/contexts';
 import { createAppTheme } from './theme/createAppTheme';
+import { loadGoogleFont } from './theme/loadGoogleFont';
 
 export interface AppThemeProviderProps {
   children: ReactNode;
@@ -33,6 +34,10 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
       cancelled = true;
     };
   }, [business]);
+
+  useEffect(() => {
+    loadGoogleFont(businessTheme?.typography.googleFontsUrl);
+  }, [businessTheme]);
 
   const theme = useMemo(() => createAppTheme(businessTheme), [businessTheme]);
 

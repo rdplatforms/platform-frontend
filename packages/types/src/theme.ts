@@ -10,6 +10,15 @@ export interface ThemeTypography {
   fontFamily: string;
   headingFontFamily?: string;
   pairing: FontPairing;
+  /**
+   * A Google Fonts CSS2 API URL (the href you'd put on a <link>) covering
+   * every family referenced above. Without this, fontFamily/headingFontFamily
+   * are just names — the browser silently falls back to a system font
+   * that happens to share the name, or to a generic sans-serif if it
+   * doesn't. Required for any non-Latin script (e.g. Devanagari) to render
+   * in the intended display face rather than an OS default.
+   */
+  googleFontsUrl?: string;
 }
 
 export interface BusinessTheme {

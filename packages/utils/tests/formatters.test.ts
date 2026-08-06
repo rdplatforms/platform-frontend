@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   formatCurrency,
+  formatDayLabel,
   formatDurationMinutes,
   formatHoursRange,
   formatPhoneForDisplay,
@@ -36,7 +37,15 @@ describe('formatPhoneForDisplay', () => {
     expect(formatPhoneForDisplay('5551234567')).toBe('(555) 123-4567');
   });
 
-  it('returns the original value when not 10 digits', () => {
+  it('returns the original value when not 10 digits and not a +91 number', () => {
+    expect(formatPhoneForDisplay('12345')).toBe('12345');
+  });
+
+  it('formats a +91 Indian number with 5-5 grouping', () => {
+    expect(formatPhoneForDisplay('+919175477076')).toBe('+91 91754 77076');
+  });
+
+  it('formats a +91 number that already has spacing, unchanged', () => {
     expect(formatPhoneForDisplay('+91 98765 43210')).toBe('+91 98765 43210');
   });
 });
@@ -58,7 +67,21 @@ describe('formatHoursRange', () => {
     expect(formatHoursRange(null, null)).toBe('Closed');
   });
 
+  it('returns the Marathi closed label when locale is mr', () => {
+    expect(formatHoursRange(null, null, 'mr')).toBe('बंद');
+  });
+
   it('formats an open range', () => {
     expect(formatHoursRange('09:00', '18:00')).toBe('09:00 - 18:00');
+  });
+});
+
+describe('formatDayLabel', () => {
+  it('defaults to English', () => {
+    expect(formatDayLabel('monday')).toBe('Monday');
+  });
+
+  it('returns the Marathi day name when locale is mr', () => {
+    expect(formatDayLabel('monday', 'mr')).toBe('सोमवार');
   });
 });

@@ -1,3 +1,5 @@
+import type { BusinessAddress } from '@rdplatforms/types';
+
 export function formatCurrency(
   amount: number,
   currency: string = 'USD',
@@ -21,6 +23,10 @@ export function formatDurationMinutes(minutes: number): string {
 
 export function formatPhoneForDisplay(phone: string): string {
   const digits = phone.replace(/\D/g, '');
+  if (phone.trim().startsWith('+91') && digits.length === 12) {
+    const national = digits.slice(2);
+    return `+91 ${national.slice(0, 5)} ${national.slice(5)}`;
+  }
   if (digits.length === 10) {
     return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
   }
@@ -33,23 +39,48 @@ export function toWhatsAppLink(phone: string, message?: string): string {
   return `https://wa.me/${digits}${query}`;
 }
 
-const DAY_LABELS: Record<string, string> = {
-  monday: 'Monday',
-  tuesday: 'Tuesday',
-  wednesday: 'Wednesday',
-  thursday: 'Thursday',
-  friday: 'Friday',
-  saturday: 'Saturday',
-  sunday: 'Sunday',
-};
-
-export function formatDayLabel(day: string): string {
-  return DAY_LABELS[day] ?? day;
+/**
+ * Joins only the address parts that are actually present — a business
+ * whose full formatted street address isn't confirmed yet (see
+ * BusinessAddress) shouldn't render "undefined, undefined".
+ */
+export function formatAddressLine(address: BusinessAddress): string {
+  const cityState = [address.city, address.state].filter(Boolean).join(', ');
+  return [address.line1, cityState, address.postalCode].filter(Boolean).join(', ');
 }
 
-export function formatHoursRange(opensAt: string | null, closesAt: string | null): string {
+const DAY_LABELS: Record<'en' | 'mr', Record<string, string>> = {
+  en: {
+    monday: 'Monday',
+    tuesday: 'Tuesday',
+    wednesday: 'Wednesday',
+    thursday: 'Thursday',
+    friday: 'Friday',
+    saturday: 'Saturday',
+    sunday: 'Sunday',
+  },
+  mr: {
+    monday: 'सोमवार',
+    tuesday: 'मंगळवार',
+    wednesday: 'बुधवार',
+    thursday: 'गुरुवार',
+    friday: 'शुक्रवार',
+    saturday: 'शनिवार',
+    sunday: 'रविवार',
+  },
+};
+
+export function formatDayLabel(day: string, locale: 'en' | 'mr' = 'en'): string {
+  return DAY_LABELS[locale][day] ?? day;
+}
+
+export function formatHoursRange(
+  opensAt: string | null,
+  closesAt: string | null,
+  locale: 'en' | 'mr' = 'en',
+): string {
   if (!opensAt || !closesAt) {
-    return 'Closed';
+    return locale === 'mr' ? 'बंद' : 'Closed';
   }
   return `${opensAt} - ${closesAt}`;
 }

@@ -1,3 +1,5 @@
+import type { LocalizableText } from './locale';
+
 /**
  * Content contracts. Every collection is keyed by businessId in the static
  * data source today, and will map 1:1 to REST resources scoped by business
@@ -6,8 +8,8 @@
 export interface ServiceItem {
   id: string;
   businessId: string;
-  name: string;
-  description: string;
+  name: LocalizableText;
+  description: LocalizableText;
   price?: number;
   currency?: string;
   durationMinutes?: number;
@@ -19,7 +21,7 @@ export interface ServiceItem {
 export interface GalleryItem {
   id: string;
   businessId: string;
-  title?: string;
+  title?: LocalizableText;
   imageUrl: string;
   category?: string;
   order: number;
@@ -29,16 +31,16 @@ export interface Testimonial {
   id: string;
   businessId: string;
   authorName: string;
-  authorRole?: string;
+  authorRole?: LocalizableText;
   avatarUrl?: string;
   rating: number;
-  quote: string;
+  quote: LocalizableText;
 }
 
 export interface SeoConfig {
   businessId: string;
-  title: string;
-  description: string;
+  title: LocalizableText;
+  description: LocalizableText;
   keywords: string[];
   ogImageUrl?: string;
   canonicalUrl?: string;
@@ -61,8 +63,8 @@ export interface SectionConfig {
   type: SectionType;
   enabled: boolean;
   order: number;
-  title?: string;
-  subtitle?: string;
+  title?: LocalizableText;
+  subtitle?: LocalizableText;
 }
 
 export interface PageConfig {
@@ -75,17 +77,17 @@ export interface PageConfig {
 export interface FaqItem {
   id: string;
   businessId: string;
-  question: string;
-  answer: string;
+  question: LocalizableText;
+  answer: LocalizableText;
 }
 
 export interface TeamMember {
   id: string;
   businessId: string;
   name: string;
-  role: string;
+  role: LocalizableText;
   photoUrl?: string;
-  bio?: string;
+  bio?: LocalizableText;
 }
 
 export interface BusinessSettings {

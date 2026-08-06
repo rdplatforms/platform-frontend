@@ -1,4 +1,5 @@
 export * from './useBusiness';
+export * from './useLocale';
 export * from './useBusinessScopedQuery';
 export * from './useServices';
 export * from './useGallery';
