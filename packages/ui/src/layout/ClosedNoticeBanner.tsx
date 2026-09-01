@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, IconButton, Typography } from '@mui/material';
+import { Dialog, DialogContent, IconButton, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import type { Business } from '@rdplatforms/types';
 import { useLocale } from '@rdplatforms/hooks';
 import { isBusinessOpenNow, translateUi } from '@rdplatforms/utils';
+import { Button } from '../primitives/Button';
 
 export interface ClosedNoticeBannerProps {
   business: Business;
@@ -14,7 +15,9 @@ export interface ClosedNoticeBannerProps {
  * currently closed, computed from its own BusinessHours data (see
  * docs/business-hours.md) — never hardcoded hours. Renders nothing for a
  * business with no hours configured, since absence of data isn't the same
- * as "closed" (see isBusinessOpenNow).
+ * as "closed" (see isBusinessOpenNow). The "Get In Touch" button links to
+ * #contact rather than blocking the visitor entirely — being closed
+ * shouldn't be a dead end.
  */
 export function ClosedNoticeBanner({ business }: ClosedNoticeBannerProps) {
   const { locale } = useLocale();
@@ -34,10 +37,17 @@ export function ClosedNoticeBanner({ business }: ClosedNoticeBannerProps) {
         >
           <CloseIcon />
         </IconButton>
-        <Typography variant="h6" fontWeight={700} gutterBottom>
-          {translateUi('closedBannerTitle', locale)}
-        </Typography>
-        <Typography color="text.secondary">{translateUi('closedBannerMessage', locale)}</Typography>
+        <Stack spacing={2} alignItems="center">
+          <Typography variant="h6" fontWeight={700}>
+            {translateUi('closedBannerTitle', locale)}
+          </Typography>
+          <Typography color="text.secondary">
+            {translateUi('closedBannerMessage', locale)}
+          </Typography>
+          <Button href="#contact" onClick={() => setDismissed(true)}>
+            {translateUi('getInTouch', locale)}
+          </Button>
+        </Stack>
       </DialogContent>
     </Dialog>
   );

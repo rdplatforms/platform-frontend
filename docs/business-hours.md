@@ -48,10 +48,13 @@ including the timezone-parsing pitfall and the "no data → open" default.
 
 ## `ClosedNoticeBanner`
 
-A dismissible MUI `Dialog` (X to close), shown once per page load when
-`isBusinessOpenNow(business.hours)` is false. Rendered from `HomePage`
-alongside `Navbar`/`Footer`. The message text
-(`closedBannerTitle`/`closedBannerMessage`) is generic, translated platform
-chrome (`uiStrings.ts`) — not per-business custom copy. If a business wants
-its own wording later, that's a `LocalizableText` field on `Business`
-(same pattern as `brandNote`), not a change to this component.
+A dismissible MUI `Dialog` (X to close, or the "Get In Touch" button),
+shown once per page load when `isBusinessOpenNow(business.hours)` is
+false. Rendered from `HomePage` alongside `Navbar`/`Footer`. The "Get In
+Touch" button links to `#contact` and dismisses the dialog on click —
+being closed shouldn't be a dead end for a visitor who still wants to
+reach the business. The message text (`closedBannerTitle`/
+`closedBannerMessage`) is generic, translated platform chrome
+(`uiStrings.ts`) — not per-business custom copy. If a business wants its
+own wording later, that's a `LocalizableText` field on `Business` (same
+pattern as `brandNote`), not a change to this component.
