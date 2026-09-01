@@ -46,3 +46,10 @@ All notable changes to this project are documented here. Format follows
   gallery, replacing flat color+text tiles.
 - `netlify.toml` and an interim, one-site-per-business deployment approach
   for going live before real custom domains exist.
+- Appointment date validation (no past dates) and hours-driven time slots
+  (`generateTimeSlots`, `isBusinessOpenNow`) instead of freeform text;
+  removed the redundant phone field.
+- A dismissible "we're currently closed" banner driven by real business
+  hours, and real hours populated for Swami Hair Salon.
+- The "Get In Touch" section now hands off to WhatsApp too, via a shared
+  `useWhatsAppSubmit` hook.

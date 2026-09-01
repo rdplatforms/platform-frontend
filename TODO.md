@@ -81,7 +81,7 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Status      | Priority | Item                     | Description                                                            |
 | ----------- | -------- | ------------------------ | ---------------------------------------------------------------------- |
 | Not Started | P1       | Street address           | Only coordinates + Maps link confirmed; no formatted address text yet  |
-| Not Started | P1       | Business hours           | `hours: []` — none confirmed yet                                       |
+| Done        | P1       | Business hours           | Tue–Sun 10:00–22:00, closed Monday                                     |
 | Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                |
 | Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now |
 | Not Started | P2       | Real logo/photos         | Placeholder icon graphics in place; still not real photos              |
@@ -89,12 +89,16 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Appointment Booking
 
-| Status      | Priority | Item                       | Description                                                                         |
-| ----------- | -------- | -------------------------- | ----------------------------------------------------------------------------------- |
-| Done        | P1       | `appointment` section type | Name/phone/service/date/time/note form, config-driven, reusable by any business     |
-| Done        | P1       | WhatsApp handoff           | `buildAppointmentMessage` + `toWhatsAppLink`; customer taps send, nothing automatic |
-| Not Started | P2       | Bookings persistence       | No record kept on the platform side — same pattern as `SalesDataSource` if wanted   |
-| Not Started | P2       | Real availability/slots    | Date/time are freeform; no check against actual hours or existing bookings          |
+| Status      | Priority | Item                        | Description                                                                                       |
+| ----------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------- |
+| Done        | P1       | `appointment` section type  | Name/service/date/time/note form (no phone — WhatsApp reveals it), config-driven                  |
+| Done        | P1       | WhatsApp handoff            | Shared `useWhatsAppSubmit` hook; customer taps send, nothing automatic                            |
+| Done        | P1       | Date validation             | No past dates — HTML `min` + a real Zod check                                                     |
+| Done        | P1       | Hours-driven time slots     | `generateTimeSlots` from `BusinessHours` + `appointmentSlotMinutes`; closed days disabled         |
+| Done        | P1       | "Currently closed" banner   | `ClosedNoticeBanner`, dismissible, driven by `isBusinessOpenNow` — see `docs/business-hours.md`   |
+| Done        | P1       | Get In Touch → WhatsApp     | `Contact` section now uses the same handoff as Appointment                                        |
+| Not Started | P2       | Bookings persistence        | No record kept on the platform side — same pattern as `SalesDataSource` if wanted                 |
+| Not Started | P3       | Slots vs. existing bookings | A slot within hours is offered regardless of whether it's already booked (no bookings record yet) |
 
 ## Deployment
 

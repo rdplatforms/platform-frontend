@@ -3,6 +3,37 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-01 — Appointment refinements: hours-driven slots, closed banner, WhatsApp-based Contact
+
+Owner feedback from the first demo, all data-driven per the ask ("so I
+can edit those directly"):
+
+- Removed the phone field from Appointment — WhatsApp already reveals the
+  sender's number.
+- Date can't be picked before today (HTML `min` + real Zod validation).
+- Time is now a dropdown of real slots generated from `Business.hours` +
+  the new `BusinessSettings.appointmentSlotMinutes` (default 60) — not
+  freeform text. Picking a closed day disables the time field with an
+  explanation instead of offering nonexistent slots.
+- Populated Swami Hair Salon's real hours (Tue–Sun 10:00–22:00, closed
+  Monday) — the `Footer` now shows them automatically (that display code
+  already existed, just had no data).
+- New `ClosedNoticeBanner`: a dismissible modal shown once per page load
+  when the business is closed right now, computed from the same hours
+  data via a new `isBusinessOpenNow()`.
+- `Contact` ("Get In Touch") now hands off to WhatsApp too, via a new
+  shared `useWhatsAppSubmit` hook (extracted so Appointment and Contact
+  don't duplicate the same flow). Both submit buttons are centered.
+- New pure, unit-tested utilities: `generateTimeSlots`,
+  `getBusinessHoursForDate`, `getDayOfWeek`, `isBusinessOpenNow`
+  (`packages/utils/src/businessHours.ts`) — see
+  [docs/business-hours.md](docs/business-hours.md) and
+  [docs/adr/0011-hours-driven-slots-and-closed-banner.md](docs/adr/0011-hours-driven-slots-and-closed-banner.md).
+
+**Verification:** 84 tests passing (15 new), full typecheck/lint/build
+clean. Browser verification skipped this round per explicit instruction
+(token budget) — manual test steps handed off instead.
+
 ## 2026-09-01 — Appointment booking, icon placeholders, Netlify deployment prep
 
 Prepared Swami Hair Salon for a same-day owner demo on Netlify.
