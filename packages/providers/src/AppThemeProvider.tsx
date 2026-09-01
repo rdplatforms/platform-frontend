@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import type { BusinessTheme } from '@rdplatforms/types';
 import { themeService } from '@rdplatforms/services';
-import { useBusinessContext } from '@rdplatforms/contexts';
+import { useBusinessContext, useLocaleContext } from '@rdplatforms/contexts';
 import { createAppTheme } from './theme/createAppTheme';
 import { loadGoogleFont } from './theme/loadGoogleFont';
 
@@ -18,6 +18,7 @@ export interface AppThemeProviderProps {
  */
 export function AppThemeProvider({ children }: AppThemeProviderProps) {
   const { business } = useBusinessContext();
+  const { locale } = useLocaleContext();
   const [businessTheme, setBusinessTheme] = useState<BusinessTheme | undefined>(undefined);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
     loadGoogleFont(businessTheme?.typography.googleFontsUrl);
   }, [businessTheme]);
 
-  const theme = useMemo(() => createAppTheme(businessTheme), [businessTheme]);
+  const theme = useMemo(() => createAppTheme(businessTheme, locale), [businessTheme, locale]);
 
   return (
     <ThemeProvider theme={theme}>
