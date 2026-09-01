@@ -15,3 +15,5 @@ add a new ADR that supersedes it; don't edit history.
 | [0006](0006-admin-as-separate-app.md)              | Admin as a separate app/deployment, not a `/admin` route                                     |
 | [0007](0007-per-business-owner-dashboard.md)       | Per-business owner dashboard as a route in `apps/website`, localStorage-backed               |
 | [0008](0008-per-business-bilingual-content.md)     | Per-business bilingual content via `LocalizableText`, additive to single-language businesses |
+| [0009](0009-netlify-interim-deployment.md)         | Netlify interim deployment — one site per business via env var, not hostname yet             |
+| [0010](0010-whatsapp-appointment-handoff.md)       | Appointment requests hand off to WhatsApp, not a backend submission                          |
