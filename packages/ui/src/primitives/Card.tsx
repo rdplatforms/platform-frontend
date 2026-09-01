@@ -13,7 +13,13 @@ export function Card({ title, description, imageUrl, imageAlt, footer }: CardPro
   return (
     <MuiCard elevation={2} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {imageUrl ? (
-        <CardMedia component="img" height="180" image={imageUrl} alt={imageAlt ?? title} />
+        <CardMedia
+          component="img"
+          height="180"
+          image={imageUrl}
+          alt={imageAlt ?? title}
+          loading="lazy"
+        />
       ) : null}
       <CardContent sx={{ flexGrow: 1 }}>
         <Stack spacing={1}>
