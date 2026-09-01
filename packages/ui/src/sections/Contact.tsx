@@ -60,7 +60,7 @@ export function Contact({ business, config }: SectionProps) {
         subtitle={resolveLocalizedText(config.subtitle, locale)}
       />
 
-      <Grid container spacing={6}>
+      <Grid container spacing={{ xs: 3, md: 6 }}>
         <Grid item xs={12} md={5}>
           <Stack spacing={1.5}>
             <Typography variant="subtitle1" fontWeight={700}>

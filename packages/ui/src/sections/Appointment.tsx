@@ -179,7 +179,7 @@ export function Appointment({ business, config }: SectionProps) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Controller
                 name="preferredDate"
                 control={control}
@@ -197,7 +197,7 @@ export function Appointment({ business, config }: SectionProps) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Controller
                 name="preferredTime"
                 control={control}

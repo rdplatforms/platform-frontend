@@ -10,7 +10,7 @@ export function About({ business, config }: SectionProps) {
 
   return (
     <PageSection id="about">
-      <Grid container spacing={6} alignItems="center">
+      <Grid container spacing={{ xs: 3, md: 6 }} alignItems="center">
         <Grid item xs={12} md={6}>
           <SectionTitle
             title={
