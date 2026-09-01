@@ -4,7 +4,7 @@
       "id": "shs-gal-1",
       "businessId": "swami-hair-salon",
       "title": { "mr": "बाहेरील दृश्य", "en": "Exterior" },
-      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/1.svg",
+      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/exterior.jpg",
       "category": "Exterior",
       "order": 1
     },
@@ -12,7 +12,7 @@
       "id": "shs-gal-2",
       "businessId": "swami-hair-salon",
       "title": { "mr": "आतील भाग", "en": "Interior" },
-      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/2.svg",
+      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/interior.jpg",
       "category": "Interior",
       "order": 2
     },
@@ -20,7 +20,7 @@
       "id": "shs-gal-3",
       "businessId": "swami-hair-salon",
       "title": { "mr": "स्टाइलिंग चेअर", "en": "Styling Chair" },
-      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/3.svg",
+      "imageUrl": "/assets/businesses/swami-hair-salon/gallery/styling-chair.jpg",
       "category": "Interior",
       "order": 3
     }
