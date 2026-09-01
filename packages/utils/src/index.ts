@@ -4,3 +4,4 @@ export * from './validators';
 export * from './sales';
 export * from './locale';
 export * from './uiStrings';
+export * from './appointment';

@@ -12,6 +12,7 @@ const NAV_LABEL_KEYS: Partial<Record<SectionConfig['type'], UiStringKey>> = {
   testimonials: 'navReviews',
   faq: 'navFaq',
   pricing: 'navPricing',
+  appointment: 'navAppointment',
   contact: 'navContact',
 };
 

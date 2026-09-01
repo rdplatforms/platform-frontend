@@ -57,7 +57,8 @@ export type SectionType =
   | 'contact'
   | 'map'
   | 'pricing'
-  | 'team';
+  | 'team'
+  | 'appointment';
 
 export interface SectionConfig {
   type: SectionType;
