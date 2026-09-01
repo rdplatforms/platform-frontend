@@ -21,7 +21,7 @@ export function Hero({ business, config }: SectionProps) {
       sx={{
         background: (theme) =>
           `linear-gradient(180deg, ${theme.palette.primary.main}1a 0%, transparent 100%)`,
-        py: { xs: 8, md: 14 },
+        py: { xs: 6, md: 10 },
       }}
     >
       <Container>

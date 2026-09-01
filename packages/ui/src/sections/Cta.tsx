@@ -15,7 +15,7 @@ export function Cta({ business, config }: SectionProps) {
       sx={{
         bgcolor: 'primary.main',
         color: 'primary.contrastText',
-        py: { xs: 6, md: 8 },
+        py: { xs: 6, md: 10 },
       }}
     >
       <Container>

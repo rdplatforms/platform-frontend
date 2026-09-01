@@ -34,5 +34,5 @@
   "social": {},
   "domains": ["swami-hair-salon.rdplatforms.dev"],
   "isActive": true,
-  "supportedLocales": ["mr", "en"]
+  "supportedLocales": ["en", "mr"]
 }

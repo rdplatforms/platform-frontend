@@ -1,4 +1,4 @@
-import { createTheme, type Theme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes, type Theme } from '@mui/material/styles';
 import type { BusinessTheme } from '@rdplatforms/types';
 
 const BUTTON_RADIUS_BY_STYLE: Record<BusinessTheme['buttonStyle'], number> = {
@@ -15,7 +15,7 @@ const BUTTON_RADIUS_BY_STYLE: Record<BusinessTheme['buttonStyle'], number> = {
 export function createAppTheme(businessTheme: BusinessTheme | undefined): Theme {
   const theme = businessTheme ?? DEFAULT_THEME;
 
-  return createTheme({
+  return responsiveFontSizes(createTheme({
     palette: {
       mode: theme.darkModeEnabled ? 'dark' : 'light',
       primary: { main: theme.primaryColor },
@@ -55,7 +55,7 @@ export function createAppTheme(businessTheme: BusinessTheme | undefined): Theme 
         },
       },
     },
-  });
+  }));
 }
 
 const DEFAULT_THEME: BusinessTheme = {

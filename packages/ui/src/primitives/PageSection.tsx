@@ -22,6 +22,8 @@ export function PageSection({ children, id, tone = 'default' }: PageSectionProps
       sx={{
         py: { xs: 6, md: 10 },
         bgcolor: tone === 'subtle' ? 'action.hover' : 'transparent',
+        borderTop: 1,
+        borderColor: 'divider',
       }}
     >
       <Container>{children}</Container>
