@@ -3,6 +3,32 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-02 — Closed banner CTA, Team section disabled, real service photos
+
+More owner-demo polish:
+
+- `ClosedNoticeBanner` now has a "Get In Touch" button linking to
+  `#contact` and dismissing the dialog — being closed shouldn't be a dead
+  end.
+- Disabled the Team section for Swami Hair Salon (`enabled: false` in
+  `pages.json`) until there's a real photo of Shankar — this also removes
+  it from the nav automatically, since nav items are already derived only
+  from enabled sections.
+- Replaced the three service icon placeholders with real, properly-
+  licensed photos sourced from Wikimedia Commons (searched and verified
+  license per image via WebSearch/WebFetch), downloaded, resized to a
+  sane web size (max 900px), and committed locally — never hotlinked. See
+  `apps/website/public/assets/businesses/swami-hair-salon/services/CREDITS.md`
+  for source/author/license per photo. Two of the three require
+  attribution (CC BY 2.0, CC BY-SA 4.0) — the CREDITS.md file is the
+  record, but a visible on-site attribution line is still outstanding
+  (tracked in TODO.md) and should land before this is treated as fully
+  compliant.
+
+**Verification:** typecheck/lint/format/84 tests/build all clean.
+Photos visually spot-checked (read back as images) before shipping; no
+browser automation this round.
+
 ## 2026-09-01 — Appointment refinements: hours-driven slots, closed banner, WhatsApp-based Contact
 
 Owner feedback from the first demo, all data-driven per the ask ("so I

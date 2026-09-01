@@ -78,14 +78,17 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Swami Hair Salon Content (Pending Confirmation)
 
-| Status      | Priority | Item                     | Description                                                            |
-| ----------- | -------- | ------------------------ | ---------------------------------------------------------------------- |
-| Not Started | P1       | Street address           | Only coordinates + Maps link confirmed; no formatted address text yet  |
-| Done        | P1       | Business hours           | Tue–Sun 10:00–22:00, closed Monday                                     |
-| Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                |
-| Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now |
-| Not Started | P2       | Real logo/photos         | Placeholder icon graphics in place; still not real photos              |
-| Not Started | P2       | Testimonials / FAQ       | Sections disabled — no real reviews or confirmed FAQ content yet       |
+| Status      | Priority | Item                     | Description                                                                                                          |
+| ----------- | -------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| Not Started | P1       | Street address           | Only coordinates + Maps link confirmed; no formatted address text yet                                                |
+| Done        | P1       | Business hours           | Tue–Sun 10:00–22:00, closed Monday                                                                                   |
+| Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                                                              |
+| Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now                                               |
+| Done        | P2       | Real service photos      | 3 CC-licensed Wikimedia Commons photos in place — see `services/CREDITS.md`                                          |
+| Not Started | P2       | Real logo/gallery photos | Logo and gallery (exterior/interior/chair) still placeholders                                                        |
+| Not Started | P1       | Visible photo credit     | 2 of 3 service photos are CC BY / CC BY-SA — need a visible on-site attribution line, not just the CREDITS.md record |
+| Not Started | P2       | Team section             | Disabled (page + nav) until there's a real photo of Shankar to replace the placeholder silhouette                    |
+| Not Started | P2       | Testimonials / FAQ       | Sections disabled — no real reviews or confirmed FAQ content yet                                                     |
 
 ## Appointment Booking
 

@@ -53,3 +53,6 @@ All notable changes to this project are documented here. Format follows
   hours, and real hours populated for Swami Hair Salon.
 - The "Get In Touch" section now hands off to WhatsApp too, via a shared
   `useWhatsAppSubmit` hook.
+- Closed banner gained a "Get In Touch" CTA; Swami Hair Salon's Team
+  section disabled (page + nav) pending a real photo; three service
+  placeholder icons replaced with real, license-verified photos.
