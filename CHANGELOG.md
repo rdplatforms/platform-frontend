@@ -56,3 +56,8 @@ All notable changes to this project are documented here. Format follows
 - Closed banner gained a "Get In Touch" CTA; Swami Hair Salon's Team
   section disabled (page + nav) pending a real photo; three service
   placeholder icons replaced with real, license-verified photos.
+- A mobile-responsiveness pass across shared section/layout components
+  (stacked CTA buttons, tighter grid spacing, lazy-loaded card images) —
+  see `docs/mobile-responsiveness.md`.
+- Swami Hair Salon's three Gallery placeholder icons replaced with real,
+  license-verified photos.

@@ -42,6 +42,7 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Done        | P1       | Contact form                    | React Hook Form + Zod validation (no submission backend yet)                                     |
 | Done        | P1       | SEO document head               | Per-business title/description/keywords via `useSeo`                                             |
 | Done        | P2       | Code splitting                  | Lazy-loaded routes + vendor chunk splitting                                                      |
+| Done        | P1       | Mobile responsiveness pass      | Stacked CTA buttons, tighter Grid spacing on small screens, lazy-loaded card images — see `docs/mobile-responsiveness.md` |
 | Not Started | P2       | Per-business multi-page support | `PageConfig` already supports multiple `path` entries per business; router only wires `/` today  |
 
 ## Admin
@@ -85,8 +86,9 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                                                      |
 | Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now                                       |
 | Done        | P2       | Real service photos      | 3 CC-licensed Wikimedia Commons photos in place — see `services/CREDITS.md`                                  |
-| Not Started | P2       | Real logo/gallery photos | Logo and gallery (exterior/interior/chair) still placeholders                                                |
-| Not Started | P1       | Visible photo credit     | All 3 service photos are CC BY 2.0 — need a visible on-site attribution line, not just the CREDITS.md record |
+| Done        | P2       | Real gallery photos      | Exterior/Interior/Styling Chair now real CC-licensed photos — see `gallery/CREDITS.md`                       |
+| Not Started | P2       | Real logo photo          | Logo still a placeholder                                                                                     |
+| Not Started | P1       | Visible photo credit     | All service + gallery photos are CC BY / CC BY-SA — need a visible on-site attribution line, not just the CREDITS.md record |
 | Not Started | P2       | Team section             | Disabled (page + nav) until there's a real photo of Shankar to replace the placeholder silhouette            |
 | Not Started | P2       | Testimonials / FAQ       | Sections disabled — no real reviews or confirmed FAQ content yet                                             |
 

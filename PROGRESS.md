@@ -3,6 +3,29 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-02 — Mobile responsiveness pass + real gallery photos
+
+- Fixed several small-screen issues found on inspection: side-by-side CTA
+  button pairs (`Hero`, `Cta`, `ClosedNoticeBanner`) now stack and go
+  full-width below `sm`; `About`/`Contact` grid spacing tightens on `xs`;
+  the Appointment date/time fields now stay stacked until `md` instead of
+  `sm`, since they were cramped on mid-size phones; card images
+  (`Card.tsx`) are now lazy-loaded. See `docs/mobile-responsiveness.md`.
+- Replaced the three Gallery icon placeholders (Exterior/Interior/Styling
+  Chair) with real, license-verified photos, same Wikimedia
+  Commons/WebSearch+WebFetch sourcing method as the Services photos. No
+  real, usable "exterior storefront" photo exists on Commons that doesn't
+  prominently show a different, unrelated salon's own name and sign — so
+  Exterior uses a barber pole (universally recognized, unbranded) instead;
+  Interior and Styling Chair are a wide shot and a tighter crop of the
+  same barbershop-interior photo. See
+  `apps/website/public/assets/businesses/swami-hair-salon/gallery/CREDITS.md`.
+
+**Verification:** `pnpm -r typecheck`, `pnpm lint`, `pnpm format:check`,
+`pnpm test` (84 tests), `pnpm build` all clean. Photos visually
+spot-checked (read back as images) before shipping; no browser automation
+this round.
+
 ## 2026-09-02 — Closed banner CTA, Team section disabled, real service photos
 
 More owner-demo polish:
