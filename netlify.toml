@@ -1,0 +1,16 @@
+# Deploys apps/website only. See docs/deployment.md for the full picture —
+# this is the interim, single-business-per-site setup (Phase 1), not the
+# eventual one-deployment-many-domains shape.
+[build]
+  command = "pnpm install && pnpm build:website"
+  publish = "apps/website/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# React Router client-side routes (e.g. /dashboard) must all resolve to
+# index.html — otherwise a direct link or refresh 404s.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
