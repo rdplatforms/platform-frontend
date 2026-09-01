@@ -136,7 +136,7 @@ export function Appointment({ business, config }: SectionProps) {
           spacing={2}
           onSubmit={onSubmit}
           noValidate
-          sx={{ maxWidth: 640, mx: 'auto' }}
+          sx={{ maxWidth: 640, mx: 'auto', px: { xs: 1, sm: 0 } }}
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
