@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { Alert, Grid, MenuItem, Stack, TextField } from '@mui/material';
-import type { SupportedLocale } from '@rdplatforms/types';
+import type { BusinessHours, SupportedLocale } from '@rdplatforms/types';
 import { useLocale, useServices, useSettings, useWhatsAppSubmit } from '@rdplatforms/hooks';
 import {
   buildAppointmentMessage,
@@ -24,7 +24,13 @@ function todayDateString(): string {
   ).padStart(2, '0')}`;
 }
 
-function createAppointmentFormSchema(locale: SupportedLocale) {
+/**
+ * The "closed that day" rule lives in the schema itself (not just a UI
+ * flag) so it's a real, visible field error on preferredDate — the same
+ * place the past-date error shows — rather than something surfaced by
+ * quietly disabling a different field.
+ */
+function createAppointmentFormSchema(locale: SupportedLocale, hours: BusinessHours[]) {
   const today = todayDateString();
   return z.object({
     customerName: z.string().min(2, 'Please enter your name'),
@@ -32,7 +38,11 @@ function createAppointmentFormSchema(locale: SupportedLocale) {
     preferredDate: z
       .string()
       .min(1, 'Please pick a date')
-      .refine((value) => value >= today, translateUi('dateMustNotBePast', locale)),
+      .refine((value) => value >= today, translateUi('dateMustNotBePast', locale))
+      .refine(
+        (value) => !getBusinessHoursForDate(hours, value)?.isClosed,
+        translateUi('closedOnThisDay', locale),
+      ),
     preferredTime: z.string().min(1, 'Please pick a time'),
     note: z.string().optional(),
   });
@@ -55,7 +65,10 @@ export function Appointment({ business, config }: SectionProps) {
   const whatsappNumber = business.contact.whatsapp ?? business.contact.phone;
   const { sent, send, reset: dismissSent } = useWhatsAppSubmit(whatsappNumber);
 
-  const schema = useMemo(() => createAppointmentFormSchema(locale), [locale]);
+  const schema = useMemo(
+    () => createAppointmentFormSchema(locale, business.hours),
+    [locale, business.hours],
+  );
 
   const {
     control,
@@ -65,6 +78,7 @@ export function Appointment({ business, config }: SectionProps) {
     formState: { errors, isSubmitting },
   } = useForm<AppointmentFormValues>({
     resolver: zodResolver(schema),
+    mode: 'onTouched',
     defaultValues: {
       customerName: '',
       serviceId: '',
@@ -77,7 +91,6 @@ export function Appointment({ business, config }: SectionProps) {
   const selectedDate = useWatch({ control, name: 'preferredDate' });
   const slotMinutes = settings?.appointmentSlotMinutes ?? 60;
   const dayHours = selectedDate ? getBusinessHoursForDate(business.hours, selectedDate) : undefined;
-  const isClosedOnSelectedDate = Boolean(dayHours?.isClosed);
   const timeSlots =
     dayHours && !dayHours.isClosed && dayHours.opensAt && dayHours.closesAt
       ? generateTimeSlots(dayHours.opensAt, dayHours.closesAt, slotMinutes)
@@ -193,13 +206,8 @@ export function Appointment({ business, config }: SectionProps) {
                     {...field}
                     select
                     label={translateUi('preferredTime', locale)}
-                    error={!!errors.preferredTime || isClosedOnSelectedDate}
-                    helperText={
-                      isClosedOnSelectedDate
-                        ? translateUi('closedOnThisDay', locale)
-                        : errors.preferredTime?.message
-                    }
-                    disabled={!selectedDate || isClosedOnSelectedDate}
+                    error={!!errors.preferredTime}
+                    helperText={errors.preferredTime?.message}
                     fullWidth
                   >
                     <MenuItem value="" disabled>
