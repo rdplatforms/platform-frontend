@@ -32,7 +32,11 @@ export function Hero({ business, config }: SectionProps) {
           <Typography variant="h6" component="p" color="text.secondary" fontWeight={400}>
             {subtitle}
           </Typography>
-          <Stack direction="row" spacing={2}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
+          >
             <Button href="#contact" size="large">
               {translateUi('getInTouch', locale)}
             </Button>

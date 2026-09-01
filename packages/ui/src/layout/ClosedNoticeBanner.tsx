@@ -37,14 +37,18 @@ export function ClosedNoticeBanner({ business }: ClosedNoticeBannerProps) {
         >
           <CloseIcon />
         </IconButton>
-        <Stack spacing={2} alignItems="center">
+        <Stack spacing={2} alignItems="center" sx={{ width: '100%' }}>
           <Typography variant="h6" fontWeight={700}>
             {translateUi('closedBannerTitle', locale)}
           </Typography>
           <Typography color="text.secondary">
             {translateUi('closedBannerMessage', locale)}
           </Typography>
-          <Button href="#contact" onClick={() => setDismissed(true)}>
+          <Button
+            href="#contact"
+            onClick={() => setDismissed(true)}
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
+          >
             {translateUi('getInTouch', locale)}
           </Button>
         </Stack>

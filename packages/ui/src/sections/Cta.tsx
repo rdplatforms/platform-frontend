@@ -24,7 +24,11 @@ export function Cta({ business, config }: SectionProps) {
             {resolveLocalizedText(config.title, locale) || translateUi('readyToGetStarted', locale)}
           </Typography>
           {subtitle ? <Typography variant="body1">{subtitle}</Typography> : null}
-          <Stack direction="row" spacing={2}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
+          >
             <Button
               href={`tel:${business.contact.phone}`}
               color="inherit"
