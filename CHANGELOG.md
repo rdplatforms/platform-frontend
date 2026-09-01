@@ -69,3 +69,6 @@ All notable changes to this project are documented here. Format follows
   decorative heading font breaking Devanagari conjunct shaping.
 - Fixed a broken Marathi "WhatsApp" spelling (decomposed vowel + matra
   instead of the correct precomposed letter) in four UI strings.
+- Replaced legacy MUI `Grid` in the Appointment section with native CSS
+  Grid, fixing asymmetric field padding on mobile that a first attempt
+  (compensating padding) didn't fully resolve.

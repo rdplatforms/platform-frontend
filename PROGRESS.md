@@ -3,6 +3,27 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-02 — Actually fixed the Appointment mobile padding this time
+
+The owner reported the Appointment form fields still looked unevenly
+padded on mobile after the earlier "compensating padding" fix shipped and
+was live-tested — a real screenshot at 360px width showed a large gap on
+the left and almost none on the right.
+
+Root cause of why the first fix fell short: MUI's `Grid` at the version
+installed here (6.5.0) is still the **legacy** implementation —
+`marginLeft: calc(-1 * spacing)` plus `width: calc(100% + spacing)`,
+negative margin on the left only, not a symmetric bleed on both sides as
+assumed. A flat compensating `px` on the parent isn't a reliable fix for
+that.
+
+Replaced `Grid` in `Appointment.tsx` with a `Box` using native CSS Grid
+(`display: 'grid'`, `gap: 2`) — no negative margins exist to get wrong,
+so there's nothing to compensate for. See `docs/mobile-responsiveness.md`
+("Follow-up" section) for the full writeup.
+
+**Verification:** typecheck/lint/format/88 tests/build all clean.
+
 ## 2026-09-02 — Fixed a broken Marathi "WhatsApp" spelling
 
 Separate from the font fix above: the owner spotted the WhatsApp button

@@ -36,3 +36,24 @@ benefits, not just Swami Hair Salon.
 None of this touches business content or JSON data — it's all `sx`
 breakpoint tuning on shared components, verified with
 `pnpm -r typecheck && pnpm lint && pnpm test && pnpm build`.
+
+## Follow-up: Appointment fields sitting asymmetrically on mobile
+
+The first attempt at this (padding on the wrapping `Stack`) turned out to
+be based on an incomplete read of how MUI's `Grid` applies its spacing:
+`@mui/material` at the version installed here (6.5.0) still ships the
+**legacy** `Grid`, which uses a `marginLeft: calc(-1 * spacing)` +
+`width: calc(100% + spacing)` trick — negative margin on the **left only**,
+not both sides. A flat compensating `px` on the parent doesn't reliably
+cancel that in every case, and in practice the fields still rendered with
+visibly uneven left/right padding on real mobile widths.
+
+Fixed properly by removing the legacy `Grid` from `Appointment.tsx`
+entirely, replacing it with a `Box` using native CSS Grid
+(`display: 'grid'`, `gridTemplateColumns`, `gap: 2`). CSS `gap` has no
+margin trick to get wrong — it can't produce asymmetric padding by
+construction, so there's nothing left to compensate for. Field placement:
+name/service/note each span the full row (`gridColumn: '1 / -1'`); date
+and time sit in the two columns on `md`+ and stack on `xs` (single-column
+grid there, so they're full width automatically, no explicit span
+needed).
