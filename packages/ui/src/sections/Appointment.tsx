@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
-import { Alert, Grid, MenuItem, Stack, TextField } from '@mui/material';
+import { Alert, Box, MenuItem, Stack, TextField } from '@mui/material';
 import type { BusinessHours, SupportedLocale } from '@rdplatforms/types';
 import { useLocale, useServices, useSettings, useWhatsAppSubmit } from '@rdplatforms/hooks';
 import {
@@ -136,10 +136,16 @@ export function Appointment({ business, config }: SectionProps) {
           spacing={2}
           onSubmit={onSubmit}
           noValidate
-          sx={{ maxWidth: 640, mx: 'auto', px: { xs: 1, sm: 0 } }}
+          sx={{ maxWidth: 640, mx: 'auto' }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+              gap: 2,
+            }}
+          >
+            <Box sx={{ gridColumn: '1 / -1' }}>
               <Controller
                 name="customerName"
                 control={control}
@@ -153,8 +159,8 @@ export function Appointment({ business, config }: SectionProps) {
                   />
                 )}
               />
-            </Grid>
-            <Grid item xs={12}>
+            </Box>
+            <Box sx={{ gridColumn: '1 / -1' }}>
               <Controller
                 name="serviceId"
                 control={control}
@@ -178,8 +184,8 @@ export function Appointment({ business, config }: SectionProps) {
                   </TextField>
                 )}
               />
-            </Grid>
-            <Grid item xs={12} md={6}>
+            </Box>
+            <Box>
               <Controller
                 name="preferredDate"
                 control={control}
@@ -196,8 +202,8 @@ export function Appointment({ business, config }: SectionProps) {
                   />
                 )}
               />
-            </Grid>
-            <Grid item xs={12} md={6}>
+            </Box>
+            <Box>
               <Controller
                 name="preferredTime"
                 control={control}
@@ -221,8 +227,8 @@ export function Appointment({ business, config }: SectionProps) {
                   </TextField>
                 )}
               />
-            </Grid>
-            <Grid item xs={12}>
+            </Box>
+            <Box sx={{ gridColumn: '1 / -1' }}>
               <Controller
                 name="note"
                 control={control}
@@ -230,8 +236,8 @@ export function Appointment({ business, config }: SectionProps) {
                   <TextField {...field} label={translateUi('noteOptional', locale)} fullWidth />
                 )}
               />
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
           <Button type="submit" size="large" disabled={isSubmitting} sx={{ alignSelf: 'center' }}>
             {translateUi('sendViaWhatsApp', locale)}
           </Button>
