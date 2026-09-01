@@ -39,3 +39,10 @@ All notable changes to this project are documented here. Format follows
 - Rebranded the salon demo business from "Royal Salon" to a real business,
   Swami Hair Salon (स्वामी हेअर सलून), with real contact/location details
   and bilingual (Marathi/English) content.
+- A config-driven `appointment` section: customers request a booking
+  (service/date/time), handed off to the business's WhatsApp number as a
+  prefilled message. Reusable by any business.
+- Icon-based placeholder graphics for Swami Hair Salon's services and
+  gallery, replacing flat color+text tiles.
+- `netlify.toml` and an interim, one-site-per-business deployment approach
+  for going live before real custom domains exist.

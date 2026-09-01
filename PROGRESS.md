@@ -3,6 +3,35 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-01 — Appointment booking, icon placeholders, Netlify deployment prep
+
+Prepared Swami Hair Salon for a same-day owner demo on Netlify.
+
+- New config-driven `appointment` section
+  (`packages/ui/src/sections/Appointment.tsx`): name/phone/service/date/
+  time/note form, opens a prefilled WhatsApp message to the business's
+  number on submit via `buildAppointmentMessage`
+  (`packages/utils/src/appointment.ts`) + the existing `toWhatsAppLink`.
+  Reusable by any business, not built one-off — see
+  [docs/appointments.md](docs/appointments.md) and
+  [docs/adr/0010-whatsapp-appointment-handoff.md](docs/adr/0010-whatsapp-appointment-handoff.md).
+  No backend submission and no bookings persistence yet — deliberately
+  deferred to ship same-day; the customer still has to tap Send.
+- Enabled the new section for Swami Hair Salon, positioned right after
+  Services.
+- Upgraded Swami Hair Salon's service and gallery placeholder images from
+  flat color+text tiles to simple icon illustrations (scissors, spa
+  droplet, comb, storefront, mirror, barber chair) in the brand's
+  gold/black palette — logo/favicon/og-image left as-is.
+- Added `netlify.toml` and documented the interim one-site-per-business
+  deployment approach (env-var-forced business, not hostname yet) — see
+  [docs/deployment.md](docs/deployment.md) and
+  [docs/adr/0009-netlify-interim-deployment.md](docs/adr/0009-netlify-interim-deployment.md).
+  Actually connecting the repo in Netlify's dashboard is a step only the
+  Netlify account owner can do — not completed from this repo.
+
+**Verification:** 69 tests passing (4 new), full typecheck/build clean.
+
 ## 2026-08-06 — Bilingual content support + Swami Hair Salon rebrand
 
 Added per-business bilingual content and rebranded the salon demo business

@@ -34,15 +34,15 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Website Platform
 
-| Status      | Priority | Item                            | Description                                                                                     |
-| ----------- | -------- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Done        | P0       | Theme engine                    | `createAppTheme` derives an MUI theme from `BusinessTheme`                                      |
-| Done        | P0       | Section library                 | Hero, About, Services, Gallery, Testimonials, Faq, Cta, Contact, Map, Pricing, Team             |
-| Done        | P0       | `SectionRenderer`               | Config-driven enable/disable/reorder                                                            |
-| Done        | P1       | Contact form                    | React Hook Form + Zod validation (no submission backend yet)                                    |
-| Done        | P1       | SEO document head               | Per-business title/description/keywords via `useSeo`                                            |
-| Done        | P2       | Code splitting                  | Lazy-loaded routes + vendor chunk splitting                                                     |
-| Not Started | P2       | Per-business multi-page support | `PageConfig` already supports multiple `path` entries per business; router only wires `/` today |
+| Status      | Priority | Item                            | Description                                                                                      |
+| ----------- | -------- | ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Done        | P0       | Theme engine                    | `createAppTheme` derives an MUI theme from `BusinessTheme`                                       |
+| Done        | P0       | Section library                 | Hero, About, Services, Gallery, Testimonials, Faq, Cta, Contact, Map, Pricing, Team, Appointment |
+| Done        | P0       | `SectionRenderer`               | Config-driven enable/disable/reorder                                                             |
+| Done        | P1       | Contact form                    | React Hook Form + Zod validation (no submission backend yet)                                     |
+| Done        | P1       | SEO document head               | Per-business title/description/keywords via `useSeo`                                             |
+| Done        | P2       | Code splitting                  | Lazy-loaded routes + vendor chunk splitting                                                      |
+| Not Started | P2       | Per-business multi-page support | `PageConfig` already supports multiple `path` entries per business; router only wires `/` today  |
 
 ## Admin
 
@@ -84,8 +84,25 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Not Started | P1       | Business hours           | `hours: []` — none confirmed yet                                       |
 | Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                |
 | Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now |
-| Not Started | P2       | Real logo/photos         | Logo, gallery, and team photo are all placeholders                     |
+| Not Started | P2       | Real logo/photos         | Placeholder icon graphics in place; still not real photos              |
 | Not Started | P2       | Testimonials / FAQ       | Sections disabled — no real reviews or confirmed FAQ content yet       |
+
+## Appointment Booking
+
+| Status      | Priority | Item                       | Description                                                                         |
+| ----------- | -------- | -------------------------- | ----------------------------------------------------------------------------------- |
+| Done        | P1       | `appointment` section type | Name/phone/service/date/time/note form, config-driven, reusable by any business     |
+| Done        | P1       | WhatsApp handoff           | `buildAppointmentMessage` + `toWhatsAppLink`; customer taps send, nothing automatic |
+| Not Started | P2       | Bookings persistence       | No record kept on the platform side — same pattern as `SalesDataSource` if wanted   |
+| Not Started | P2       | Real availability/slots    | Date/time are freeform; no check against actual hours or existing bookings          |
+
+## Deployment
+
+| Status      | Priority | Item                                       | Description                                                                    |
+| ----------- | -------- | ------------------------------------------ | ------------------------------------------------------------------------------ |
+| Done        | P1       | `netlify.toml` (interim, one per business) | Build/publish/SPA-redirect config; per-site `VITE_DEFAULT_BUSINESS_SLUG`       |
+| Not Started | P1       | First live deploy (Swami Hair Salon)       | Requires connecting the repo in Netlify's dashboard — not doable from the repo |
+| Not Started | P2       | Custom domain + hostname resolution        | Long-term shape once a real domain exists — see `docs/deployment.md`           |
 
 ## Backend Integration
 
