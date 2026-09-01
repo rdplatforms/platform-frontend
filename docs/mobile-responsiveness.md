@@ -24,14 +24,14 @@ benefits, not just Swami Hair Salon.
 
 ## What changed
 
-| Component                                   | Change                                                                                   |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `Hero.tsx`                                     | CTA button `Stack`: `direction={{ xs: 'column', sm: 'row' }}`, full-width buttons on `xs` |
-| `Cta.tsx`                                      | Same stacked-button fix for the Call Us / WhatsApp Us buttons                             |
-| `ClosedNoticeBanner.tsx`                       | "Get In Touch" button and its wrapping `Stack` go full-width on `xs`                      |
-| `About.tsx`, `Contact.tsx`                     | `Grid container spacing={{ xs: 3, md: 6 }}` instead of a flat `spacing={6}`               |
-| `Appointment.tsx`                              | Date/time field `Grid item` breakpoint moved from `sm` to `md`, so they stack until there's real room |
-| `Card.tsx` (`primitives`)                      | `CardMedia` now has `loading="lazy"`                                                      |
+| Component                  | Change                                                                                                |
+| -------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Hero.tsx`                 | CTA button `Stack`: `direction={{ xs: 'column', sm: 'row' }}`, full-width buttons on `xs`             |
+| `Cta.tsx`                  | Same stacked-button fix for the Call Us / WhatsApp Us buttons                                         |
+| `ClosedNoticeBanner.tsx`   | "Get In Touch" button and its wrapping `Stack` go full-width on `xs`                                  |
+| `About.tsx`, `Contact.tsx` | `Grid container spacing={{ xs: 3, md: 6 }}` instead of a flat `spacing={6}`                           |
+| `Appointment.tsx`          | Date/time field `Grid item` breakpoint moved from `sm` to `md`, so they stack until there's real room |
+| `Card.tsx` (`primitives`)  | `CardMedia` now has `loading="lazy"`                                                                  |
 
 None of this touches business content or JSON data — it's all `sx`
 breakpoint tuning on shared components, verified with
