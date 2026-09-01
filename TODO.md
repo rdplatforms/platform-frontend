@@ -67,15 +67,16 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Localization
 
-| Status      | Priority | Item                                  | Description                                                                             |
-| ----------- | -------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
-| Done        | P0       | `LocalizableText` + resolution        | Additive to existing single-language businesses; `resolveLocalizedText` unit tested     |
-| Done        | P0       | `LocaleProvider` + `LanguageSwitcher` | Wired into `AppProviders`/`Navbar`; renders nothing for single-language businesses      |
-| Done        | P1       | UI-chrome string dictionary           | `translateUi` covers nav/section defaults/form labels/buttons for en/mr                 |
-| Done        | P1       | Font loading fix                      | `typography.googleFontsUrl` + `loadGoogleFont()` — was a real gap, not Marathi-specific |
-| Done        | P1       | Swami Hair Salon bilingual content    | Real business, Marathi-first with English toggle                                        |
-| Not Started | P2       | Native-speaker review of Marathi copy | Both `uiStrings.ts` and the demo business content are a first pass                      |
-| Not Started | P3       | Additional locales                    | Only `en`/`mr` exist in `SupportedLocale` today                                         |
+| Status      | Priority | Item                                  | Description                                                                                                                     |
+| ----------- | -------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Done        | P0       | `LocalizableText` + resolution        | Additive to existing single-language businesses; `resolveLocalizedText` unit tested                                             |
+| Done        | P0       | `LocaleProvider` + `LanguageSwitcher` | Wired into `AppProviders`/`Navbar`; renders nothing for single-language businesses                                              |
+| Done        | P1       | UI-chrome string dictionary           | `translateUi` covers nav/section defaults/form labels/buttons for en/mr                                                         |
+| Done        | P1       | Font loading fix                      | `typography.googleFontsUrl` + `loadGoogleFont()` — was a real gap, not Marathi-specific                                         |
+| Done        | P1       | Per-locale heading font               | `headingFontFamilyByLocale` — a Latin-only decorative heading font was breaking Devanagari conjunct shaping; see `docs/i18n.md` |
+| Done        | P1       | Swami Hair Salon bilingual content    | Real business, Marathi-first with English toggle                                                                                |
+| Not Started | P2       | Native-speaker review of Marathi copy | Both `uiStrings.ts` and the demo business content are a first pass                                                              |
+| Not Started | P3       | Additional locales                    | Only `en`/`mr` exist in `SupportedLocale` today                                                                                 |
 
 ## Swami Hair Salon Content (Pending Confirmation)
 

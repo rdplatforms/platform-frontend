@@ -3,6 +3,31 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-02 — Fixed broken Devanagari conjunct rendering in headings
+
+The owner spotted broken-looking Marathi text in headings on the live
+Netlify preview (स्पा/स्टाइल rendering with a stray halant mark). Root
+cause: `headingFontFamily` for Swami Hair Salon was `"'Yatra One', 'Noto
+Sans Devanagari', serif"` — Yatra One is Latin-only and doesn't just fail
+to render Devanagari, it breaks _shaping_ for conjunct clusters when it's
+first in the font stack (visible in headings only, since body text never
+referenced Yatra One — that's what made it easy to isolate).
+
+- Added `ThemeTypography.headingFontFamilyByLocale` (`packages/types`) so
+  a business can override the heading font per locale.
+- `createAppTheme` now takes the current locale and prefers the override
+  when present; `AppThemeProvider` reads locale via `useLocaleContext()`
+  (already available — it sits inside `LocaleProvider`).
+- Swami Hair Salon's `mr` heading font is now the same Devanagari-safe
+  stack as its body font; English headings keep Yatra One.
+- New unit tests: `packages/providers/tests/createAppTheme.test.ts` (4
+  tests, first tests for the `providers` package).
+- See `docs/i18n.md` ("Fonts, part 2") for the full writeup and the
+  lesson for picking future decorative fonts.
+
+**Verification:** typecheck/lint/format/88 tests (84 + 4 new)/build all
+clean.
+
 ## 2026-09-02 — Owner's own photos for the gallery; appointment mobile padding
 
 - Swapped the stock Wikimedia gallery photos for real ones supplied by the

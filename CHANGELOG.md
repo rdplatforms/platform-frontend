@@ -65,3 +65,5 @@ All notable changes to this project are documented here. Format follows
   photo.
 - Fixed the Appointment form's fields sitting flush against the screen
   edge on mobile.
+- `ThemeTypography.headingFontFamilyByLocale`, fixing a Latin-only
+  decorative heading font breaking Devanagari conjunct shaping.
