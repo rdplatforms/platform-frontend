@@ -34,16 +34,16 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Website Platform
 
-| Status      | Priority | Item                            | Description                                                                                      |
-| ----------- | -------- | ------------------------------- | ------------------------------------------------------------------------------------------------ |
-| Done        | P0       | Theme engine                    | `createAppTheme` derives an MUI theme from `BusinessTheme`                                       |
-| Done        | P0       | Section library                 | Hero, About, Services, Gallery, Testimonials, Faq, Cta, Contact, Map, Pricing, Team, Appointment |
-| Done        | P0       | `SectionRenderer`               | Config-driven enable/disable/reorder                                                             |
-| Done        | P1       | Contact form                    | React Hook Form + Zod validation (no submission backend yet)                                     |
-| Done        | P1       | SEO document head               | Per-business title/description/keywords via `useSeo`                                             |
-| Done        | P2       | Code splitting                  | Lazy-loaded routes + vendor chunk splitting                                                      |
+| Status      | Priority | Item                            | Description                                                                                                               |
+| ----------- | -------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Done        | P0       | Theme engine                    | `createAppTheme` derives an MUI theme from `BusinessTheme`                                                                |
+| Done        | P0       | Section library                 | Hero, About, Services, Gallery, Testimonials, Faq, Cta, Contact, Map, Pricing, Team, Appointment                          |
+| Done        | P0       | `SectionRenderer`               | Config-driven enable/disable/reorder                                                                                      |
+| Done        | P1       | Contact form                    | React Hook Form + Zod validation (no submission backend yet)                                                              |
+| Done        | P1       | SEO document head               | Per-business title/description/keywords via `useSeo`                                                                      |
+| Done        | P2       | Code splitting                  | Lazy-loaded routes + vendor chunk splitting                                                                               |
 | Done        | P1       | Mobile responsiveness pass      | Stacked CTA buttons, tighter Grid spacing on small screens, lazy-loaded card images — see `docs/mobile-responsiveness.md` |
-| Not Started | P2       | Per-business multi-page support | `PageConfig` already supports multiple `path` entries per business; router only wires `/` today  |
+| Not Started | P2       | Per-business multi-page support | `PageConfig` already supports multiple `path` entries per business; router only wires `/` today                           |
 
 ## Admin
 
@@ -79,18 +79,19 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Swami Hair Salon Content (Pending Confirmation)
 
-| Status      | Priority | Item                     | Description                                                                                                  |
-| ----------- | -------- | ------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| Not Started | P1       | Street address           | Only coordinates + Maps link confirmed; no formatted address text yet                                        |
-| Done        | P1       | Business hours           | Tue–Sun 10:00–22:00, closed Monday                                                                           |
-| Not Started | P1       | Service pricing/duration | All three confirmed services have no price/duration set                                                      |
-| Not Started | P2       | 4th tagline item         | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now                                       |
-| Done        | P2       | Real service photos      | 3 CC-licensed Wikimedia Commons photos in place — see `services/CREDITS.md`                                  |
-| Done        | P2       | Real gallery photos      | Exterior/Interior/Styling Chair now real CC-licensed photos — see `gallery/CREDITS.md`                       |
-| Not Started | P2       | Real logo photo          | Logo still a placeholder                                                                                     |
-| Not Started | P1       | Visible photo credit     | All service + gallery photos are CC BY / CC BY-SA — need a visible on-site attribution line, not just the CREDITS.md record |
-| Not Started | P2       | Team section             | Disabled (page + nav) until there's a real photo of Shankar to replace the placeholder silhouette            |
-| Not Started | P2       | Testimonials / FAQ       | Sections disabled — no real reviews or confirmed FAQ content yet                                             |
+| Status      | Priority | Item                        | Description                                                                                                                                                                                             |
+| ----------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Not Started | P1       | Street address              | Only coordinates + Maps link confirmed; no formatted address text yet                                                                                                                                   |
+| Done        | P1       | Business hours              | Tue–Sun 10:00–22:00, closed Monday                                                                                                                                                                      |
+| Not Started | P1       | Service pricing/duration    | All three confirmed services have no price/duration set                                                                                                                                                 |
+| Not Started | P2       | 4th tagline item            | "ब्रिज इम्प्लांट" read off signage but not confirmed — omitted for now                                                                                                                                  |
+| Done        | P2       | Real service photos         | 3 CC-licensed Wikimedia Commons photos in place — see `services/CREDITS.md`                                                                                                                             |
+| Done        | P2       | Real gallery photos         | Exterior/Interior now the owner's own storefront photo; Styling Chair is a supplied product photo — see `gallery/CREDITS.md`                                                                            |
+| Not Started | P0       | Styling chair photo license | Source/license of `styling-chair.jpg` is unknown (looks like a retailer/manufacturer product shot) — confirm with the owner it's cleared for use, or replace it, before this goes beyond a one-day demo |
+| Not Started | P2       | Real logo photo             | Logo still a placeholder                                                                                                                                                                                |
+| Not Started | P1       | Visible photo credit        | Service photos are CC BY 2.0 — need a visible on-site attribution line, not just the CREDITS.md record                                                                                                  |
+| Not Started | P2       | Team section                | Disabled (page + nav) until there's a real photo of Shankar to replace the placeholder silhouette                                                                                                       |
+| Not Started | P2       | Testimonials / FAQ          | Sections disabled — no real reviews or confirmed FAQ content yet                                                                                                                                        |
 
 ## Appointment Booking
 

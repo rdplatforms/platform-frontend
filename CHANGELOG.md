@@ -60,4 +60,8 @@ All notable changes to this project are documented here. Format follows
   (stacked CTA buttons, tighter grid spacing, lazy-loaded card images) —
   see `docs/mobile-responsiveness.md`.
 - Swami Hair Salon's three Gallery placeholder icons replaced with real,
-  license-verified photos.
+  license-verified photos, then Exterior/Interior swapped again for the
+  owner's own storefront photo and Styling Chair for a supplied product
+  photo.
+- Fixed the Appointment form's fields sitting flush against the screen
+  edge on mobile.

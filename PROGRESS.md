@@ -3,6 +3,22 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-02 — Owner's own photos for the gallery; appointment mobile padding
+
+- Swapped the stock Wikimedia gallery photos for real ones supplied by the
+  owner: their actual storefront photo now covers both Exterior and
+  Interior (only one real shop photo exists so far), and a supplied
+  product photo covers Styling Chair. The storefront photo needs no
+  license/attribution since it's the salon's own; the chair photo's
+  source is unknown and flagged as a P0 TODO to confirm before this goes
+  beyond a one-day demo — see `gallery/CREDITS.md`.
+- Fixed the Appointment section's mobile form fields sitting flush against
+  the screen edge: MUI's legacy `Grid container spacing={2}` applies a
+  negative margin that bleeds past its wrapping element, compensated with
+  matching `px` on the form's outer `Stack`, scoped to `xs` only.
+
+**Verification:** typecheck/lint/format/84 tests/build all clean.
+
 ## 2026-09-02 — Mobile responsiveness pass + real gallery photos
 
 - Fixed several small-screen issues found on inspection: side-by-side CTA
