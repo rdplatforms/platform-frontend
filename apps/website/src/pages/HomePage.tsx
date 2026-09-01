@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from '@mui/material';
 import type { SectionConfig, SupportedLocale } from '@rdplatforms/types';
 import { useBusiness, useLocale, usePageSections } from '@rdplatforms/hooks';
-import { Footer, Navbar, SectionRenderer, type NavItem } from '@rdplatforms/ui';
+import { ClosedNoticeBanner, Footer, Navbar, SectionRenderer, type NavItem } from '@rdplatforms/ui';
 import { translateUi, type UiStringKey } from '@rdplatforms/utils';
 
 const NAV_LABEL_KEYS: Partial<Record<SectionConfig['type'], UiStringKey>> = {
@@ -44,6 +44,7 @@ export function HomePage() {
 
   return (
     <>
+      <ClosedNoticeBanner business={business} />
       <Navbar
         business={business}
         navItems={toNavItems(sections, locale)}
