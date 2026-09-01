@@ -1,10 +1,10 @@
 # Photo Credits
 
 Real, properly-licensed stock photos from Wikimedia Commons, downloaded and
-resized (max 900px, re-compressed) for this site. Two require attribution
-under their license — that obligation is not satisfied just by this file
-existing; see the note in `docs/appointments.md` / raised in chat about
-adding a visible "Photo credits" line on the live site.
+resized (max 900px, re-compressed) for this site. All three are CC BY 2.0
+and require attribution — that obligation is not satisfied just by this
+file existing; still need a visible "Photo credits" line on the live site
+(tracked in TODO.md).
 
 ## haircut.jpg
 
@@ -20,6 +20,7 @@ adding a visible "Photo credits" line on the live site.
 
 ## hair-styling.jpg
 
-- Source: [Hair_Dresser_02.jpg](https://commons.wikimedia.org/wiki/File:Hair_Dresser_02.jpg)
-- Author: Minette Lontsie
-- License: CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/
+- Source: [Hair salon (51212326557).jpg](<https://commons.wikimedia.org/wiki/File:Hair_salon_(51212326557).jpg>)
+- Author/credit: Hair Spies (hairspies.com)
+- License: CC BY 2.0 — https://creativecommons.org/licenses/by/2.0/
+- (Replaced the original Hair_Dresser_02.jpg pick — same license family, better fit for the salon's gold/black premium branding.)
