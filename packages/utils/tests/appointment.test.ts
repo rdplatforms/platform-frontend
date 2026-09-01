@@ -4,7 +4,6 @@ import { buildAppointmentMessage } from '../src/appointment';
 describe('buildAppointmentMessage', () => {
   const base = {
     customerName: 'Priya Sharma',
-    customerPhone: '9876543210',
     serviceName: 'Hair Cutting',
     preferredDate: '2026-08-10',
     preferredTime: '15:30',
@@ -14,10 +13,14 @@ describe('buildAppointmentMessage', () => {
     const message = buildAppointmentMessage(base, 'en');
     expect(message).toContain('New Appointment Request');
     expect(message).toContain('Name: Priya Sharma');
-    expect(message).toContain('Phone: 9876543210');
     expect(message).toContain('Service: Hair Cutting');
     expect(message).toContain('Preferred Date: 2026-08-10');
     expect(message).toContain('Preferred Time: 15:30');
+  });
+
+  it('does not include a phone line — WhatsApp already reveals the sender', () => {
+    const message = buildAppointmentMessage(base, 'en');
+    expect(message).not.toContain('Phone');
   });
 
   it('formats a Marathi message using Marathi labels', () => {

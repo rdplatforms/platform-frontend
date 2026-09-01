@@ -12,6 +12,7 @@
     "@rdplatforms/contexts": "workspace:*",
     "@rdplatforms/services": "workspace:*",
     "@rdplatforms/types": "workspace:*",
+    "@rdplatforms/utils": "workspace:*",
     "@tanstack/react-query": "^5.62.0"
   },
   "peerDependencies": {

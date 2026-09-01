@@ -39,6 +39,7 @@ const UI_STRINGS = {
     visitUs: 'Visit Us',
     name: 'Name',
     email: 'Email',
+    emailOptional: 'Email (optional)',
     message: 'Message',
     customerOptional: 'Customer (optional)',
     noteOptional: 'Note (optional)',
@@ -60,6 +61,13 @@ const UI_STRINGS = {
     sendViaWhatsApp: 'Send via WhatsApp',
     appointmentRequestHeading: 'New Appointment Request',
     appointmentSentMessage: 'WhatsApp is open with your request ready — just hit send.',
+    contactSentMessage: 'WhatsApp is open with your message ready — just hit send.',
+    dateMustNotBePast: 'Please pick today or a later date',
+    selectTimeSlot: 'Select a time',
+    closedOnThisDay: "We're closed that day — please pick another date.",
+    closedBannerTitle: "We're Currently Closed",
+    closedBannerMessage:
+      'Come back during business hours, or send us a message and we’ll get back to you.',
   },
   mr: {
     navAbout: 'आमच्याविषयी',
@@ -88,6 +96,7 @@ const UI_STRINGS = {
     visitUs: 'आम्हाला भेट द्या',
     name: 'नाव',
     email: 'ईमेल',
+    emailOptional: 'ईमेल (ऐच्छिक)',
     message: 'मेसेज',
     customerOptional: 'ग्राहकाचे नाव (ऐच्छिक)',
     noteOptional: 'टीप (ऐच्छिक)',
@@ -109,6 +118,13 @@ const UI_STRINGS = {
     sendViaWhatsApp: 'व्हॉट्सअॅपने पाठवा',
     appointmentRequestHeading: 'नवीन भेटीची विनंती',
     appointmentSentMessage: 'तुमची विनंती व्हॉट्सअॅपवर तयार आहे — फक्त पाठवा दाबा.',
+    contactSentMessage: 'तुमचा मेसेज व्हॉट्सअॅपवर तयार आहे — फक्त पाठवा दाबा.',
+    dateMustNotBePast: 'कृपया आजची किंवा पुढील तारीख निवडा',
+    selectTimeSlot: 'वेळ निवडा',
+    closedOnThisDay: 'त्या दिवशी आम्ही बंद असतो — कृपया दुसरी तारीख निवडा.',
+    closedBannerTitle: 'आम्ही सध्या बंद आहोत',
+    closedBannerMessage:
+      'कामाच्या वेळेत पुन्हा भेट द्या, किंवा आम्हाला मेसेज पाठवा — आम्ही लवकरच संपर्क करू.',
   },
 } satisfies Record<SupportedLocale, Record<string, string>>;
 

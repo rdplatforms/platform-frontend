@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { Alert, Grid, MenuItem, Stack, TextField } from '@mui/material';
-import { useLocale, useServices } from '@rdplatforms/hooks';
+import type { SupportedLocale } from '@rdplatforms/types';
+import { useLocale, useServices, useSettings, useWhatsAppSubmit } from '@rdplatforms/hooks';
 import {
   buildAppointmentMessage,
+  generateTimeSlots,
+  getBusinessHoursForDate,
   resolveLocalizedText,
-  toWhatsAppLink,
   translateUi,
 } from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
@@ -15,37 +17,56 @@ import { PageSection } from '../primitives/PageSection';
 import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
-const appointmentFormSchema = z.object({
-  customerName: z.string().min(2, 'Please enter your name'),
-  customerPhone: z.string().min(7, 'Please enter a valid phone number'),
-  serviceId: z.string().min(1, 'Please select a service'),
-  preferredDate: z.string().min(1, 'Please pick a date'),
-  preferredTime: z.string().min(1, 'Please pick a time'),
-  note: z.string().optional(),
-});
+function todayDateString(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(
+    now.getDate(),
+  ).padStart(2, '0')}`;
+}
 
-type AppointmentFormValues = z.infer<typeof appointmentFormSchema>;
+function createAppointmentFormSchema(locale: SupportedLocale) {
+  const today = todayDateString();
+  return z.object({
+    customerName: z.string().min(2, 'Please enter your name'),
+    serviceId: z.string().min(1, 'Please select a service'),
+    preferredDate: z
+      .string()
+      .min(1, 'Please pick a date')
+      .refine((value) => value >= today, translateUi('dateMustNotBePast', locale)),
+    preferredTime: z.string().min(1, 'Please pick a time'),
+    note: z.string().optional(),
+  });
+}
+
+type AppointmentFormValues = z.infer<ReturnType<typeof createAppointmentFormSchema>>;
 
 /**
  * No backend exists to receive a booking, so this hands off to WhatsApp
  * instead: the message is prefilled, but the customer taps send — nothing
  * is delivered silently. See docs/appointments.md for the full reasoning.
+ * Available time slots come entirely from the business's own
+ * BusinessHours + BusinessSettings.appointmentSlotMinutes — see
+ * docs/business-hours.md.
  */
 export function Appointment({ business, config }: SectionProps) {
   const { locale } = useLocale();
   const { data: services } = useServices(business.id);
-  const [sent, setSent] = useState(false);
+  const { data: settings } = useSettings(business.id);
+  const whatsappNumber = business.contact.whatsapp ?? business.contact.phone;
+  const { sent, send, reset: dismissSent } = useWhatsAppSubmit(whatsappNumber);
+
+  const schema = useMemo(() => createAppointmentFormSchema(locale), [locale]);
 
   const {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<AppointmentFormValues>({
-    resolver: zodResolver(appointmentFormSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       customerName: '',
-      customerPhone: '',
       serviceId: '',
       preferredDate: '',
       preferredTime: '',
@@ -53,7 +74,18 @@ export function Appointment({ business, config }: SectionProps) {
     },
   });
 
-  const whatsappNumber = business.contact.whatsapp ?? business.contact.phone;
+  const selectedDate = useWatch({ control, name: 'preferredDate' });
+  const slotMinutes = settings?.appointmentSlotMinutes ?? 60;
+  const dayHours = selectedDate ? getBusinessHoursForDate(business.hours, selectedDate) : undefined;
+  const isClosedOnSelectedDate = Boolean(dayHours?.isClosed);
+  const timeSlots =
+    dayHours && !dayHours.isClosed && dayHours.opensAt && dayHours.closesAt
+      ? generateTimeSlots(dayHours.opensAt, dayHours.closesAt, slotMinutes)
+      : [];
+
+  useEffect(() => {
+    setValue('preferredTime', '');
+  }, [selectedDate, setValue]);
 
   const onSubmit = handleSubmit((values) => {
     const service = services?.find((item) => item.id === values.serviceId);
@@ -62,7 +94,6 @@ export function Appointment({ business, config }: SectionProps) {
     const message = buildAppointmentMessage(
       {
         customerName: values.customerName,
-        customerPhone: values.customerPhone,
         serviceName,
         preferredDate: values.preferredDate,
         preferredTime: values.preferredTime,
@@ -71,8 +102,7 @@ export function Appointment({ business, config }: SectionProps) {
       locale,
     );
 
-    window.open(toWhatsAppLink(whatsappNumber, message), '_blank', 'noopener,noreferrer');
-    setSent(true);
+    send(message);
     reset();
   });
 
@@ -84,7 +114,7 @@ export function Appointment({ business, config }: SectionProps) {
       />
 
       {sent ? (
-        <Alert severity="success" onClose={() => setSent(false)} sx={{ maxWidth: 640, mx: 'auto' }}>
+        <Alert severity="success" onClose={dismissSent} sx={{ maxWidth: 640, mx: 'auto' }}>
           {translateUi('appointmentSentMessage', locale)}
         </Alert>
       ) : (
@@ -96,7 +126,7 @@ export function Appointment({ business, config }: SectionProps) {
           sx={{ maxWidth: 640, mx: 'auto' }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <Controller
                 name="customerName"
                 control={control}
@@ -106,21 +136,6 @@ export function Appointment({ business, config }: SectionProps) {
                     label={translateUi('name', locale)}
                     error={!!errors.customerName}
                     helperText={errors.customerName?.message}
-                    fullWidth
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name="customerPhone"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label={translateUi('phone', locale)}
-                    error={!!errors.customerPhone}
-                    helperText={errors.customerPhone?.message}
                     fullWidth
                   />
                 )}
@@ -163,6 +178,7 @@ export function Appointment({ business, config }: SectionProps) {
                     error={!!errors.preferredDate}
                     helperText={errors.preferredDate?.message}
                     InputLabelProps={{ shrink: true }}
+                    inputProps={{ min: todayDateString() }}
                     fullWidth
                   />
                 )}
@@ -175,13 +191,26 @@ export function Appointment({ business, config }: SectionProps) {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    type="time"
+                    select
                     label={translateUi('preferredTime', locale)}
-                    error={!!errors.preferredTime}
-                    helperText={errors.preferredTime?.message}
-                    InputLabelProps={{ shrink: true }}
+                    error={!!errors.preferredTime || isClosedOnSelectedDate}
+                    helperText={
+                      isClosedOnSelectedDate
+                        ? translateUi('closedOnThisDay', locale)
+                        : errors.preferredTime?.message
+                    }
+                    disabled={!selectedDate || isClosedOnSelectedDate}
                     fullWidth
-                  />
+                  >
+                    <MenuItem value="" disabled>
+                      {translateUi('selectTimeSlot', locale)}
+                    </MenuItem>
+                    {timeSlots.map((slot) => (
+                      <MenuItem key={slot} value={slot}>
+                        {slot}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 )}
               />
             </Grid>
@@ -195,12 +224,7 @@ export function Appointment({ business, config }: SectionProps) {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            size="large"
-            disabled={isSubmitting}
-            sx={{ alignSelf: { xs: 'stretch', sm: 'flex-start' } }}
-          >
+          <Button type="submit" size="large" disabled={isSubmitting} sx={{ alignSelf: 'center' }}>
             {translateUi('sendViaWhatsApp', locale)}
           </Button>
         </Stack>

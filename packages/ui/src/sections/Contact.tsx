@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Alert, Grid, Stack, TextField, Typography } from '@mui/material';
-import { useLocale } from '@rdplatforms/hooks';
+import { useLocale, useWhatsAppSubmit } from '@rdplatforms/hooks';
 import {
+  buildContactMessage,
   formatAddressLine,
   formatPhoneForDisplay,
   resolveLocalizedText,
@@ -17,21 +17,23 @@ import type { SectionProps } from './types';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Please enter your name'),
-  email: z.string().email('Enter a valid email address'),
+  email: z.string().email('Enter a valid email address').optional().or(z.literal('')),
   message: z.string().min(10, 'Message should be at least 10 characters'),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 /**
- * There is no backend to submit to yet, so this only validates and shows a
- * confirmation state. Swapping in a real submission handler later does not
- * change the form contract — see docs/future-backend-contract.md.
+ * No backend exists to submit to, so — same as Appointment — this hands
+ * off to WhatsApp: the message is prefilled, the visitor taps send. See
+ * docs/appointments.md for the shared reasoning.
  */
 export function Contact({ business, config }: SectionProps) {
   const { locale } = useLocale();
   const addressLine = formatAddressLine(business.contact.address);
-  const [submitted, setSubmitted] = useState(false);
+  const whatsappNumber = business.contact.whatsapp ?? business.contact.phone;
+  const { sent, send, reset: dismissSent } = useWhatsAppSubmit(whatsappNumber);
+
   const {
     control,
     handleSubmit,
@@ -42,9 +44,12 @@ export function Contact({ business, config }: SectionProps) {
     defaultValues: { name: '', email: '', message: '' },
   });
 
-  const onSubmit = handleSubmit(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setSubmitted(true);
+  const onSubmit = handleSubmit((values) => {
+    const message = buildContactMessage(
+      { name: values.name, email: values.email || undefined, message: values.message },
+      locale,
+    );
+    send(message);
     reset();
   });
 
@@ -72,9 +77,9 @@ export function Contact({ business, config }: SectionProps) {
         </Grid>
 
         <Grid item xs={12} md={7}>
-          {submitted ? (
-            <Alert severity="success" onClose={() => setSubmitted(false)}>
-              {translateUi('thankYouMessage', locale)}
+          {sent ? (
+            <Alert severity="success" onClose={dismissSent}>
+              {translateUi('contactSentMessage', locale)}
             </Alert>
           ) : (
             <Stack component="form" spacing={2} onSubmit={onSubmit} noValidate>
@@ -97,7 +102,7 @@ export function Contact({ business, config }: SectionProps) {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translateUi('email', locale)}
+                    label={translateUi('emailOptional', locale)}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                     fullWidth
@@ -123,9 +128,9 @@ export function Contact({ business, config }: SectionProps) {
                 type="submit"
                 size="large"
                 disabled={isSubmitting}
-                sx={{ alignSelf: 'flex-start' }}
+                sx={{ alignSelf: 'center' }}
               >
-                {translateUi('sendMessage', locale)}
+                {translateUi('sendViaWhatsApp', locale)}
               </Button>
             </Stack>
           )}
