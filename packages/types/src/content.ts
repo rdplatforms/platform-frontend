@@ -106,4 +106,10 @@ export interface BusinessSettings {
    * business until real auth exists (see docs/future-admin.md).
    */
   dashboardPasscode?: string;
+  /**
+   * Appointment time-slot length in minutes for the Appointment section
+   * (see docs/appointments.md). Defaults to 60 when unset — change this
+   * instead of touching any code to offer 30-minute slots, etc.
+   */
+  appointmentSlotMinutes?: number;
 }
