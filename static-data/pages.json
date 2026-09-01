@@ -10,12 +10,12 @@
         { "type": "services", "enabled": true, "order": 3 },
         { "type": "appointment", "enabled": true, "order": 4 },
         { "type": "gallery", "enabled": true, "order": 5 },
-        { "type": "team", "enabled": true, "order": 6 },
         { "type": "cta", "enabled": true, "order": 7 },
         { "type": "contact", "enabled": true, "order": 8 },
         { "type": "map", "enabled": true, "order": 9 },
         { "type": "testimonials", "enabled": false, "order": 10 },
-        { "type": "faq", "enabled": false, "order": 11 }
+        { "type": "faq", "enabled": false, "order": 11 },
+        { "type": "team", "enabled": false, "order": 6 }
       ]
     }
   ],
