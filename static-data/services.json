@@ -8,7 +8,7 @@
         "mr": "अनुभवी कारागिरांकडून व्यावसायिक हेअर कटिंग.",
         "en": "Professional hair cutting from experienced barbers."
       },
-      "imageUrl": "/assets/businesses/swami-hair-salon/services/haircut.svg",
+      "imageUrl": "/assets/businesses/swami-hair-salon/services/haircut.jpg",
       "category": "Hair",
       "isFeatured": true
     },
@@ -20,7 +20,7 @@
         "mr": "केसांच्या पोषणासाठी आणि आरामासाठी हेअर स्पा ट्रीटमेंट.",
         "en": "A nourishing hair spa treatment for healthy, relaxed hair."
       },
-      "imageUrl": "/assets/businesses/swami-hair-salon/services/hair-spa.svg",
+      "imageUrl": "/assets/businesses/swami-hair-salon/services/hair-spa.jpg",
       "category": "Spa",
       "isFeatured": true
     },
@@ -32,7 +32,7 @@
         "mr": "प्रत्येक प्रसंगासाठी खास हेअर स्टाइलिंग.",
         "en": "Custom hair styling for every occasion."
       },
-      "imageUrl": "/assets/businesses/swami-hair-salon/services/hair-styling.svg",
+      "imageUrl": "/assets/businesses/swami-hair-salon/services/hair-styling.jpg",
       "category": "Hair",
       "isFeatured": true
     }
