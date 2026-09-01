@@ -3,6 +3,18 @@
 Running log of implementation progress. Update this after every completed
 feature or milestone. Newest entries first.
 
+## 2026-09-02 — Fixed a broken Marathi "WhatsApp" spelling
+
+Separate from the font fix above: the owner spotted the WhatsApp button
+still rendering broken text after that fix. Different bug, same family —
+`uiStrings.ts` spelled व्हॉट्सॲप as अ (independent vowel letter) + ॅ
+(a combining mark meant to attach to a consonant, not another vowel
+letter), which has no defined glyph composition in most fonts. Replaced
+with the correct precomposed letter ॲ (U+0972) in all four strings that
+had it. See `docs/i18n.md` ("Fonts, part 3").
+
+**Verification:** typecheck/lint/format/88 tests/build all clean.
+
 ## 2026-09-02 — Fixed broken Devanagari conjunct rendering in headings
 
 The owner spotted broken-looking Marathi text in headings on the live
