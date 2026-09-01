@@ -1,3 +1,5 @@
+import type { SupportedLocale } from './locale';
+
 /**
  * Business-level theme configuration. This is the contract the website's
  * theme engine reads to derive an MUI theme at runtime — no per-business code.
@@ -9,6 +11,17 @@ export type FontPairing = 'modern-sans' | 'classic-serif' | 'editorial';
 export interface ThemeTypography {
   fontFamily: string;
   headingFontFamily?: string;
+  /**
+   * Per-locale override for headingFontFamily. A decorative/display font
+   * that only covers Latin script (e.g. a stylized English heading face)
+   * will silently break complex-script shaping — conjuncts and vowel
+   * signs in Devanagari, for instance — when it's the first family in the
+   * stack, even though it "falls back" to a real Devanagari font later in
+   * that same string. Set headingFontFamily[locale] to a font that
+   * actually supports that script; unset locales fall back to the plain
+   * headingFontFamily above.
+   */
+  headingFontFamilyByLocale?: Partial<Record<SupportedLocale, string>>;
   pairing: FontPairing;
   /**
    * A Google Fonts CSS2 API URL (the href you'd put on a <link>) covering
