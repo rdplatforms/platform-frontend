@@ -9,6 +9,9 @@
     "typography": {
       "fontFamily": "'Noto Sans Devanagari', 'Inter', sans-serif",
       "headingFontFamily": "'Yatra One', 'Noto Sans Devanagari', serif",
+      "headingFontFamilyByLocale": {
+        "mr": "'Noto Sans Devanagari', 'Inter', sans-serif"
+      },
       "pairing": "modern-sans",
       "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"
     },
