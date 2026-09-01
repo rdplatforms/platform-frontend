@@ -4,10 +4,11 @@
     "currency": "INR",
     "locale": "en-IN",
     "timezone": "Asia/Kolkata",
-    "bookingEnabled": false,
+    "bookingEnabled": true,
     "whatsappEnabled": true,
     "maintenanceMode": false,
-    "dashboardPasscode": "7076"
+    "dashboardPasscode": "7076",
+    "appointmentSlotMinutes": 60
   },
   "urban-bistro": {
     "businessId": "urban-bistro",

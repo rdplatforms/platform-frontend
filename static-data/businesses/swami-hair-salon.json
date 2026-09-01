@@ -30,7 +30,15 @@
       "longitude": 73.949945
     }
   },
-  "hours": [],
+  "hours": [
+    { "day": "monday", "opensAt": null, "closesAt": null, "isClosed": true },
+    { "day": "tuesday", "opensAt": "10:00", "closesAt": "22:00", "isClosed": false },
+    { "day": "wednesday", "opensAt": "10:00", "closesAt": "22:00", "isClosed": false },
+    { "day": "thursday", "opensAt": "10:00", "closesAt": "22:00", "isClosed": false },
+    { "day": "friday", "opensAt": "10:00", "closesAt": "22:00", "isClosed": false },
+    { "day": "saturday", "opensAt": "10:00", "closesAt": "22:00", "isClosed": false },
+    { "day": "sunday", "opensAt": "10:00", "closesAt": "22:00", "isClosed": false }
+  ],
   "social": {},
   "domains": ["swami-hair-salon.rdplatforms.dev"],
   "isActive": true,
