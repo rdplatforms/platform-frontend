@@ -20,11 +20,13 @@ components or forked code paths. Onboarding business #4 should never require
 a new component, a new route, or a code review of business logic; it should
 require a new data record.
 
-Today that data is static JSON (see `static-data/`). There is no backend
-yet. The frontend is deliberately architected so that swapping the JSON
-files for a Spring Boot REST API later touches one layer
-(`@rdplatforms/services`) and nothing else — not components, not hooks, not
-pages. See [docs/future-backend-contract.md](docs/future-backend-contract.md).
+That data can be static JSON (see `static-data/`) or a real Spring Boot
+API (see `backend/`) — an env var away, no code change either way (see
+`packages/services/src/dataSource/activeDataSource.ts`). Static JSON
+remains the default; the backend today serves the same read-only content
+(see [TASKS.md](TASKS.md) for what's implemented so far) — write
+endpoints, auth, and roles are still ahead. See
+[docs/future-backend-contract.md](docs/future-backend-contract.md).
 
 ## Architecture at a glance
 
@@ -38,10 +40,10 @@ BusinessResolver   — "which business is this request for?"
 BusinessService / *Service   — the only things that know where data lives
         │
         ▼
-JsonDataSource (today)  →  HttpDataSource (future, same interface)
+activeDataSource   — JsonDataSource or HttpDataSource, by env var
         │
         ▼
-static-data/*.json (today)  →  Spring Boot API (future)
+static-data/*.json  or  backend/ (Spring Boot + Postgres)
 ```
 
 Full detail: [ARCHITECTURE.md](ARCHITECTURE.md) and

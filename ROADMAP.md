@@ -40,11 +40,11 @@ The reusable, config-driven public website.
 
 See [docs/future-admin.md](docs/future-admin.md).
 
-## Phase 4 — Backend Integration ⬜ Not started
+## Phase 4 — Backend Integration 🟡 In progress — see [TASKS.md](TASKS.md)
 
-- [ ] Spring Boot API implementing the contracts in [docs/future-backend-contract.md](docs/future-backend-contract.md)
-- [ ] `HttpDataSource` implementations of every `*DataSource` interface in `@rdplatforms/services`
-- [ ] Authentication/session handling for the admin
+- [x] Spring Boot API implementing the read-only contracts in [docs/future-backend-contract.md](docs/future-backend-contract.md) (TASKS.md Milestone 1)
+- [x] `HttpDataSource` implementations of every read-only `*DataSource` interface in `@rdplatforms/services` (TASK-005)
+- [ ] Authentication/session handling for Super Admin/Business Owner/Staff (TASKS.md Milestone 2)
 - [ ] Replace static `BUSINESSES_BY_SLUG` registry with a real business directory lookup (by hostname) at the API layer
 
 ## Phase 5 — Appointments ⬜ Not started

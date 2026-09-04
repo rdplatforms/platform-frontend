@@ -75,17 +75,19 @@ everything. That's a deliberate, temporary tradeoff to ship something
 useful with zero backend infrastructure — not a recommendation to rely on
 it for real bookkeeping.
 
-### Migrating to MongoDB Atlas (or any real backend)
+### Migrating to the real backend
 
-A browser can never talk to MongoDB directly — there's no secure driver
-for that, so a small API always sits in front of it (Express, a serverless
-function, or a slice of the eventual Spring Boot backend from
-[future-backend-contract.md](future-backend-contract.md)). The migration
-is the same shape already documented there:
+A browser can never talk to a database directly, so a small API always
+sits in front of it — that's `backend/` (Spring Boot + Postgres; see
+[future-backend-contract.md](future-backend-contract.md) and
+`backend/README.md`). This doc previously said MongoDB Atlas — that was
+never built; the backend that actually exists is Postgres, and the
+unified `Sale` entity that will replace `SaleEntry` (TASKS.md Milestone 4) lives there, not in a separate Mongo store. The migration is the same
+shape already documented there:
 
 1. Stand up write endpoints matching `SalesDataSource`'s three methods
    (`GET /businesses/{id}/sales`, `POST /businesses/{id}/sales`, `DELETE
-/businesses/{id}/sales/{saleId}`), backed by MongoDB.
+/businesses/{id}/sales/{saleId}`), backed by Postgres.
 2. Implement an `HttpSalesDataSource` against the same `SalesDataSource`
    interface.
 3. Swap `SalesService`'s constructor argument from

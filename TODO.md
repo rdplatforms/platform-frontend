@@ -26,11 +26,11 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Services Layer
 
-| Status      | Priority | Item                     | Description                                                                           |
-| ----------- | -------- | ------------------------ | ------------------------------------------------------------------------------------- |
-| Done        | P0       | `*DataSource` interfaces | One per content type, implemented by `JsonDataSource`                                 |
-| Done        | P0       | `*Service` classes       | Business, ServiceCatalog, Gallery, Testimonial, Theme, Seo, Page, Faq, Team, Settings |
-| Not Started | P0       | `HttpDataSource`         | Real REST implementation once the backend exists                                      |
+| Status | Priority | Item                     | Description                                                                            |
+| ------ | -------- | ------------------------ | -------------------------------------------------------------------------------------- |
+| Done   | P0       | `*DataSource` interfaces | One per content type, implemented by `JsonDataSource`                                  |
+| Done   | P0       | `*Service` classes       | Business, ServiceCatalog, Gallery, Testimonial, Theme, Seo, Page, Faq, Team, Settings  |
+| Done   | P0       | `HttpDataSource`         | Real REST implementation against `backend/`, behind `VITE_API_BASE_URL` — see TASKS.md |
 
 ## Website Platform
 
@@ -56,14 +56,14 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 
 ## Business Owner Dashboard
 
-| Status      | Priority | Item                                 | Description                                                                               |
-| ----------- | -------- | ------------------------------------ | ----------------------------------------------------------------------------------------- |
-| Done        | P1       | Sales logging (`/dashboard`)         | Log a service/product sale, view totals (today/week/month/all-time), delete an entry      |
-| Done        | P1       | `SalesDataSource` (localStorage)     | First write-capable data source; per-business namespaced, unit tested with a fake storage |
-| Not Started | P0       | Real authentication                  | Passcode gate is a placeholder — see `docs/business-dashboard.md`                         |
-| Not Started | P1       | MongoDB-backed `HttpSalesDataSource` | Needs a small API in front of Mongo; same swap pattern as `HttpDataSource`                |
-| Not Started | P2       | Edit an existing sale entry          | v1 only supports create + delete                                                          |
-| Not Started | P2       | Real product catalog                 | Products are free-text on the entry today, not their own type                             |
+| Status      | Priority | Item                                  | Description                                                                                 |
+| ----------- | -------- | ------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Done        | P1       | Sales logging (`/dashboard`)          | Log a service/product sale, view totals (today/week/month/all-time), delete an entry        |
+| Done        | P1       | `SalesDataSource` (localStorage)      | First write-capable data source; per-business namespaced, unit tested with a fake storage   |
+| Not Started | P0       | Real authentication                   | Passcode gate is a placeholder — see `docs/business-dashboard.md`                           |
+| Not Started | P1       | Postgres-backed `HttpSalesDataSource` | Superseded by the unified `Sale` entity in TASKS.md Milestone 4, not a standalone Mongo API |
+| Not Started | P2       | Edit an existing sale entry           | v1 only supports create + delete                                                            |
+| Not Started | P2       | Real product catalog                  | Products are free-text on the entry today, not their own type                               |
 
 ## Localization
 

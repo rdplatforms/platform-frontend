@@ -1,44 +1,46 @@
-# Future Backend Contract
+# Backend Contract
 
-This document is the handoff spec for whoever builds the Spring Boot
-backend: what shapes it needs to return, and exactly where those responses
-plug into the existing frontend. Nothing on the frontend should need to
-change beyond `packages/services/src/dataSource` when this is implemented.
+**Status: the read-only surface below is implemented** (TASKS.md
+Milestone 1, TASK-001–005) — `backend/` is a real Spring Boot + Postgres
+API, and the frontend can call it today. This document remains the
+reference for that seam: what shapes it returns, and where those
+responses plug into the frontend. Write endpoints, auth, and roles are
+still ahead (see TASKS.md Milestones 2+) — this doc will keep growing as
+those land, not get replaced by a new one.
 
 ## The seam
 
 Every `*DataSource` interface in
-`packages/services/src/dataSource/types.ts` is the contract. Today,
-`JsonDataSource` implements all of them by reading `static-data/`. The
-backend's job is to make an `HttpDataSource` that implements the same
-interfaces by calling real endpoints — same method signatures, same return
-types (from `@rdplatforms/types`), same `Promise`-based shape.
+`packages/services/src/dataSource/types.ts` is the contract.
+`JsonDataSource` (`packages/services/src/dataSource/JsonDataSource.ts`)
+implements all of them by reading `static-data/`; `HttpDataSource`
+(`packages/services/src/dataSource/HttpDataSource.ts`) implements the
+same interfaces by calling `backend/`'s real endpoints — same method
+signatures, same return types (from `@rdplatforms/types`), same
+`Promise`-based shape, so nothing above `packages/services` needed to
+change.
 
-```ts
-// packages/services/src/dataSource/HttpDataSource.ts (future)
-export class HttpDataSource implements
-  BusinessDataSource, ServiceCatalogDataSource, GalleryDataSource, /* ... */
-{
-  async getBusinessBySlug(slug: string) {
-    const res = await fetch(`${API_BASE}/businesses/by-slug/${slug}`);
-    if (!res.ok) return undefined;
-    return res.json() as Promise<Business>;
-  }
-  // ...
-}
-```
+`packages/services/src/dataSource/activeDataSource.ts` is the actual
+switch: every read-only `*Service` singleton constructs against
+`activeDataSource`, which resolves to `HttpDataSource` when
+`VITE_API_BASE_URL` is set, `JsonDataSource` otherwise. Set that env var
+to point the frontend at a running `backend/` (see `backend/README.md`
+for how to run it locally, including CORS setup).
 
-Then each `*Service`'s exported singleton (e.g. `businessService` in
-`packages/services/src/BusinessService.ts`) swaps its constructor argument
-from `jsonDataSource` to a shared `httpDataSource` instance. That's the
-entire migration — no changes to `packages/hooks`, `packages/ui`,
-`packages/business`, or either app.
+On the backend side: every entity (`backend/src/main/java/com/rdplatforms/backend/{business,content}/`)
+stores its full record as a JSONB `data` column rather than modeling
+every nested field into JPA columns — see `backend/README.md`'s "Data
+model" section for why. Controllers
+(`BusinessController`, `BusinessContentController`) return that JSON
+straight through as a `JsonNode`, guaranteeing field-for-field fidelity
+with `packages/types/src/*.ts` by construction.
 
-## Suggested REST surface
+## REST surface
 
-Base path: `api.rdplatforms.com` (see [deployment.md](deployment.md)).
-Response bodies should match the corresponding type in
-`packages/types/src/*.ts` field-for-field.
+Base path today: `http://localhost:8081` (see `backend/README.md`) — a
+real deployed base path isn't chosen yet (see [deployment.md](deployment.md)).
+Response bodies match the corresponding type in `packages/types/src/*.ts`
+field-for-field.
 
 | Method | Path                                            | Maps to                                            | Returns                   |
 | ------ | ----------------------------------------------- | -------------------------------------------------- | ------------------------- |
@@ -76,17 +78,19 @@ and give `BusinessResolver` an optional fast path that calls it directly
 instead of loading every business to search client-side. This is additive —
 `hostnameBusinessResolver` can stay as a fallback/dev path.
 
-## Auth (admin only)
+## Auth
 
-The public website has no auth. Once `apps/admin` gets real functionality
-(Phase 3), it will need session/token auth against the backend — out of
-scope for this contract until that phase starts; see
-[future-admin.md](future-admin.md).
+None of these endpoints require auth today — the public website has
+none, and neither does the backend. Real auth (Super Admin, Business
+Owner, Staff — see TASKS.md Milestone 2) is the very next thing to be
+built on top of this, alongside write endpoints for booking/billing
+(Milestones 3–4) and `apps/admin`/`apps/portal` (see
+[future-admin.md](future-admin.md)).
 
-## Non-goals for v1 of the backend
+## What v1 deliberately didn't need
 
-- No write endpoints are required to unblock the frontend migration itself
-  — read-only parity with `static-data/` is enough to cut over
-  `HttpDataSource`.
-- Write endpoints (for the admin) can land in the same phase as admin
-  functionality, not before.
+- No write endpoints were required to unblock the read-only frontend
+  migration (TASK-005) — read-only parity with `static-data/` was enough
+  to cut over `HttpDataSource`. Write endpoints start in TASKS.md
+  Milestone 2.
+- No auth, since nothing writable exists yet to protect.

@@ -25,7 +25,7 @@ The shared contracts (`Business`, `BusinessTheme`, `ServiceItem`,
 Changing a shape here is a deliberate, repo-wide decision — it's the seam
 the future Spring Boot API's DTOs will need to match.
 
-### 2. `static-data/` — the temporary data source
+### 2. `static-data/` — the original, still-default data source
 
 Three demo businesses and their content (services, gallery, testimonials,
 theme, SEO, page/section config, FAQs, team, settings), as flat JSON files.
@@ -35,15 +35,20 @@ outside `packages/services` is allowed to import from it directly.
 ### 3. `packages/services` — the abstraction boundary
 
 Every content type has a `*DataSource` interface (`BusinessDataSource`,
-`ServiceCatalogDataSource`, ...) and a thin `*Service` class that depends on
-one, plus a `JsonDataSource` that implements all of them by reading
-`static-data/`. Components and hooks only ever call a `*Service` — they
-never know the data source is JSON.
+`ServiceCatalogDataSource`, ...) and a thin `*Service` class that depends
+on one. Components and hooks only ever call a `*Service` — they never
+know which data source backs it.
 
-This is the single point of change when the backend exists: implement an
-`HttpDataSource` against the same interfaces, swap the constructor argument
-in each service's singleton, and nothing above this layer changes. See
-[docs/future-backend-contract.md](docs/future-backend-contract.md).
+Two implementations exist: `JsonDataSource` (reads `static-data/`) and
+`HttpDataSource` (calls the real backend under `backend/` — see
+[docs/future-backend-contract.md](docs/future-backend-contract.md)).
+`dataSource/activeDataSource.ts` is the single point of choice: every
+read-only `*Service` singleton constructs against `activeDataSource`,
+which picks `HttpDataSource` when `VITE_API_BASE_URL` is set and
+`JsonDataSource` otherwise — no other code above this layer changes
+either way. The backend today only serves this same read-only content
+(TASKS.md Milestone 1); write endpoints, auth, and roles land in later
+milestones.
 
 ### 4. `packages/business` — the Business Resolver
 
@@ -61,7 +66,7 @@ BusinessResolver          — picks a slug via ordered strategies
 BusinessService.getBySlug — the only thing that knows where Business data lives
   │
   ▼
-JsonDataSource (today) → HttpDataSource (future)
+activeDataSource → JsonDataSource or HttpDataSource
 ```
 
 Resolution strategies are pure functions
