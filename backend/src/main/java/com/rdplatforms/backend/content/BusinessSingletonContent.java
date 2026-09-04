@@ -18,7 +18,7 @@ import org.hibernate.type.SqlTypes;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BusinessSingletonContent {
+public abstract class BusinessSingletonContent implements HasJsonData {
 
     @Id
     @Column(name = "business_id")

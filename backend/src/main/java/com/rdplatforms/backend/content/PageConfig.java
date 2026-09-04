@@ -22,7 +22,7 @@ import org.hibernate.type.SqlTypes;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PageConfig {
+public class PageConfig implements HasJsonData {
 
     @Id
     private UUID id;

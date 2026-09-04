@@ -19,7 +19,7 @@ import org.hibernate.type.SqlTypes;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BusinessScopedContent {
+public abstract class BusinessScopedContent implements HasJsonData {
 
     @Id
     private String id;

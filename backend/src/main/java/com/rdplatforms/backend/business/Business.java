@@ -1,5 +1,6 @@
 package com.rdplatforms.backend.business;
 
+import com.rdplatforms.backend.content.HasJsonData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ import org.hibernate.type.SqlTypes;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Business {
+public class Business implements HasJsonData {
 
     @Id
     private String id;
