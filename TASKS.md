@@ -64,7 +64,7 @@ Stand up a real backend with read-only parity to `static-data/` — no new
 behavior yet, just proving the seam works end-to-end before adding logic.
 
 - [x] **TASK-001** — Scaffold the Spring Boot project under `backend/` (Gradle, base package layout, health-check endpoint, local-run instructions in a `backend/README.md`). ✅ Done
-- [ ] **TASK-002** — Postgres schema/migrations (Flyway) + a `docker-compose.yml` for local Postgres.
+- [x] **TASK-002** — Postgres schema/migrations (Flyway) + a `docker-compose.yml` for local Postgres. ✅ Done
 - [ ] **TASK-003** — Read-only JPA entities + repositories for existing content types (Business, ServiceItem, GalleryItem, Testimonial, FaqItem, TeamMember, BusinessTheme, SeoConfig, PageConfig, BusinessSettings) + a one-time import script loading `static-data/*.json` into Postgres.
 - [ ] **TASK-004** — Read-only REST controllers matching the surface already specified in `docs/future-backend-contract.md`.
 - [ ] **TASK-005** — `HttpDataSource` in `packages/services`, behind an env flag so `JsonDataSource` stays available for offline/local dev; cut the frontend over.
