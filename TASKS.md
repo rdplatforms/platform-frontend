@@ -74,7 +74,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 
 - [x] **TASK-007** — `User`, `BusinessMembership` (role: owner/staff), and `Customer` data model; Spring Security + JWT issuing/validation. ✅ Done
 - [x] **TASK-008** — Super Admin auth wired into `apps/admin` (real login, protected routes, replacing the "Coming Soon" placeholders for auth-gated pages). ✅ Done
-- [ ] **TASK-009** — Super Admin capability: create/suspend a `Business` tenant; create that business's first Business Owner account.
+- [x] **TASK-009** — Super Admin capability: create/suspend a `Business` tenant; create that business's first Business Owner account. ✅ Done (backend only — no `apps/admin` UI for this yet, it's curl/API-only; a UI is a reasonable candidate for TASK-028's polish pass or a follow-up task)
 - [ ] **TASK-010** — Scaffold `apps/portal` (new app): Business Owner/Staff login, resolves the current business via `Business.portalDomains[]`.
 - [ ] **TASK-011** — Business Owner capability in `apps/portal`: invite/create/deactivate Staff accounts; per-staff "can view full analytics" toggle.
 - [ ] **TASK-012** — Remove the interim localStorage `/dashboard` + passcode gate from `apps/website` now that `apps/portal` covers it; update `docs/business-dashboard.md` to reflect the real portal (or retire the doc in favor of a new `docs/portal.md`).
