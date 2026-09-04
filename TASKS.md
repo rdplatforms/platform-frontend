@@ -73,7 +73,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 ## Milestone 2 — Auth & Roles
 
 - [x] **TASK-007** — `User`, `BusinessMembership` (role: owner/staff), and `Customer` data model; Spring Security + JWT issuing/validation. ✅ Done
-- [ ] **TASK-008** — Super Admin auth wired into `apps/admin` (real login, protected routes, replacing the "Coming Soon" placeholders for auth-gated pages).
+- [x] **TASK-008** — Super Admin auth wired into `apps/admin` (real login, protected routes, replacing the "Coming Soon" placeholders for auth-gated pages). ✅ Done
 - [ ] **TASK-009** — Super Admin capability: create/suspend a `Business` tenant; create that business's first Business Owner account.
 - [ ] **TASK-010** — Scaffold `apps/portal` (new app): Business Owner/Staff login, resolves the current business via `Business.portalDomains[]`.
 - [ ] **TASK-011** — Business Owner capability in `apps/portal`: invite/create/deactivate Staff accounts; per-staff "can view full analytics" toggle.
