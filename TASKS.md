@@ -77,7 +77,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 - [x] **TASK-009** — Super Admin capability: create/suspend a `Business` tenant; create that business's first Business Owner account. ✅ Done (backend only — no `apps/admin` UI for this yet, it's curl/API-only; a UI is a reasonable candidate for TASK-028's polish pass or a follow-up task)
 - [x] **TASK-010** — Scaffold `apps/portal` (new app): Business Owner/Staff login, resolves the current business via `Business.portalDomains[]`. ✅ Done
 - [x] **TASK-011** — Business Owner capability in `apps/portal`: invite/create/deactivate Staff accounts; per-staff "can view full analytics" toggle. ✅ Done
-- [ ] **TASK-012** — Remove the interim localStorage `/dashboard` + passcode gate from `apps/website` now that `apps/portal` covers it; update `docs/business-dashboard.md` to reflect the real portal (or retire the doc in favor of a new `docs/portal.md`).
+- [x] **TASK-012 (partial)** — Update `docs/business-dashboard.md`/`docs/portal.md` to reflect the real portal. ✅ Done (docs updated throughout TASK-010/011). **Deferred to TASK-019**: actually removing the interim localStorage `/dashboard` + passcode gate from `apps/website`. Caught while starting this task: `apps/portal` only has login + staff management so far — it does _not_ yet have sales logging/totals, which is the dashboard's entire purpose. Deleting it now would be a real regression (owners lose the ability to log sales at all) with no replacement until Milestone 4 (TASK-016/017/018) actually builds that functionality into the portal. TASK-019 already covers this removal at the correct point in the sequence — expanded its wording below to be explicit about the route/passcode gate, not just the sales-entry form.
 
 ## Milestone 3 — Real Booking
 
@@ -90,7 +90,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 - [ ] **TASK-016** — Unified `Sale` entity (line items with category, payment method, optional linked `Booking`, `source: staff | online`, `createdByUserId`) + endpoints — supersedes `SaleEntry`/`SalesDataSource`.
 - [ ] **TASK-017** — `apps/portal` itemized bill creation UI (service/product picker, qty, price, discount, payment method), optionally linking to and fulfilling an existing `Booking`.
 - [ ] **TASK-018** — `apps/portal` analytics: Today/Week/Month totals + category-wise breakdown, visible to Owner and any Staff granted the permission from TASK-011.
-- [ ] **TASK-019** — Retire `SaleEntry`/`LocalStorageSalesDataSource`/the old dashboard's sales UI; migrate `docs/business-dashboard.md` content into the new portal docs.
+- [ ] **TASK-019** — Retire `SaleEntry`/`LocalStorageSalesDataSource` and remove the interim `/dashboard` route + passcode gate from `apps/website` entirely (see TASK-012's note) now that `apps/portal` covers sales logging/totals for real; fold any remaining `docs/business-dashboard.md` content into `docs/portal.md` and delete that doc.
 
 ## Milestone 5 — 3D Printing Business + E-commerce
 
