@@ -68,7 +68,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 - [x] **TASK-003** — Read-only JPA entities + repositories for existing content types (Business, ServiceItem, GalleryItem, Testimonial, FaqItem, TeamMember, BusinessTheme, SeoConfig, PageConfig, BusinessSettings) + a one-time import script loading `static-data/*.json` into Postgres. ✅ Done
 - [x] **TASK-004** — Read-only REST controllers matching the surface already specified in `docs/future-backend-contract.md`. ✅ Done
 - [x] **TASK-005** — `HttpDataSource` in `packages/services`, behind an env flag so `JsonDataSource` stays available for offline/local dev; cut the frontend over. ✅ Done
-- [ ] **TASK-006** — Update `docs/future-backend-contract.md` (mark implemented), `ARCHITECTURE.md`, and `docs/business-dashboard.md` (correct the Mongo mention — Milestone 4 will supersede `SaleEntry` with a Postgres-backed `Sale` instead).
+- [x] **TASK-006** — Update `docs/future-backend-contract.md` (mark implemented), `ARCHITECTURE.md`, and `docs/business-dashboard.md` (correct the Mongo mention — Milestone 4 will supersede `SaleEntry` with a Postgres-backed `Sale` instead). ✅ Done — **Milestone 1 complete**
 
 ## Milestone 2 — Auth & Roles
 
