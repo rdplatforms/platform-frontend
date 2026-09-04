@@ -62,6 +62,8 @@ backend/
 ├── docker-compose.yml                  Local Postgres for `bootRun`
 ├── src/main/java/com/rdplatforms/backend/
 │   ├── BackendApplication.java         Entry point
+│   ├── auth/                           User/BusinessMembership/Customer, JWT, /auth/*
+│   ├── config/                         CorsConfig, SecurityConfig
 │   ├── business/                       Business entity + repository
 │   ├── content/                        Service/Gallery/Testimonial/Faq/Team/
 │   │                                   Theme/Seo/Settings/Page entities + repos
@@ -73,8 +75,8 @@ backend/
 ```
 
 This will grow module-by-module as [../TASKS.md](../TASKS.md) progresses
-(security in Milestone 2, booking/billing in 3/4, etc.) — no speculative
-structure has been added ahead of the task that needs it.
+(booking/billing in Milestones 3/4, etc.) — no speculative structure has
+been added ahead of the task that needs it.
 
 ## Data model: why entities are just `id` + `data` (JSONB)
 
@@ -109,3 +111,39 @@ Logs a per-file record count, then exits (this is a one-shot tool, not a
 server). Reads from `../static-data` by default — override with
 `app.import.static-data-dir` if running from a different working
 directory.
+
+## Auth (Milestone 2)
+
+Stateless JWT — no sessions. `/businesses/**` and `/actuator/**` stay
+public; everything else requires `Authorization: Bearer <token>`.
+
+**Roles**: `User` (internal — Super Admin is `isSuperAdmin=true`,
+global; Business Owner/Staff via `BusinessMembership`, one row per
+business) and `Customer` (a business's own public-site account — data
+model only so far, no login endpoint yet; see TASKS.md Milestone 6).
+These are deliberately separate tables/realms, not one unified "account"
+concept.
+
+There's no self-registration — bootstrap the first Super Admin:
+
+```bash
+docker compose up -d   # if not already running
+./gradlew bootRun --args='--spring.profiles.active=seed-super-admin --app.seed.super-admin-email=you@example.com --app.seed.super-admin-password=...'
+```
+
+Then log in and use the token:
+
+```bash
+curl -X POST http://localhost:8081/auth/login -H "Content-Type: application/json" \
+  -d '{"email":"you@example.com","password":"..."}'
+# {"token":"..."}
+
+curl http://localhost:8081/auth/me -H "Authorization: Bearer <token>"
+# {"userId":"...","email":"...","superAdmin":true,"memberships":[]}
+```
+
+A token embeds every `BusinessMembership` (businessId/role/
+canViewFullAnalytics) so a protected endpoint can authorize without a
+DB round-trip — see `AuthenticatedUser.hasMembership`/`canAccessBusiness`.
+`app.jwt.secret` in `application.properties` is a **dev-only** generated
+value — override it for any real deployment, never commit a real one.
