@@ -114,8 +114,9 @@ directory.
 
 ## Auth (Milestone 2)
 
-Stateless JWT — no sessions. `/businesses/**` and `/actuator/**` stay
-public; everything else requires `Authorization: Bearer <token>`.
+Stateless JWT — no sessions. `GET /businesses/**` and `/actuator/**`
+stay public; everything else (including POST/PATCH on `/businesses/**`
+— see TASK-009 below) requires `Authorization: Bearer <token>`.
 
 **Roles**: `User` (internal — Super Admin is `isSuperAdmin=true`,
 global; Business Owner/Staff via `BusinessMembership`, one row per
@@ -147,3 +148,34 @@ canViewFullAnalytics) so a protected endpoint can authorize without a
 DB round-trip — see `AuthenticatedUser.hasMembership`/`canAccessBusiness`.
 `app.jwt.secret` in `application.properties` is a **dev-only** generated
 value — override it for any real deployment, never commit a real one.
+
+### Super Admin platform management (TASK-009)
+
+Every endpoint below checks `AuthenticatedUser.superAdmin()` itself (not
+just "is there a valid token") and returns 403 for anyone else,
+including a Business Owner/Staff member:
+
+```bash
+# Create a business tenant
+curl -X POST http://localhost:8081/businesses -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <super-admin-token>" \
+  -d '{"slug":"new-salon","displayName":"New Salon","legalName":"New Salon LLC","category":"salon","phone":"555-0100"}'
+# 201, full Business JSON — 409 if the slug already exists, 400 for an unrecognized category
+
+# Suspend/reactivate a tenant (BusinessResolver already refuses to
+# resolve a business with isActive: false — see docs/business-model.md)
+curl -X PATCH http://localhost:8081/businesses/new-salon/status -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <super-admin-token>" -d '{"isActive":false}'
+
+# Create that business's first Business Owner
+curl -X POST http://localhost:8081/businesses/new-salon/owners -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <super-admin-token>" \
+  -d '{"email":"owner@new-salon.example","password":"...","displayName":"Owner Name"}'
+# 201 — that email can now log in via /auth/login and gets an OWNER membership for new-salon
+```
+
+A created `Business` gets sensible empty defaults for everything not in
+the request (`hours: []`, `social: {}`, `domains: []`, blank
+`description`/`logoUrl`) — matching every other field the frontend's
+`Business` type expects, so it round-trips through the existing
+read-only endpoints (TASK-004) with no special-casing.
