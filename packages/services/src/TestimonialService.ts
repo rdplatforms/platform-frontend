@@ -1,5 +1,5 @@
 import type { Testimonial } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { TestimonialDataSource } from './dataSource/types';
 
 export class TestimonialService {
@@ -10,4 +10,4 @@ export class TestimonialService {
   }
 }
 
-export const testimonialService = new TestimonialService(jsonDataSource);
+export const testimonialService = new TestimonialService(activeDataSource);

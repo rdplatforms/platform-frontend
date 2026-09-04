@@ -36,6 +36,13 @@ curl http://localhost:8081/actuator/health
 # {"groups":["liveness","readiness"],"status":"UP"}
 ```
 
+To have the frontend actually call this instead of `static-data/*.json`,
+set `VITE_API_BASE_URL=http://localhost:8081` when running `apps/website`
+(see `packages/services/src/dataSource/activeDataSource.ts`). CORS
+(`config/CorsConfig.java`) defaults to allowing `http://localhost:5173`
+(Vite's dev server port) — override with `app.cors.allowed-origins`
+(comma-separated) for a deployed frontend origin.
+
 ## Building and testing
 
 ```bash
@@ -76,7 +83,7 @@ has a handful of native columns for lookup (`id`, `business_id`) and one
 `data JSONB` column holding the **entire record**, verbatim, as it exists
 in `static-data/*.json` today. This is deliberate for this milestone: it
 guarantees field-for-field fidelity with the corresponding type in
-`packages/types/src/*.ts` by construction — the response literally *is*
+`packages/types/src/*.ts` by construction — the response literally _is_
 that JSON — instead of hand-modeling every nested union type
 (`LocalizableText`, `BusinessHours[]`, `SectionConfig[]`, `ThemeTypography`)
 into JPA embeddables, which would be a lot of fragile boilerplate for data

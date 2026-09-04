@@ -1,5 +1,5 @@
 import type { SeoConfig } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { SeoDataSource } from './dataSource/types';
 
 export class SeoService {
@@ -10,4 +10,4 @@ export class SeoService {
   }
 }
 
-export const seoService = new SeoService(jsonDataSource);
+export const seoService = new SeoService(activeDataSource);

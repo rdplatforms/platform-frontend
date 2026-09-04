@@ -1,5 +1,5 @@
 import type { GalleryItem } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { GalleryDataSource } from './dataSource/types';
 
 export class GalleryService {
@@ -11,4 +11,4 @@ export class GalleryService {
   }
 }
 
-export const galleryService = new GalleryService(jsonDataSource);
+export const galleryService = new GalleryService(activeDataSource);

@@ -1,5 +1,5 @@
 import type { PageConfig, SectionConfig } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { PageDataSource } from './dataSource/types';
 
 export class PageService {
@@ -22,4 +22,4 @@ export class PageService {
   }
 }
 
-export const pageService = new PageService(jsonDataSource);
+export const pageService = new PageService(activeDataSource);

@@ -1,5 +1,5 @@
 import type { FaqItem } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { FaqDataSource } from './dataSource/types';
 
 export class FaqService {
@@ -10,4 +10,4 @@ export class FaqService {
   }
 }
 
-export const faqService = new FaqService(jsonDataSource);
+export const faqService = new FaqService(activeDataSource);

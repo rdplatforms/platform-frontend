@@ -1,5 +1,5 @@
 import type { BusinessSettings } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { SettingsDataSource } from './dataSource/types';
 
 export class SettingsService {
@@ -10,4 +10,4 @@ export class SettingsService {
   }
 }
 
-export const settingsService = new SettingsService(jsonDataSource);
+export const settingsService = new SettingsService(activeDataSource);

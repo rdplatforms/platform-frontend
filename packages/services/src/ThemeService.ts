@@ -1,5 +1,5 @@
 import type { BusinessTheme } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { ThemeDataSource } from './dataSource/types';
 
 export class ThemeService {
@@ -10,4 +10,4 @@ export class ThemeService {
   }
 }
 
-export const themeService = new ThemeService(jsonDataSource);
+export const themeService = new ThemeService(activeDataSource);

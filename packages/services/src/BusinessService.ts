@@ -1,5 +1,5 @@
 import type { Business } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { BusinessDataSource } from './dataSource/types';
 
 export class BusinessService {
@@ -14,4 +14,4 @@ export class BusinessService {
   }
 }
 
-export const businessService = new BusinessService(jsonDataSource);
+export const businessService = new BusinessService(activeDataSource);

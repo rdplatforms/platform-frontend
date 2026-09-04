@@ -1,5 +1,7 @@
 export * from './dataSource/types';
 export * from './dataSource/JsonDataSource';
+export * from './dataSource/HttpDataSource';
+export * from './dataSource/activeDataSource';
 export * from './dataSource/LocalStorageDataSource';
 
 export * from './BusinessService';

@@ -1,5 +1,5 @@
 import type { ServiceItem } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { ServiceCatalogDataSource } from './dataSource/types';
 
 export class ServiceCatalogService {
@@ -15,4 +15,4 @@ export class ServiceCatalogService {
   }
 }
 
-export const serviceCatalogService = new ServiceCatalogService(jsonDataSource);
+export const serviceCatalogService = new ServiceCatalogService(activeDataSource);

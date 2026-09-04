@@ -1,5 +1,5 @@
 import type { TeamMember } from '@rdplatforms/types';
-import { jsonDataSource } from './dataSource/JsonDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 import type { TeamDataSource } from './dataSource/types';
 
 export class TeamService {
@@ -10,4 +10,4 @@ export class TeamService {
   }
 }
 
-export const teamService = new TeamService(jsonDataSource);
+export const teamService = new TeamService(activeDataSource);
