@@ -20,9 +20,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * note this is GET-only on /businesses/**, not the whole path prefix:
  * TASK-009 adds POST/PATCH endpoints under the same /businesses/** path
  * for Super Admin actions (create/suspend a tenant, create its first
- * owner), which must NOT be publicly accessible. Fine-grained
- * authorization beyond "has a valid token" (e.g. "is this specifically
- * a Super Admin") is each controller's own job, checked against
+ * owner), which must NOT be publicly accessible.
+ *
+ * Spring Security's authorizeHttpRequests matches rules in DECLARATION
+ * ORDER, first match wins — so /businesses/*&#47;staff/** (TASK-011,
+ * staff emails, not public data) is declared authenticated BEFORE the
+ * broad GET /businesses/** permitAll rule below it, even though "staff"
+ * would otherwise match that same wildcard. Getting this order wrong
+ * would silently make the staff list publicly readable; caught this by
+ * re-reading this file while adding TASK-011, not by a test — there
+ * isn't one guarding the ordering itself, only the per-endpoint
+ * authorization checks each controller does.
+ *
+ * Fine-grained authorization beyond "has a valid token" (e.g. "is this
+ * specifically a Super Admin", "is this specifically this business's
+ * Owner") is each controller's own job, checked against
  * AuthenticatedUser — Spring's authenticated() here only proves a valid
  * token exists, not which one.
  */
@@ -44,6 +56,8 @@ public class SecurityConfig {
                         auth ->
                                 auth.requestMatchers("/actuator/**", "/auth/login")
                                         .permitAll()
+                                        .requestMatchers("/businesses/*/staff/**")
+                                        .authenticated()
                                         .requestMatchers(HttpMethod.GET, "/businesses/**")
                                         .permitAll()
                                         .anyRequest()

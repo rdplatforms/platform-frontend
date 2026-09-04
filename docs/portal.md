@@ -2,7 +2,7 @@
 
 Where a Business Owner or Staff member logs in to manage **their own**
 business — as opposed to `apps/admin`, which manages every business on
-the platform. See [TASKS.md](../TASKS.md) Milestone 2 (TASK-010) for
+the platform. See [TASKS.md](../TASKS.md) Milestone 2 (TASK-010/011) for
 where this fits, and [future-admin.md](future-admin.md) for why
 `apps/admin` deliberately doesn't work this way.
 
@@ -55,6 +55,24 @@ see that app's `adminAuth.ts` comment) with one addition:
    `AuthenticatedUser.hasMembership`/`canAccessBusiness` check
    server-side. Neither check alone is sufficient: "has a valid token"
    is not "has access to _this_ business."
+
+## Staff management (TASK-011)
+
+`/staff` — an Owner-only page (or Super Admin; a Staff member sees an
+"Owners only" message instead, both client-side via `StaffPage.tsx`'s
+own role check and server-side via `StaffController`'s authorization,
+which is the one that actually matters). Invite a staff member (email +
+temporary password + display name), toggle their `canViewFullAnalytics`
+permission, or remove them entirely — removal deletes their
+`BusinessMembership` for _this_ business only, not their `User` account
+(they could belong to another business, or be re-invited later, which
+just finds-or-creates by email rather than erroring).
+
+`apps/portal/src/api/staffApi.ts` talks to the backend directly (plain
+`fetch`, bearer token) rather than through `@rdplatforms/services`'s
+`*DataSource` pattern — that pattern is for the public, read-only
+content every business exposes, not this auth-scoped, write-capable,
+portal-specific API.
 
 ## Local testing
 

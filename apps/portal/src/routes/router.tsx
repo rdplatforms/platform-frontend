@@ -3,6 +3,7 @@ import { LoginPage } from '../auth/LoginPage';
 import { RequireAuth } from '../auth/RequireAuth';
 import { PortalLayout } from '../layout/PortalLayout';
 import { DashboardPage } from '../pages/DashboardPage';
+import { StaffPage } from '../pages/StaffPage';
 
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
@@ -13,6 +14,9 @@ export const router = createBrowserRouter([
         <PortalLayout />
       </RequireAuth>
     ),
-    children: [{ index: true, element: <DashboardPage /> }],
+    children: [
+      { index: true, element: <DashboardPage /> },
+      { path: 'staff', element: <StaffPage /> },
+    ],
   },
 ]);

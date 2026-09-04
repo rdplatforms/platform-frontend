@@ -36,12 +36,13 @@ curl http://localhost:8081/actuator/health
 # {"groups":["liveness","readiness"],"status":"UP"}
 ```
 
-To have the frontend actually call this instead of `static-data/*.json`,
-set `VITE_API_BASE_URL=http://localhost:8081` when running `apps/website`
-(see `packages/services/src/dataSource/activeDataSource.ts`). CORS
-(`config/CorsConfig.java`) defaults to allowing `http://localhost:5173`
-(Vite's dev server port) — override with `app.cors.allowed-origins`
-(comma-separated) for a deployed frontend origin.
+To have a frontend app actually call this instead of `static-data/*.json`,
+set `VITE_API_BASE_URL=http://localhost:8081` when running it (see
+`packages/services/src/dataSource/activeDataSource.ts`). CORS
+(`config/CorsConfig.java`) defaults to allowing all three apps' Vite dev
+server ports (`5173` website, `5174` admin, `5175` portal) — override
+with `app.cors.allowed-origins` (comma-separated) for deployed frontend
+origins.
 
 ## Building and testing
 
@@ -179,3 +180,36 @@ the request (`hours: []`, `social: {}`, `domains: []`, blank
 `description`/`logoUrl`) — matching every other field the frontend's
 `Business` type expects, so it round-trips through the existing
 read-only endpoints (TASK-004) with no special-casing.
+
+Creating a `Business`/`Owner` twice for the same slug/email is
+idempotent, not a raw 500 — the second call updates the existing
+row/membership instead of hitting the `UNIQUE` constraint directly.
+
+### Business Owner staff management (TASK-011)
+
+`AuthenticatedUser.superAdmin() || hasMembership(businessId, OWNER)` —
+not Super Admin only this time, since it's the business's own Owner who
+should manage their own Staff:
+
+```bash
+curl -X POST http://localhost:8081/businesses/new-salon/staff -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <owner-token>" \
+  -d '{"email":"staff@new-salon.example","password":"...","displayName":"Staff Name","canViewFullAnalytics":false}'
+# 201 — same idempotent re-invite behavior as creating an Owner
+
+curl http://localhost:8081/businesses/new-salon/staff -H "Authorization: Bearer <owner-token>"
+# [{"membershipId":"...","userId":"...","email":"...","displayName":"...","canViewFullAnalytics":false}]
+
+curl -X PATCH http://localhost:8081/businesses/new-salon/staff/<membershipId> -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <owner-token>" -d '{"canViewFullAnalytics":true}'
+
+curl -X DELETE http://localhost:8081/businesses/new-salon/staff/<membershipId> -H "Authorization: Bearer <owner-token>"
+# 204 — removes this business's membership only, not the underlying User account
+```
+
+A signed-in Staff member's _existing_ token still shows their old
+membership until it expires and they log in again — tokens embed
+memberships at issue time (see above), they aren't re-checked live on
+every request. Removing someone's access is real and immediate against
+the database, but a token issued before the removal is only as current
+as when it was issued.

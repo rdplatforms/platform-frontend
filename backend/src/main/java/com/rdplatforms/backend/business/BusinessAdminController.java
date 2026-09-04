@@ -164,13 +164,20 @@ public class BusinessAdminController {
         }
         User saved = userRepository.save(user);
 
-        BusinessMembership membership = new BusinessMembership();
+        // Idempotent: calling this twice for the same email must not throw a
+        // raw unique-constraint violation — update the existing membership's
+        // role instead of inserting a duplicate.
+        BusinessMembership membership =
+                membershipRepository
+                        .findByUserIdAndBusinessId(saved.getId(), businessId)
+                        .orElseGet(BusinessMembership::new);
+        boolean isNewMembership = membership.getId() == null;
         membership.setUserId(saved.getId());
         membership.setBusinessId(businessId);
         membership.setRole(MembershipRole.OWNER);
         membershipRepository.save(membership);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(isNewMembership ? HttpStatus.CREATED : HttpStatus.OK).build();
     }
 
     private ResponseEntity<?> requireSuperAdmin(AuthenticatedUser actor) {
