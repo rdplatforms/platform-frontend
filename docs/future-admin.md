@@ -13,6 +13,15 @@ renders a `PlaceholderPage` with a title, a "Coming Soon" badge, and a
 one-line description of its future purpose. See [../ROUTES.md](../ROUTES.md)
 for the full route table.
 
+**Real auth is now wired in (TASK-008)**: every route above is gated by
+`RequireAuth` (`apps/admin/src/auth/`), which redirects to `/login` if
+there's no valid, unexpired JWT. `LoginPage` calls the backend's
+`POST /auth/login` (see `backend/README.md`'s Auth section) and stores
+the token in `localStorage`; `AuthProvider`/`useAuth` expose it (and the
+decoded claims) to the rest of the app. The pages themselves are still
+"Coming Soon" placeholders — only the login/route-protection layer is
+real so far, per TASK-009+ below.
+
 The admin runs its own fixed theme (`apps/admin/src/App.tsx`) rather than
 the per-business theme engine — it manages every business at once, so
 there is no single business context to theme against. A future "preview
@@ -30,14 +39,16 @@ re-theming the whole admin shell.
 | **Services**  | CRUD for a business's service catalog                                                                          | `ServiceCatalogDataSource` write endpoints                      |
 | **Business**  | Edit core identity: contact, hours, domains, social                                                            | `BusinessDataSource` write endpoints                            |
 | **Theme**     | Adjust colors/typography/button style/border radius with a live preview rendered via the real `createAppTheme` | `ThemeDataSource` write endpoints                               |
-| **Users**     | Manage platform operators and per-business access                                                              | Requires auth + roles (not built)                               |
+| **Users**     | Manage platform operators and per-business access                                                              | `User`/`BusinessMembership` write endpoints (TASK-009/011)      |
 | **Settings**  | Per-business operational toggles (currency, locale, timezone, booking, WhatsApp)                               | `SettingsDataSource` write endpoints                            |
 
 ## Prerequisites before any page goes from placeholder to real
 
-1. **Authentication.** Nothing in the admin should call a write endpoint
-   without a logged-in session — this blocks every page above except a
-   read-only Dashboard.
+1. **Authentication.** ✅ Done (TASK-008) — see above. Note this only
+   covers login/route-protection; per-page authorization (e.g. only a
+   Super Admin can suspend a business) still needs to be enforced by
+   each write endpoint itself once it exists (TASK-009+), using
+   `AuthenticatedUser.superAdmin`/`hasMembership` on the backend.
 2. **Write endpoints.** Every `*DataSource` interface in
    `packages/services/src/dataSource/types.ts` is read-only today
    (`list*`/`get*`). Admin functionality needs matching `create*`/`update*`/

@@ -1,4 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { LoginPage } from '../auth/LoginPage';
+import { RequireAuth } from '../auth/RequireAuth';
 import { AdminLayout } from '../layout/AdminLayout';
 import { DashboardPage } from '../pages/DashboardPage';
 import { PagesPage } from '../pages/PagesPage';
@@ -10,9 +12,14 @@ import { UsersPage } from '../pages/UsersPage';
 import { SettingsPage } from '../pages/SettingsPage';
 
 export const router = createBrowserRouter([
+  { path: '/login', element: <LoginPage /> },
   {
     path: '/',
-    element: <AdminLayout />,
+    element: (
+      <RequireAuth>
+        <AdminLayout />
+      </RequireAuth>
+    ),
     children: [
       { index: true, element: <DashboardPage /> },
       { path: 'pages', element: <PagesPage /> },

@@ -10,12 +10,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
- * The public website (apps/website, a Vite dev server or a deployed
- * static site) calls this API from a different origin, so it needs
- * explicit CORS allowance — browsers block cross-origin requests by
- * default. Origins are configurable (app.cors.allowed-origins, comma-
- * separated) since the deployed frontend's real origin isn't known yet;
- * defaults to the Vite dev server port for local development.
+ * The public website and admin console (apps/website, apps/admin — a
+ * Vite dev server or a deployed static site) call this API from a
+ * different origin, so it needs explicit CORS allowance — browsers block
+ * cross-origin requests by default. Origins are configurable
+ * (app.cors.allowed-origins, comma-separated) since the deployed
+ * frontends' real origins aren't known yet; defaults to both apps' Vite
+ * dev server ports (5173 website, 5174 admin) for local development.
  *
  * A CorsConfigurationSource bean, not a WebMvcConfigurer, because
  * Spring Security's filter chain runs before MVC dispatch — it needs
@@ -25,7 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class CorsConfig {
 
-    @Value("${app.cors.allowed-origins:http://localhost:5173}")
+    @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:5174}")
     private String[] allowedOrigins;
 
     @Bean

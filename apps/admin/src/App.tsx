@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './auth/AuthProvider';
 import { router } from './routes/router';
 
 /**
@@ -16,7 +17,9 @@ export function App() {
   return (
     <ThemeProvider theme={adminTheme}>
       <CssBaseline />
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

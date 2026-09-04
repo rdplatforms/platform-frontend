@@ -2,15 +2,18 @@ import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Box,
+  Button,
   Divider,
   Drawer,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useAuth } from '../auth/authContext';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
@@ -34,12 +37,14 @@ const NAV_ITEMS = [
 ];
 
 /**
- * Admin is scaffolded, not built: this shell exists so routing, navigation,
- * and page structure are already correct once each section gets real
- * functionality in Phase 3 (see ROADMAP.md).
+ * Admin is mostly scaffolded, not built: this shell exists so routing,
+ * navigation, and page structure are already correct once each section
+ * gets real functionality (see TASKS.md). Real auth (TASK-008) gates
+ * every route here via RequireAuth in router.tsx.
  */
 export function AdminLayout() {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
@@ -49,10 +54,20 @@ export function AdminLayout() {
         elevation={0}
         sx={{ borderBottom: 1, borderColor: 'divider', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography variant="h6" fontWeight={700}>
             RD Platforms Admin
           </Typography>
+          <Stack direction="row" spacing={2} alignItems="center">
+            {user ? (
+              <Typography variant="body2" color="text.secondary">
+                {user.email}
+              </Typography>
+            ) : null}
+            <Button size="small" onClick={logout}>
+              Sign out
+            </Button>
+          </Stack>
         </Toolbar>
       </AppBar>
 
