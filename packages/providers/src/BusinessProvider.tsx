@@ -1,12 +1,19 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Business } from '@rdplatforms/types';
-import { businessResolver } from '@rdplatforms/business';
+import { businessResolver, type BusinessResolver } from '@rdplatforms/business';
 import { BusinessContext, type BusinessContextValue } from '@rdplatforms/contexts';
 
 export interface BusinessProviderProps {
   children: ReactNode;
   /** Overrides automatic resolution — primarily for tests and Storybook-style previews. */
   overrideBusiness?: Business;
+  /**
+   * Defaults to the public website's resolver (hostname -> Business.domains).
+   * apps/portal passes portalBusinessResolver instead (hostname ->
+   * Business.portalDomains) — same "one business per request" shape, a
+   * different hostname field to match against.
+   */
+  resolver?: BusinessResolver;
 }
 
 function readBrowserResolutionContext() {
@@ -27,7 +34,11 @@ function readBrowserResolutionContext() {
  * downstream (theme, sections, contact info) reads from this — none of them
  * talk to BusinessResolver or BusinessService directly.
  */
-export function BusinessProvider({ children, overrideBusiness }: BusinessProviderProps) {
+export function BusinessProvider({
+  children,
+  overrideBusiness,
+  resolver = businessResolver,
+}: BusinessProviderProps) {
   const [business, setBusiness] = useState<Business | undefined>(overrideBusiness);
   const [isLoading, setIsLoading] = useState(!overrideBusiness);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -38,7 +49,7 @@ export function BusinessProvider({ children, overrideBusiness }: BusinessProvide
     }
     let cancelled = false;
     setIsLoading(true);
-    businessResolver
+    resolver
       .resolve(readBrowserResolutionContext())
       .then((resolved) => {
         if (cancelled) return;
@@ -57,7 +68,7 @@ export function BusinessProvider({ children, overrideBusiness }: BusinessProvide
     return () => {
       cancelled = true;
     };
-  }, [overrideBusiness]);
+  }, [overrideBusiness, resolver]);
 
   const value = useMemo<BusinessContextValue>(
     () => ({ business, isLoading, error }),

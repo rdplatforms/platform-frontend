@@ -3,6 +3,7 @@ import { businessService } from '@rdplatforms/services';
 import type { BusinessService } from '@rdplatforms/services';
 import { envBusinessResolver } from './resolvers/EnvBusinessResolver';
 import { hostnameBusinessResolver } from './resolvers/HostnameBusinessResolver';
+import { hostnamePortalResolver } from './resolvers/HostnamePortalResolver';
 import { queryParamBusinessResolver } from './resolvers/QueryParamBusinessResolver';
 import type { BusinessResolutionContext, BusinessResolverStrategy } from './resolvers/types';
 
@@ -14,6 +15,17 @@ import type { BusinessResolutionContext, BusinessResolverStrategy } from './reso
 const DEFAULT_STRATEGIES: BusinessResolverStrategy[] = [
   queryParamBusinessResolver,
   hostnameBusinessResolver,
+  envBusinessResolver,
+];
+
+/**
+ * Same shape, apps/portal's hostname signal instead of the public site's
+ * (Business.portalDomains, not Business.domains) — see TASKS.md
+ * Milestone 2's "Portal domain model".
+ */
+const PORTAL_STRATEGIES: BusinessResolverStrategy[] = [
+  queryParamBusinessResolver,
+  hostnamePortalResolver,
   envBusinessResolver,
 ];
 
@@ -48,3 +60,6 @@ export class BusinessResolver {
 }
 
 export const businessResolver = new BusinessResolver(businessService);
+
+/** apps/portal's resolver — same class, portal-hostname strategy instead. */
+export const portalBusinessResolver = new BusinessResolver(businessService, PORTAL_STRATEGIES);

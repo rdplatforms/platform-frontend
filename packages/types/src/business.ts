@@ -86,4 +86,12 @@ export interface Business {
    * docs/i18n.md.
    */
   supportedLocales?: SupportedLocale[];
+  /**
+   * Domain(s) for this business's Owner/Staff portal (apps/portal) — e.g.
+   * "admin.theirsite.com" or "console.theirsite.com", the business's own
+   * choice. Deliberately separate from `domains` (the public site): a
+   * hostname is resolved to exactly one app, never both. Absent means the
+   * business hasn't set up a portal domain yet — see TASKS.md Milestone 2.
+   */
+  portalDomains?: string[];
 }

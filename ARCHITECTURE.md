@@ -120,11 +120,19 @@ UI while resolution happens) → a router with a single lazy-loaded
 
 ### 10. `apps/admin`
 
-A scaffold: routing and placeholder pages for Dashboard, Pages, Media,
-Services, Business, Theme, Users, and Settings. It intentionally does not
-share the per-business theme engine — an admin operates across every
-business at once and uses its own fixed platform theme. See
+Mostly a scaffold (routing and placeholder pages for Dashboard, Pages,
+Media, Services, Business, Theme, Users, and Settings), now with real
+Super Admin auth gating every route. It intentionally does not share
+the per-business theme engine — an admin operates across every business
+at once and uses its own fixed platform theme. See
 [docs/future-admin.md](docs/future-admin.md).
+
+### 11. `apps/portal`
+
+Where a Business Owner or Staff member logs in — scoped to exactly one
+business per hostname, same shape as `apps/website` (`AppProviders` +
+the real per-business theme), just resolved via `Business.portalDomains`
+instead of `Business.domains`. See [docs/portal.md](docs/portal.md).
 
 ## Why this shape scales
 

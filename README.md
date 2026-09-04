@@ -55,6 +55,7 @@ Full detail: [ARCHITECTURE.md](ARCHITECTURE.md) and
 apps/
   website/       Public multi-tenant business website (Vite + React)
   admin/         Platform operator admin console (scaffolded, not built out)
+  portal/        Business Owner/Staff login — see docs/portal.md
 packages/
   types/         Shared TypeScript contracts (Business, Theme, content)
   utils/         Pure functions: formatting, slugs, validation

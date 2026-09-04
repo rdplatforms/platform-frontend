@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Business } from '@rdplatforms/types';
 import { envBusinessResolver } from '../src/resolvers/EnvBusinessResolver';
 import { hostnameBusinessResolver } from '../src/resolvers/HostnameBusinessResolver';
+import { hostnamePortalResolver } from '../src/resolvers/HostnamePortalResolver';
 import { queryParamBusinessResolver } from '../src/resolvers/QueryParamBusinessResolver';
 
 function makeBusiness(overrides: Partial<Business>): Business {
@@ -60,6 +61,39 @@ describe('hostnameBusinessResolver', () => {
     expect(
       hostnameBusinessResolver.resolveSlug({ hostname: 'unknown.example.com' }, businesses),
     ).toBeUndefined();
+  });
+});
+
+describe('hostnamePortalResolver', () => {
+  const businesses = [
+    makeBusiness({
+      slug: 'royal-salon',
+      domains: ['royal-salon.rdplatforms.dev'],
+      portalDomains: ['admin.royalsalon.com'],
+    }),
+  ];
+
+  it('matches a registered portal domain', () => {
+    expect(
+      hostnamePortalResolver.resolveSlug({ hostname: 'admin.royalsalon.com' }, businesses),
+    ).toBe('royal-salon');
+  });
+
+  it('does not match the same business public domain', () => {
+    expect(
+      hostnamePortalResolver.resolveSlug({ hostname: 'royal-salon.rdplatforms.dev' }, businesses),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined for a business with no portalDomains configured', () => {
+    const noPortal = [makeBusiness({ slug: 'no-portal-biz' })];
+    expect(
+      hostnamePortalResolver.resolveSlug({ hostname: 'anything.example.com' }, noPortal),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when no hostname is provided', () => {
+    expect(hostnamePortalResolver.resolveSlug({}, businesses)).toBeUndefined();
   });
 });
 

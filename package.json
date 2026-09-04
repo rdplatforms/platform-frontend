@@ -12,9 +12,11 @@
   "scripts": {
     "dev:website": "pnpm --filter @rdplatforms/website dev",
     "dev:admin": "pnpm --filter @rdplatforms/admin dev",
+    "dev:portal": "pnpm --filter @rdplatforms/portal dev",
     "build": "pnpm -r build",
     "build:website": "pnpm --filter @rdplatforms/website build",
     "build:admin": "pnpm --filter @rdplatforms/admin build",
+    "build:portal": "pnpm --filter @rdplatforms/portal build",
     "typecheck": "pnpm -r typecheck",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
