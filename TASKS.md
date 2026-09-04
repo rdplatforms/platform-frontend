@@ -66,7 +66,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 - [x] **TASK-001** — Scaffold the Spring Boot project under `backend/` (Gradle, base package layout, health-check endpoint, local-run instructions in a `backend/README.md`). ✅ Done
 - [x] **TASK-002** — Postgres schema/migrations (Flyway) + a `docker-compose.yml` for local Postgres. ✅ Done
 - [x] **TASK-003** — Read-only JPA entities + repositories for existing content types (Business, ServiceItem, GalleryItem, Testimonial, FaqItem, TeamMember, BusinessTheme, SeoConfig, PageConfig, BusinessSettings) + a one-time import script loading `static-data/*.json` into Postgres. ✅ Done
-- [ ] **TASK-004** — Read-only REST controllers matching the surface already specified in `docs/future-backend-contract.md`.
+- [x] **TASK-004** — Read-only REST controllers matching the surface already specified in `docs/future-backend-contract.md`. ✅ Done
 - [ ] **TASK-005** — `HttpDataSource` in `packages/services`, behind an env flag so `JsonDataSource` stays available for offline/local dev; cut the frontend over.
 - [ ] **TASK-006** — Update `docs/future-backend-contract.md` (mark implemented), `ARCHITECTURE.md`, and `docs/business-dashboard.md` (correct the Mongo mention — Milestone 4 will supersede `SaleEntry` with a Postgres-backed `Sale` instead).
 
