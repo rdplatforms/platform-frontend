@@ -54,7 +54,11 @@ backend/
 ├── build.gradle                        Dependencies and plugins
 ├── docker-compose.yml                  Local Postgres for `bootRun`
 ├── src/main/java/com/rdplatforms/backend/
-│   └── BackendApplication.java         Entry point
+│   ├── BackendApplication.java         Entry point
+│   ├── business/                       Business entity + repository
+│   ├── content/                        Service/Gallery/Testimonial/Faq/Team/
+│   │                                   Theme/Seo/Settings/Page entities + repos
+│   └── importer/                       One-time static-data → Postgres import
 ├── src/main/resources/
 │   ├── application.properties
 │   └── db/migration/                   Flyway migrations (schema source of truth)
@@ -62,5 +66,39 @@ backend/
 ```
 
 This will grow module-by-module as [../TASKS.md](../TASKS.md) progresses
-(entities/repositories in Milestone 1, security in Milestone 2, etc.) — no
-speculative structure has been added ahead of the task that needs it.
+(security in Milestone 2, booking/billing in 3/4, etc.) — no speculative
+structure has been added ahead of the task that needs it.
+
+## Data model: why entities are just `id` + `data` (JSONB)
+
+Every content entity (`ServiceItem`, `GalleryItem`, `BusinessTheme`, ...)
+has a handful of native columns for lookup (`id`, `business_id`) and one
+`data JSONB` column holding the **entire record**, verbatim, as it exists
+in `static-data/*.json` today. This is deliberate for this milestone: it
+guarantees field-for-field fidelity with the corresponding type in
+`packages/types/src/*.ts` by construction — the response literally *is*
+that JSON — instead of hand-modeling every nested union type
+(`LocalizableText`, `BusinessHours[]`, `SectionConfig[]`, `ThemeTypography`)
+into JPA embeddables, which would be a lot of fragile boilerplate for data
+that's always read and written as a whole document from the frontend
+anyway.
+
+**This should evolve** once real write/admin CRUD needs field-level
+validation or partial updates (Milestone 2+) — at that point, normalize
+whichever fields actually need it (e.g. `BusinessHours` as its own table
+once booking logic needs to query it), not before.
+
+## Importing static-data/*.json
+
+One-time, idempotent (safe to re-run after editing `static-data/*.json` —
+every upsert is keyed by the same id/businessId+path already used there):
+
+```bash
+docker compose up -d   # if not already running
+./gradlew bootRun --args='--spring.profiles.active=import-static-data'
+```
+
+Logs a per-file record count, then exits (this is a one-shot tool, not a
+server). Reads from `../static-data` by default — override with
+`app.import.static-data-dir` if running from a different working
+directory.
