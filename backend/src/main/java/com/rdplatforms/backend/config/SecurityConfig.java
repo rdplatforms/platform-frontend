@@ -32,6 +32,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * isn't one guarding the ordering itself, only the per-endpoint
  * authorization checks each controller does.
  *
+ * TASK-013's /businesses/*&#47;bookings is the trickiest case yet: POST
+ * to it must be public (an unauthenticated website visitor submits the
+ * Appointment form), but GET (the staff queue) and PATCH (status
+ * changes) on that exact same path must not be — so those two are
+ * declared authenticated before the general GET permitAll rule, while
+ * POST is declared permitAll explicitly rather than relying on
+ * "doesn't match anything more specific" (there is no method-agnostic
+ * fallback rule for this path). BookingController itself still decides
+ * ONLINE vs STAFF from whether AuthenticatedUser is null, never from
+ * anything in the request body.
+ *
  * Fine-grained authorization beyond "has a valid token" (e.g. "is this
  * specifically a Super Admin", "is this specifically this business's
  * Owner") is each controller's own job, checked against
@@ -57,6 +68,12 @@ public class SecurityConfig {
                                 auth.requestMatchers("/actuator/**", "/auth/login")
                                         .permitAll()
                                         .requestMatchers("/businesses/*/staff/**")
+                                        .authenticated()
+                                        .requestMatchers(HttpMethod.POST, "/businesses/*/bookings")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/businesses/*/bookings")
+                                        .authenticated()
+                                        .requestMatchers(HttpMethod.PATCH, "/businesses/*/bookings/**")
                                         .authenticated()
                                         .requestMatchers(HttpMethod.GET, "/businesses/**")
                                         .permitAll()

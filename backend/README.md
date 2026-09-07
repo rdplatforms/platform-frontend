@@ -213,3 +213,36 @@ memberships at issue time (see above), they aren't re-checked live on
 every request. Removing someone's access is real and immediate against
 the database, but a token issued before the removal is only as current
 as when it was issued.
+
+## Bookings (TASK-013, Milestone 3)
+
+One endpoint, `POST /businesses/{id}/bookings`, deliberately serves both
+the public website's Appointment form and a staff-entered walk-in —
+distinguished entirely by whether a valid Owner/Staff/Super Admin token
+for that business is present, never by anything in the request body
+(the endpoint has to be public so a logged-out customer can call it, so
+nothing client-supplied can be trusted to say who's calling):
+
+```bash
+# Public — no auth. Always source: ONLINE, status: PENDING.
+curl -X POST http://localhost:8081/businesses/new-salon/bookings -H "Content-Type: application/json" \
+  -d '{"serviceId":"svc-1","customerName":"Jane Doe","preferredDate":"2026-10-01","preferredTime":"11:00","note":"first time"}'
+
+# Authenticated (Owner/Staff/Super Admin) — a walk-in/phone-in booking.
+# Always source: STAFF, status: CONFIRMED (nothing "pending" about a walk-in already happening).
+curl -X POST http://localhost:8081/businesses/new-salon/bookings -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <owner-or-staff-token>" \
+  -d '{"serviceId":"svc-1","customerName":"Walk-in","preferredDate":"2026-10-01","preferredTime":"12:00"}'
+
+# List (any member of this business, or Super Admin) and update status:
+curl http://localhost:8081/businesses/new-salon/bookings -H "Authorization: Bearer <token>"
+curl -X PATCH http://localhost:8081/businesses/new-salon/bookings/<bookingId>/status -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" -d '{"status":"CONFIRMED"}'
+# status: PENDING | CONFIRMED | COMPLETED | CANCELLED | NO_SHOW
+```
+
+Unlike the read-only content mirrors (JSONB passthrough — see "Data
+model" above), `Booking` is modeled with real typed columns: it's a
+genuinely new write-capable entity, and staff need to query/filter by
+status and date, which a JSON blob doesn't support well at the database
+level.
