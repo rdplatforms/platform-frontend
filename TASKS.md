@@ -118,6 +118,12 @@ Telegram, ...) is just a new `links` entry plus, if it's a genuinely new
 - [x] **TASK-031** — Card page UI: circular avatar (initials fallback), name/title/location/phone/email, and the extensible `links` list rendered as icon buttons — reused `@rdplatforms/utils`' existing `toWhatsAppLink`/`formatPhoneForDisplay` rather than reimplementing them. `linkPresentation.ts` isolates the one place a new link `type` needs a touch (icon map + optional label/href handling). ✅ Done
 - [x] **TASK-032** — Seeded the first real `Card` record (Ritesh Dhekane) + `docs/rtsh-info.md` (routing scheme, how to add a card, how to add a new link type, future `uid` migration). ✅ Done — **Milestone 4 complete** (for its current MVP scope; link shortener explicitly deferred, not part of this milestone)
 
+Post-MVP refinements, requested after seeing the first shipped version:
+
+- [x] **TASK-033** — Shared `getInitials`/`getAvatarColors` utility (`@rdplatforms/utils`, not local to `apps/rtsh-info` — reusable anywhere a "no photo yet" avatar is needed) deriving a two-letter badge + deterministic color pair from a name alone. ✅ Done
+- [x] **TASK-034** — Five selectable, Linktree-inspired visual styles (`Card.style`, `src/cardStyles.ts`) switched entirely from data; added `maps` (Google Maps search from a free-text address) and `website` links to `ritesh-dhekane.json`. ✅ Done
+- [x] **TASK-035** — `NotFoundPage` gained a mobile-number input that navigates straight to `/<number>`, for looking a card up without its QR code. ✅ Done
+
 ## Milestone 5 — Billing/POS + Analytics (**ON HOLD** — paused in favor of Milestone 4 above; resume once the digital-card MVP ships)
 
 - [ ] **TASK-016** — Unified `Sale` entity (line items with category, payment method, optional linked `Booking`, `source: staff | online`, `createdByUserId`) + endpoints — supersedes `SaleEntry`/`SalesDataSource`.
