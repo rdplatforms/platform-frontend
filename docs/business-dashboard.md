@@ -78,9 +78,9 @@ it for real bookkeeping.
 ### Migrating to the real backend
 
 A browser can never talk to a database directly, so a small API always
-sits in front of it — that's `backend/` (Spring Boot + Postgres; see
+sits in front of it — that's `../platform-backend/` (Spring Boot + Postgres; see
 [future-backend-contract.md](future-backend-contract.md) and
-`backend/README.md`). This doc previously said MongoDB Atlas — that was
+`../platform-backend/README.md`). This doc previously said MongoDB Atlas — that was
 never built; the backend that actually exists is Postgres, and the
 unified `Sale` entity that will replace `SaleEntry` (TASKS.md Milestone 4) lives there, not in a separate Mongo store. The migration is the same
 shape already documented there:

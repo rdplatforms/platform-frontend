@@ -38,7 +38,7 @@ so a hostname is never ambiguous between the two apps.
 ## Auth
 
 Logs in against the same backend endpoint as `apps/admin`
-(`POST /auth/login` — see `backend/README.md`'s Auth section) since
+(`POST /auth/login` — see `../platform-backend/README.md`'s Auth section) since
 Business Owner/Staff accounts are the same `User`/`BusinessMembership`
 model as Super Admin, just without `isSuperAdmin`. `apps/portal/src/auth/`
 mirrors `apps/admin/src/auth/` (localStorage token, same tradeoffs —
@@ -100,7 +100,7 @@ docker compose up -d
 ./gradlew bootRun --args='--spring.profiles.active=seed-super-admin --app.seed.super-admin-email=you@example.com --app.seed.super-admin-password=...'
 ./gradlew bootRun   # in a fresh terminal, or after the seed run exits
 
-# Create an owner for a business (see backend/README.md's Super Admin section)
+# Create an owner for a business (see ../platform-backend/README.md's Super Admin section)
 curl -X POST http://localhost:8081/businesses/swami-hair-salon/owners \
   -H "Content-Type: application/json" -H "Authorization: Bearer <super-admin-token>" \
   -d '{"email":"owner@example.com","password":"...","displayName":"Owner Name"}'

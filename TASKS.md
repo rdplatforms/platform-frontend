@@ -58,6 +58,15 @@ already the design in `docs/future-admin.md`, unchanged here.
 
 ---
 
+**Repo split note:** `backend/` (TASK-001 onward) lived inside this repo
+through Milestone 3. It has since been moved to its own repo,
+`platform-backend` (sibling to this one, history preserved via
+`git subtree split`) — see that repo's `README.md` for local-run
+instructions. Task descriptions below that say "under `backend/`" are
+accurate for the point in time they were written; going forward, backend
+work happens in `platform-backend`, tracked by its own TASKS.md if/when
+it needs one.
+
 ## Milestone 1 — Backend Foundation
 
 Stand up a real backend with read-only parity to `static-data/` — no new

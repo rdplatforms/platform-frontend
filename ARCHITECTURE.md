@@ -40,7 +40,7 @@ on one. Components and hooks only ever call a `*Service` — they never
 know which data source backs it.
 
 Two implementations exist: `JsonDataSource` (reads `static-data/`) and
-`HttpDataSource` (calls the real backend under `backend/` — see
+`HttpDataSource` (calls the real backend under `../platform-backend/` — see
 [docs/future-backend-contract.md](docs/future-backend-contract.md)).
 `dataSource/activeDataSource.ts` is the single point of choice: every
 read-only `*Service` singleton constructs against `activeDataSource`,

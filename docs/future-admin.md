@@ -16,7 +16,7 @@ for the full route table.
 **Real auth is now wired in (TASK-008)**: every route above is gated by
 `RequireAuth` (`apps/admin/src/auth/`), which redirects to `/login` if
 there's no valid, unexpired JWT. `LoginPage` calls the backend's
-`POST /auth/login` (see `backend/README.md`'s Auth section) and stores
+`POST /auth/login` (see `../platform-backend/README.md`'s Auth section) and stores
 the token in `localStorage`; `AuthProvider`/`useAuth` expose it (and the
 decoded claims) to the rest of the app. The pages themselves are still
 "Coming Soon" placeholders — only the login/route-protection layer is

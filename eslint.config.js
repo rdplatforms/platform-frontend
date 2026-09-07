@@ -11,7 +11,6 @@ export default tseslint.config(
       '**/coverage/**',
       '**/node_modules/**',
       '**/*.tsbuildinfo',
-      'backend/**',
     ],
   },
   js.configs.recommended,

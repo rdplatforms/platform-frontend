@@ -21,7 +21,7 @@ a new component, a new route, or a code review of business logic; it should
 require a new data record.
 
 That data can be static JSON (see `static-data/`) or a real Spring Boot
-API (see `backend/`) — an env var away, no code change either way (see
+API (see `../platform-backend/`) — an env var away, no code change either way (see
 `packages/services/src/dataSource/activeDataSource.ts`). Static JSON
 remains the default; the backend today serves the same read-only content
 (see [TASKS.md](TASKS.md) for what's implemented so far) — write
@@ -43,7 +43,7 @@ BusinessService / *Service   — the only things that know where data lives
 activeDataSource   — JsonDataSource or HttpDataSource, by env var
         │
         ▼
-static-data/*.json  or  backend/ (Spring Boot + Postgres)
+static-data/*.json  or  ../platform-backend/ (Spring Boot + Postgres)
 ```
 
 Full detail: [ARCHITECTURE.md](ARCHITECTURE.md) and

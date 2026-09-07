@@ -1,7 +1,7 @@
 # Backend Contract
 
 **Status: the read-only surface below is implemented** (TASKS.md
-Milestone 1, TASK-001–005) — `backend/` is a real Spring Boot + Postgres
+Milestone 1, TASK-001–005) — `../platform-backend/` is a real Spring Boot + Postgres
 API, and the frontend can call it today. This document remains the
 reference for that seam: what shapes it returns, and where those
 responses plug into the frontend. Write endpoints, auth, and roles are
@@ -15,7 +15,7 @@ Every `*DataSource` interface in
 `JsonDataSource` (`packages/services/src/dataSource/JsonDataSource.ts`)
 implements all of them by reading `static-data/`; `HttpDataSource`
 (`packages/services/src/dataSource/HttpDataSource.ts`) implements the
-same interfaces by calling `backend/`'s real endpoints — same method
+same interfaces by calling `../platform-backend/`'s real endpoints — same method
 signatures, same return types (from `@rdplatforms/types`), same
 `Promise`-based shape, so nothing above `packages/services` needed to
 change.
@@ -24,12 +24,12 @@ change.
 switch: every read-only `*Service` singleton constructs against
 `activeDataSource`, which resolves to `HttpDataSource` when
 `VITE_API_BASE_URL` is set, `JsonDataSource` otherwise. Set that env var
-to point the frontend at a running `backend/` (see `backend/README.md`
+to point the frontend at a running `../platform-backend/` (see `../platform-backend/README.md`
 for how to run it locally, including CORS setup).
 
-On the backend side: every entity (`backend/src/main/java/com/rdplatforms/backend/{business,content}/`)
+On the backend side: every entity (`../platform-backend/src/main/java/com/rdplatforms/../platform-backend/{business,content}/`)
 stores its full record as a JSONB `data` column rather than modeling
-every nested field into JPA columns — see `backend/README.md`'s "Data
+every nested field into JPA columns — see `../platform-backend/README.md`'s "Data
 model" section for why. Controllers
 (`BusinessController`, `BusinessContentController`) return that JSON
 straight through as a `JsonNode`, guaranteeing field-for-field fidelity
@@ -37,7 +37,7 @@ with `packages/types/src/*.ts` by construction.
 
 ## REST surface
 
-Base path today: `http://localhost:8081` (see `backend/README.md`) — a
+Base path today: `http://localhost:8081` (see `../platform-backend/README.md`) — a
 real deployed base path isn't chosen yet (see [deployment.md](deployment.md)).
 Response bodies match the corresponding type in `packages/types/src/*.ts`
 field-for-field.

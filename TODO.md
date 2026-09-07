@@ -30,7 +30,7 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | ------ | -------- | ------------------------ | -------------------------------------------------------------------------------------- |
 | Done   | P0       | `*DataSource` interfaces | One per content type, implemented by `JsonDataSource`                                  |
 | Done   | P0       | `*Service` classes       | Business, ServiceCatalog, Gallery, Testimonial, Theme, Seo, Page, Faq, Team, Settings  |
-| Done   | P0       | `HttpDataSource`         | Real REST implementation against `backend/`, behind `VITE_API_BASE_URL` — see TASKS.md |
+| Done   | P0       | `HttpDataSource`         | Real REST implementation against `../platform-backend/`, behind `VITE_API_BASE_URL` — see TASKS.md |
 
 ## Website Platform
 
