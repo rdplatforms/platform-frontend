@@ -33,6 +33,13 @@ export function PortalLayout() {
               >
                 Dashboard
               </Button>
+              <Button
+                component={RouterLink}
+                to="/bookings"
+                color={location.pathname === '/bookings' ? 'primary' : 'inherit'}
+              >
+                Bookings
+              </Button>
               {isOwner ? (
                 <Button
                   component={RouterLink}

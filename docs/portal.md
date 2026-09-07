@@ -2,9 +2,10 @@
 
 Where a Business Owner or Staff member logs in to manage **their own**
 business — as opposed to `apps/admin`, which manages every business on
-the platform. See [TASKS.md](../TASKS.md) Milestone 2 (TASK-010/011) for
-where this fits, and [future-admin.md](future-admin.md) for why
-`apps/admin` deliberately doesn't work this way.
+the platform. See [TASKS.md](../TASKS.md) Milestone 2 (TASK-010/011) and
+Milestone 3 (TASK-015, bookings) for where this fits, and
+[future-admin.md](future-admin.md) for why `apps/admin` deliberately
+doesn't work this way.
 
 This will replace the interim localStorage `/dashboard` on
 `apps/website` (see [business-dashboard.md](business-dashboard.md)) once
@@ -73,6 +74,22 @@ just finds-or-creates by email rather than erroring).
 `*DataSource` pattern — that pattern is for the public, read-only
 content every business exposes, not this auth-scoped, write-capable,
 portal-specific API.
+
+## Bookings (TASK-015)
+
+`/bookings` — visible to any authenticated member of the business
+(Owner or Staff, not Owner-only like `/staff`), listing every `Booking`
+(TASK-013) for this business, newest-first by date/time, with a status
+dropdown per row and a form to add a walk-in/phone-in booking. Reuses
+the public site's own `useServices` hook (`@rdplatforms/hooks`) for the
+service picker — the same real service catalog the website's
+Appointment form uses, never free text.
+
+Creating a booking here always sends the bearer token, so the backend
+records `source: STAFF`/`status: CONFIRMED` immediately — see
+`BookingController`'s own comment on how ONLINE vs. STAFF is decided
+(never trusted from the request body). `apps/portal/src/api/bookingsApi.ts`
+follows the exact same direct-fetch pattern as `staffApi.ts`.
 
 ## Local testing
 

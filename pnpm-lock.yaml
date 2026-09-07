@@ -107,12 +107,18 @@ importers:
       '@rdplatforms/contexts':
         specifier: workspace:*
         version: link:../../packages/contexts
+      '@rdplatforms/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@rdplatforms/providers':
         specifier: workspace:*
         version: link:../../packages/providers
       '@rdplatforms/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@rdplatforms/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       react:
         specifier: ^18.3.1
         version: 18.3.1
