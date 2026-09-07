@@ -82,7 +82,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 ## Milestone 3 — Real Booking
 
 - [x] **TASK-013** — `Booking` entity + endpoints (create/list/update status: pending → confirmed → completed/cancelled/no_show). ✅ Done
-- [ ] **TASK-014** — `apps/website`'s Appointment section POSTs to the real endpoint (WhatsApp message still fires too, as a notify side-effect, not the only record).
+- [x] **TASK-014** — `apps/website`'s Appointment section POSTs to the real endpoint (WhatsApp message still fires too, as a notify side-effect, not the only record). ✅ Done
 - [ ] **TASK-015** — `apps/portal` booking queue: today's/upcoming bookings, change status, add a walk-in/phone-in booking manually.
 
 ## Milestone 4 — Billing/POS + Analytics
