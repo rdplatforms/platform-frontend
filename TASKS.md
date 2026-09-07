@@ -123,6 +123,7 @@ Post-MVP refinements, requested after seeing the first shipped version:
 - [x] **TASK-033** — Shared `getInitials`/`getAvatarColors` utility (`@rdplatforms/utils`, not local to `apps/rtsh-info` — reusable anywhere a "no photo yet" avatar is needed) deriving a two-letter badge + deterministic color pair from a name alone. ✅ Done
 - [x] **TASK-034** — Five selectable, Linktree-inspired visual styles (`Card.style`, `src/cardStyles.ts`) switched entirely from data; added `maps` (Google Maps search from a free-text address) and `website` links to `ritesh-dhekane.json`. ✅ Done
 - [x] **TASK-035** — `NotFoundPage` gained a mobile-number input that navigates straight to `/<number>`, for looking a card up without its QR code. ✅ Done
+- [x] **TASK-036** — Split "style" (colors, `cardStyles.ts`) from a new, independent "template" axis (`Card.template`, `src/templates/`) — 4 genuinely different component layouts (Stack/Banner/Compact/Framed), not recolors of one skeleton. Added a dev-only floating switcher (`DevPreviewSwitcher`, gated on `import.meta.env.DEV`, verified tree-shaken out of the production bundle) to cycle both live while building. ✅ Done
 
 ## Milestone 5 — Billing/POS + Analytics (**ON HOLD** — paused in favor of Milestone 4 above; resume once the digital-card MVP ships)
 
