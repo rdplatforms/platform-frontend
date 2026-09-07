@@ -5,3 +5,4 @@ export * from './commerce';
 export * from './locale';
 export * from './booking';
 export * from './card';
+export * from './sale';

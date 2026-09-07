@@ -40,6 +40,20 @@ export function PortalLayout() {
               >
                 Bookings
               </Button>
+              <Button
+                component={RouterLink}
+                to="/billing"
+                color={location.pathname === '/billing' ? 'primary' : 'inherit'}
+              >
+                Billing
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/analytics"
+                color={location.pathname === '/analytics' ? 'primary' : 'inherit'}
+              >
+                Analytics
+              </Button>
               {isOwner ? (
                 <Button
                   component={RouterLink}
