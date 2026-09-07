@@ -94,28 +94,52 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 - [x] **TASK-014** — `apps/website`'s Appointment section POSTs to the real endpoint (WhatsApp message still fires too, as a notify side-effect, not the only record). ✅ Done
 - [x] **TASK-015** — `apps/portal` booking queue: today's/upcoming bookings, change status, add a walk-in/phone-in booking manually. ✅ Done — **Milestone 3 complete**
 
-## Milestone 4 — Billing/POS + Analytics
+## Milestone 4 — Digital Business Card (`rtsh-info`)
+
+A separate initiative from the business-platform work above — a
+platform-owned product, not a per-tenant business site. One shared app
+serving a mobile-first personal profile page at `<domain>/<identifier>`,
+opened by scanning a QR code on someone's physical business card.
+`rtsh-info` is a placeholder app name, expected to change later. See the
+chat history for the full design discussion (path-based resolution vs.
+`apps/website`'s hostname-based resolution, phone-number MVP routing
+evolving to an opaque `uid` past ~100 users, and the separate/deferred
+link-shortener idea for email use — not part of this milestone).
+
+Card data model is **extensible by design**: a `links: [{ type, value,
+label? }]` array rather than hardcoded `whatsapp`/`instagram`/`website`
+fields, with an icon lookup map in the UI (unknown `type` falls back to
+a generic link icon). Adding a new platform later (LinkedIn, X,
+Telegram, ...) is just a new `links` entry plus, if it's a genuinely new
+`type`, one icon-map entry — no schema change.
+
+- [x] **TASK-029** — Scaffold `apps/rtsh-info` (new Vite/React app, own fixed MUI theme — same reasoning as `apps/admin`'s, no per-business theme engine needed). Basic mobile-first shell + a `/:identifier` route + `NotFoundPage` for genuinely unmatched paths. ✅ Done
+- [x] **TASK-030** — `Card`/`CardLink` types (`packages/types`) + `static-data/cards/*.json` + a local `cardRegistry.ts`/`useCard()` hook, mirroring `JsonDataSource`'s registry pattern but path-param-resolved (not hostname-resolved), matching on the last 10 digits of the identifier for MVP phone-number routing. `findCardByIdentifier` already falls back to matching `Card.id` directly for a non-phone-shaped identifier, so the future `uid`-routing migration needs no code change here, only new QR codes. ✅ Done
+- [x] **TASK-031** — Card page UI: circular avatar (initials fallback), name/title/location/phone/email, and the extensible `links` list rendered as icon buttons — reused `@rdplatforms/utils`' existing `toWhatsAppLink`/`formatPhoneForDisplay` rather than reimplementing them. `linkPresentation.ts` isolates the one place a new link `type` needs a touch (icon map + optional label/href handling). ✅ Done
+- [x] **TASK-032** — Seeded the first real `Card` record (Ritesh Dhekane) + `docs/rtsh-info.md` (routing scheme, how to add a card, how to add a new link type, future `uid` migration). ✅ Done — **Milestone 4 complete** (for its current MVP scope; link shortener explicitly deferred, not part of this milestone)
+
+## Milestone 5 — Billing/POS + Analytics (**ON HOLD** — paused in favor of Milestone 4 above; resume once the digital-card MVP ships)
 
 - [ ] **TASK-016** — Unified `Sale` entity (line items with category, payment method, optional linked `Booking`, `source: staff | online`, `createdByUserId`) + endpoints — supersedes `SaleEntry`/`SalesDataSource`.
 - [ ] **TASK-017** — `apps/portal` itemized bill creation UI (service/product picker, qty, price, discount, payment method), optionally linking to and fulfilling an existing `Booking`.
 - [ ] **TASK-018** — `apps/portal` analytics: Today/Week/Month totals + category-wise breakdown, visible to Owner and any Staff granted the permission from TASK-011.
 - [ ] **TASK-019** — Retire `SaleEntry`/`LocalStorageSalesDataSource` and remove the interim `/dashboard` route + passcode gate from `apps/website` entirely (see TASK-012's note) now that `apps/portal` covers sales logging/totals for real; fold any remaining `docs/business-dashboard.md` content into `docs/portal.md` and delete that doc.
 
-## Milestone 5 — 3D Printing Business + E-commerce
+## Milestone 6 — 3D Printing Business + E-commerce
 
 - [ ] **TASK-020** — `Product` type + `ProductDataSource`/`ProductService`/hooks; `BusinessSettings.commerceEnabled` capability flag (not category-gated — same pattern as `bookingEnabled`).
 - [ ] **TASK-021** — New `shop` section type (product grid) + a dedicated cart/checkout route in `apps/website`.
 - [ ] **TASK-022** — Client-side `Cart` (localStorage, no backend cart entity) + checkout flow that creates a `Sale(source: 'online')`.
 - [ ] **TASK-023** — `apps/portal` product catalog CRUD for Owner/Staff-with-permission.
-- [ ] **TASK-024** — New demo business #4 (3D printing, `category: 'ecommerce'` — already a reserved `BusinessCategory` value, no type change needed): full content, products, theme; demoed end-to-end (browse → cart → checkout → shows up in Milestone 4's analytics).
+- [ ] **TASK-024** — New demo business #4 (3D printing, `category: 'ecommerce'` — already a reserved `BusinessCategory` value, no type change needed): full content, products, theme; demoed end-to-end (browse → cart → checkout → shows up in Milestone 5's analytics).
 
-## Milestone 6 — Customer Accounts
+## Milestone 7 — Customer Accounts
 
 - [ ] **TASK-025** — `Customer` register/login on `apps/website` (separate from staff-side auth), JWT session scoped to one business.
 - [ ] **TASK-026** — Guest booking/checkout stays fully supported (never forced login); a logged-in Customer's bookings/orders link to their account and pre-fill their details.
 - [ ] **TASK-027** — Customer-facing "My Bookings" / "My Orders" history page.
 
-## Milestone 7 — UI Polish Pass
+## Milestone 8 — UI Polish Pass
 
 - [ ] **TASK-028** — Full visual/UX QA across `apps/website` (booking, shop, cart, customer account), `apps/portal`, and `apps/admin` — spacing, mobile responsiveness, empty/loading/error states, consistent with the existing design system.
 
