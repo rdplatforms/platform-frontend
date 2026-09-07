@@ -125,12 +125,16 @@ Post-MVP refinements, requested after seeing the first shipped version:
 - [x] **TASK-035** — `NotFoundPage` gained a mobile-number input that navigates straight to `/<number>`, for looking a card up without its QR code. ✅ Done
 - [x] **TASK-036** — Split "style" (colors, `cardStyles.ts`) from a new, independent "template" axis (`Card.template`, `src/templates/`) — 4 genuinely different component layouts (Stack/Banner/Compact/Framed), not recolors of one skeleton. Added a dev-only floating switcher (`DevPreviewSwitcher`, gated on `import.meta.env.DEV`, verified tree-shaken out of the production bundle) to cycle both live while building. ✅ Done
 
-## Milestone 5 — Billing/POS + Analytics (**ON HOLD** — paused in favor of Milestone 4 above; resume once the digital-card MVP ships)
+## Milestone 5 — Billing/POS + Analytics
 
-- [ ] **TASK-016** — Unified `Sale` entity (line items with category, payment method, optional linked `Booking`, `source: staff | online`, `createdByUserId`) + endpoints — supersedes `SaleEntry`/`SalesDataSource`.
-- [ ] **TASK-017** — `apps/portal` itemized bill creation UI (service/product picker, qty, price, discount, payment method), optionally linking to and fulfilling an existing `Booking`.
-- [ ] **TASK-018** — `apps/portal` analytics: Today/Week/Month totals + category-wise breakdown, visible to Owner and any Staff granted the permission from TASK-011.
-- [ ] **TASK-019** — Retire `SaleEntry`/`LocalStorageSalesDataSource` and remove the interim `/dashboard` route + passcode gate from `apps/website` entirely (see TASK-012's note) now that `apps/portal` covers sales logging/totals for real; fold any remaining `docs/business-dashboard.md` content into `docs/portal.md` and delete that doc.
+- [x] **TASK-016** — Unified `Sale` entity (`platform-backend`: line items with category, payment method, optional linked `Booking`, `source: STAFF | ONLINE`, `createdByUserId`) + endpoints — supersedes `SaleEntry`/`SalesDataSource`. `GET` gated on Owner/Super Admin or Staff with `canViewFullAnalytics`; `POST` open to any member. Linking a `bookingId` marks that Booking COMPLETED. ✅ Done
+- [x] **TASK-017** — `apps/portal` itemized bill creation UI (`/billing`) — catalog-backed or custom line items, qty/price/discount, payment method, optionally fulfilling an existing `Booking`; a "recent bills" list that fails silently (not an error) for a Staff member without the analytics permission. ✅ Done
+- [x] **TASK-018** — `apps/portal` analytics (`/analytics`): Today/Week/Month/All-Time totals + category-wise breakdown (selectable period), visible to Owner and any Staff granted the permission from TASK-011; a plain explanatory message, not an error, for a Staff member without it. ✅ Done
+- [x] **TASK-019** — Retired `SaleEntry`/`SalesDataSource`/`LocalStorageSalesDataSource`/`SalesService`/`useSales`/`useCreateSale`/`useDeleteSale`/`BusinessSettings.dashboardPasscode` and removed the interim `/dashboard` route + passcode gate from `apps/website` entirely (see TASK-012's note); kept `packages/utils/src/sales.ts`'s date-bucketing helpers (never `SaleEntry`-specific) for the new analytics page. Folded `docs/business-dashboard.md` into `docs/portal.md` and deleted it; wrote [docs/adr/0012-real-billing-supersedes-localstorage-dashboard.md](docs/adr/0012-real-billing-supersedes-localstorage-dashboard.md), marked ADR 0007 superseded. ✅ Done — **Milestone 5 complete**
+
+Also fixed along the way: `StaticDataImportRunner`'s default import path
+(`platform-backend`) assumed the pre-repo-split layout — updated to
+`../platform-frontend/static-data`.
 
 ## Milestone 6 — 3D Printing Business + E-commerce
 

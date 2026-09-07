@@ -54,16 +54,16 @@ Priority: `P0` (blocking) · `P1` (high) · `P2` (normal) · `P3` (nice to have)
 | Not Started | P0       | Authentication         | No auth exists yet — required before any real functionality         |
 | Not Started | P1       | Business/content CRUD  | Depends on Phase 4 backend                                          |
 
-## Business Owner Dashboard
+## Business Portal — Billing & Analytics (superseded the old `/dashboard`, see ADR 0012)
 
-| Status      | Priority | Item                                  | Description                                                                                 |
-| ----------- | -------- | ------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Done        | P1       | Sales logging (`/dashboard`)          | Log a service/product sale, view totals (today/week/month/all-time), delete an entry        |
-| Done        | P1       | `SalesDataSource` (localStorage)      | First write-capable data source; per-business namespaced, unit tested with a fake storage   |
-| Not Started | P0       | Real authentication                   | Passcode gate is a placeholder — see `docs/business-dashboard.md`                           |
-| Not Started | P1       | Postgres-backed `HttpSalesDataSource` | Superseded by the unified `Sale` entity in TASKS.md Milestone 4, not a standalone Mongo API |
-| Not Started | P2       | Edit an existing sale entry           | v1 only supports create + delete                                                            |
-| Not Started | P2       | Real product catalog                  | Products are free-text on the entry today, not their own type                               |
+| Status      | Priority | Item                              | Description                                                                                   |
+| ----------- | -------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Done        | P1       | Billing (`apps/portal/billing`)    | Itemized bill (multiple line items, category/discount per item), optionally fulfilling a Booking |
+| Done        | P1       | Real auth                          | `apps/portal`'s JWT login — no more placeholder passcode gate                                  |
+| Done        | P1       | `Sale` entity (Postgres)           | Real backend table (`platform-backend`), not localStorage — TASKS.md TASK-016                  |
+| Done        | P1       | Analytics (`apps/portal/analytics`) | Today/Week/Month/All-Time totals + category breakdown, gated by `canViewFullAnalytics`         |
+| Not Started | P2       | Edit/void an existing sale          | v1 only supports create                                                                        |
+| Not Started | P2       | Real product catalog                | Line items are free-text/catalog-prefilled today, not their own `Product` type — Milestone 6   |
 
 ## Localization
 

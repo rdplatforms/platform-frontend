@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Superseded by [0012](0012-real-billing-supersedes-localstorage-dashboard.md) — the `/dashboard` route, `SaleEntry`, and everything built only for them no longer exist. Kept for historical context on why the interim shape looked the way it did.
 
 ## Context
 

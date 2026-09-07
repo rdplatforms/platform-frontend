@@ -90,11 +90,12 @@ ships in Marathi and English with a switcher in the navbar. Single-language
 businesses (the common case) are entirely unaffected — see
 [docs/i18n.md](docs/i18n.md).
 
-## Owner dashboard
+## Business portal
 
-Each business has a basic sales-logging tool at `/dashboard` on its own
-site (passcode-gated — a placeholder, not real auth). See
-[docs/business-dashboard.md](docs/business-dashboard.md).
+Business Owners and Staff log into `apps/portal` (real JWT auth, not a
+placeholder) to manage staff, bookings, and billing — itemized bills,
+optionally fulfilling a booking, plus Today/Week/Month + category-wise
+sales analytics. See [docs/portal.md](docs/portal.md).
 
 ## Tech stack
 

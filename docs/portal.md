@@ -7,9 +7,11 @@ Milestone 3 (TASK-015, bookings) for where this fits, and
 [future-admin.md](future-admin.md) for why `apps/admin` deliberately
 doesn't work this way.
 
-This will replace the interim localStorage `/dashboard` on
-`apps/website` (see [business-dashboard.md](business-dashboard.md)) once
-real booking/billing functionality lands here — TASK-012.
+This replaced the interim localStorage `/dashboard` on `apps/website`
+(TASK-019) once real booking/billing functionality landed here — see
+[adr/0012-real-billing-supersedes-localstorage-dashboard.md](adr/0012-real-billing-supersedes-localstorage-dashboard.md)
+for the full reasoning and [adr/0007-per-business-owner-dashboard.md](adr/0007-per-business-owner-dashboard.md)
+for why the interim version looked the way it did.
 
 ## Domain resolution: `Business.portalDomains`
 
@@ -91,11 +93,52 @@ records `source: STAFF`/`status: CONFIRMED` immediately — see
 (never trusted from the request body). `apps/portal/src/api/bookingsApi.ts`
 follows the exact same direct-fetch pattern as `staffApi.ts`.
 
+## Billing (TASK-016/017)
+
+`/billing` — visible to any authenticated member (Owner or Staff), same
+as `/bookings`. A `Sale` is a bill: one or more line items (service or
+product, quantity, unit price, a flat-amount discount, category), a
+payment method, an optional customer name, and an optional link to an
+existing `Booking` — linking one marks it COMPLETED as a side effect of
+billing it (see `platform-backend`'s `SaleController`). The item picker
+reuses `useServices` (same real catalog `/bookings` uses) to prefill a
+line item, but items aren't required to come from the catalog — a
+custom label/category/price is just as valid, matching how
+`SaleController` treats `category` as free text, not a foreign key.
+
+`apps/portal/src/api/salesApi.ts` follows the same direct-fetch pattern
+as `staffApi.ts`/`bookingsApi.ts`. Its `listSales` throws a distinct
+`SalesAccessDeniedError` on a 403 specifically (see "Analytics" below)
+so callers can tell "you don't have the permission" apart from a real
+failure — `BillingPage`'s own "recent bills" list on this same page
+uses that to fail silently rather than showing an error a Staff member
+without the permission would find confusing (they can still create
+bills; they just don't see the history).
+
+## Analytics (TASK-018)
+
+`/analytics` — Today/Week/Month/All-Time totals plus a category
+breakdown (selectable period), computed **client-side** from the full
+sales list — same shape as the old dashboard's `SummaryCards`, just
+fed by the real `Sale` model now
+(`@rdplatforms/utils`' `saleAnalytics.ts`: `sumSaleTotals`,
+`filterSalesSince`, `categoryBreakdown`, reusing the generic
+`startOfDay`/`startOfWeek`/`startOfMonth` helpers `sales.ts` always had —
+those were never `SaleEntry`-specific).
+
+This is the one endpoint gated beyond "just a member": `GET
+/businesses/{id}/sales` requires the Owner role (or Super Admin) or a
+Staff member with `canViewFullAnalytics` (TASK-011) — enforced by
+`SaleController` server-side, not just hidden in the UI, since reading
+the sales list _is_ reading the business's analytics. A Staff member
+without the permission sees a plain explanatory message here instead of
+a dashboard, not an error.
+
 ## Local testing
 
 ```bash
-# Terminal 1 — backend
-cd backend
+# Terminal 1 — backend (a sibling checkout, ../platform-backend)
+cd ../platform-backend
 docker compose up -d
 ./gradlew bootRun --args='--spring.profiles.active=seed-super-admin --app.seed.super-admin-email=you@example.com --app.seed.super-admin-password=...'
 ./gradlew bootRun   # in a fresh terminal, or after the seed run exits

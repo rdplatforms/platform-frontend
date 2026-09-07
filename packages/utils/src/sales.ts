@@ -1,16 +1,10 @@
-export interface SaleAmount {
-  quantity: number;
-  unitPrice: number;
-}
-
-export function getSaleTotal(entry: SaleAmount): number {
-  return entry.quantity * entry.unitPrice;
-}
-
-export function sumSales(entries: SaleAmount[]): number {
-  return entries.reduce((sum, entry) => sum + getSaleTotal(entry), 0);
-}
-
+/**
+ * Generic date-bucketing helpers, reused by apps/portal's Analytics page
+ * (@rdplatforms/utils' saleAnalytics.ts) for Today/Week/Month totals.
+ * Originally written for the old client-only SaleEntry dashboard (see
+ * ADR 0012) — kept because the date math itself was never SaleEntry-
+ * specific, only the totaling functions that lived alongside it were.
+ */
 export function startOfDay(reference: Date): Date {
   const start = new Date(reference);
   start.setHours(0, 0, 0, 0);
@@ -30,8 +24,4 @@ export function startOfMonth(reference: Date): Date {
   const start = startOfDay(reference);
   start.setDate(1);
   return start;
-}
-
-export function filterSince<T extends { occurredAt: string }>(entries: T[], since: Date): T[] {
-  return entries.filter((entry) => new Date(entry.occurredAt) >= since);
 }

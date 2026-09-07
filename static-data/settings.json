@@ -7,7 +7,6 @@
     "bookingEnabled": true,
     "whatsappEnabled": true,
     "maintenanceMode": false,
-    "dashboardPasscode": "7076",
     "appointmentSlotMinutes": 60
   },
   "urban-bistro": {
@@ -17,8 +16,7 @@
     "timezone": "America/Los_Angeles",
     "bookingEnabled": false,
     "whatsappEnabled": true,
-    "maintenanceMode": false,
-    "dashboardPasscode": "5678"
+    "maintenanceMode": false
   },
   "vision3d": {
     "businessId": "vision3d",
@@ -27,7 +25,6 @@
     "timezone": "America/Denver",
     "bookingEnabled": false,
     "whatsappEnabled": false,
-    "maintenanceMode": false,
-    "dashboardPasscode": "9999"
+    "maintenanceMode": false
   }
 }

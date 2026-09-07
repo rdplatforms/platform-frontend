@@ -100,13 +100,6 @@ export interface BusinessSettings {
   whatsappEnabled: boolean;
   maintenanceMode: boolean;
   /**
-   * Placeholder gate for the per-business owner dashboard (see
-   * docs/business-dashboard.md) — a plain-text passcode, not real
-   * authentication. Undefined disables the dashboard entirely for this
-   * business until real auth exists (see docs/future-admin.md).
-   */
-  dashboardPasscode?: string;
-  /**
    * Appointment time-slot length in minutes for the Appointment section
    * (see docs/appointments.md). Defaults to 60 when unset — change this
    * instead of touching any code to offer 30-minute slots, etc.

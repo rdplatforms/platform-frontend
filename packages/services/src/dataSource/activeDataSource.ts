@@ -27,10 +27,9 @@ type ReadOnlyDataSource = BusinessDataSource &
 /**
  * The single seam every read-only *Service constructs against (TASK-005
  * — see docs/future-backend-contract.md). Set VITE_API_BASE_URL to point
- * the whole frontend at the real backend (backend/); leave it unset to
- * keep using the bundled static-data/*.json — no code change either way,
- * just an env var. SalesDataSource is unaffected (still
- * localStorageSalesDataSource — see docs/business-dashboard.md).
+ * the whole frontend at the real backend (../platform-backend/); leave
+ * it unset to keep using the bundled static-data/*.json — no code
+ * change either way, just an env var.
  *
  * Read via a local cast rather than the ambient ImportMetaEnv/ImportMeta
  * global augmentation (the pattern packages/providers uses): this

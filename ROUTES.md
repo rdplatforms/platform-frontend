@@ -14,8 +14,11 @@ Router: `apps/website/src/routes/router.tsx` (`react-router-dom`
 | Path         | Component       | Notes                                                                                                                                                         |
 | ------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/`          | `HomePage`      | Renders the resolved business's enabled sections via `SectionRenderer`, driven by `PageConfig` in `static-data/pages.json`                                    |
-| `/dashboard` | `DashboardPage` | Owner-facing sales log for this business, passcode-gated — see [docs/business-dashboard.md](docs/business-dashboard.md). Not linked from the public `Navbar`. |
 | `*`          | `NotFoundPage`  | Catch-all 404                                                                                                                                                 |
+
+Owner/Staff-facing routes (staff management, bookings, billing,
+analytics) live in `apps/portal`, a separate app with its own router —
+see [docs/portal.md](docs/portal.md), not a route under `apps/website`.
 
 Every demo business today only defines a single `/` page (see
 `static-data/pages.json`). Adding a second page for a business is:

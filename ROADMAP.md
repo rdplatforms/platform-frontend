@@ -27,7 +27,7 @@ The reusable, config-driven public website.
 - `apps/website` — business resolution, lazy-loaded routing, SEO document head
 - Contact section using React Hook Form + Zod (client-side validation only — no backend yet)
 - Per-business bilingual content (`LocalizableText`, `LocaleProvider`, a `Navbar` language switcher) and dynamic Google Fonts loading — see [docs/i18n.md](docs/i18n.md)
-- A basic per-business owner dashboard (`/dashboard`) for logging sales — see [docs/business-dashboard.md](docs/business-dashboard.md)
+- ~~A basic per-business owner dashboard (`/dashboard`) for logging sales~~ — superseded by real billing/analytics in `apps/portal`, see [docs/portal.md](docs/portal.md) and [docs/adr/0012-real-billing-supersedes-localstorage-dashboard.md](docs/adr/0012-real-billing-supersedes-localstorage-dashboard.md)
 
 ## Phase 3 — Admin 🟡 Scaffolded
 
