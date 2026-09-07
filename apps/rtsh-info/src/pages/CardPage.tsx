@@ -1,0 +1,97 @@
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { formatPhoneForDisplay } from '@rdplatforms/utils';
+import { useCard } from '../hooks/useCard';
+import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
+
+function initials(name: string): string {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('');
+}
+
+export function CardPage() {
+  const { card } = useCard();
+
+  if (!card) {
+    return (
+      <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center', p: 3, textAlign: 'center' }}>
+        <Typography variant="h6" fontWeight={700}>
+          Card not found
+        </Typography>
+        <Typography color="text.secondary">This link doesn't match a card yet.</Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', display: 'flex', justifyContent: 'center', p: 3 }}>
+      <Stack spacing={3} sx={{ width: '100%', maxWidth: 420, pt: 4 }} alignItems="center">
+        <Avatar
+          src={card.photoUrl || undefined}
+          alt={card.name}
+          sx={{ width: 128, height: 128, fontSize: 40, bgcolor: 'primary.main' }}
+        >
+          {initials(card.name)}
+        </Avatar>
+
+        <Stack spacing={0.5} alignItems="center" textAlign="center">
+          <Typography variant="h5" fontWeight={700}>
+            {card.name}
+          </Typography>
+          {card.title ? (
+            <Typography color="text.secondary" variant="body1">
+              {card.title}
+            </Typography>
+          ) : null}
+          {card.location ? (
+            <Stack direction="row" spacing={0.5} alignItems="center" color="text.secondary">
+              <LocationOnIcon fontSize="small" />
+              <Typography variant="body2">{card.location}</Typography>
+            </Stack>
+          ) : null}
+        </Stack>
+
+        <Stack spacing={1} alignItems="center" sx={{ width: '100%' }}>
+          <Stack direction="row" spacing={1} alignItems="center" color="text.secondary">
+            <PhoneIcon fontSize="small" />
+            <Typography variant="body2">{formatPhoneForDisplay(card.phone)}</Typography>
+          </Stack>
+          {card.email ? (
+            <Stack direction="row" spacing={1} alignItems="center" color="text.secondary">
+              <EmailIcon fontSize="small" />
+              <Typography variant="body2">{card.email}</Typography>
+            </Stack>
+          ) : null}
+        </Stack>
+
+        <Stack spacing={1.5} sx={{ width: '100%' }}>
+          {card.links.map((link, index) => {
+            const Icon = iconForLink(link);
+            return (
+              <Button
+                key={`${link.type}-${index}`}
+                component="a"
+                href={hrefForLink(link)}
+                target={link.type === 'call' ? undefined : '_blank'}
+                rel="noopener noreferrer"
+                variant="contained"
+                size="large"
+                startIcon={<Icon />}
+                fullWidth
+                sx={{ justifyContent: 'flex-start', py: 1.5 }}
+              >
+                {labelForLink(link)}
+              </Button>
+            );
+          })}
+        </Stack>
+      </Stack>
+    </Box>
+  );
+}
