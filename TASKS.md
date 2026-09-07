@@ -138,11 +138,19 @@ Also fixed along the way: `StaticDataImportRunner`'s default import path
 
 ## Milestone 6 — 3D Printing Business + E-commerce
 
-- [ ] **TASK-020** — `Product` type + `ProductDataSource`/`ProductService`/hooks; `BusinessSettings.commerceEnabled` capability flag (not category-gated — same pattern as `bookingEnabled`).
-- [ ] **TASK-021** — New `shop` section type (product grid) + a dedicated cart/checkout route in `apps/website`.
-- [ ] **TASK-022** — Client-side `Cart` (localStorage, no backend cart entity) + checkout flow that creates a `Sale(source: 'online')`.
-- [ ] **TASK-023** — `apps/portal` product catalog CRUD for Owner/Staff-with-permission.
-- [ ] **TASK-024** — New demo business #4 (3D printing, `category: 'ecommerce'` — already a reserved `BusinessCategory` value, no type change needed): full content, products, theme; demoed end-to-end (browse → cart → checkout → shows up in Milestone 5's analytics).
+- [x] **TASK-020** — `Product` entity (`platform-backend` — real typed columns, not JSONB passthrough, since apps/portal needs real CRUD) + `HttpProductDataSource`/`ProductService`/`useProducts` (backend-only, no static-data fallback); `BusinessSettings.commerceEnabled` capability flag (not category-gated, same "declared but not yet enforced" status as `bookingEnabled`). ✅ Done
+- [x] **TASK-021** — New `shop` section type (`packages/ui/src/sections/Shop.tsx`, product grid) + a dedicated `/cart` route in `apps/website`. `CartContext`/`CartProvider` live in `@rdplatforms/contexts`/`@rdplatforms/providers`, not `apps/website` — `Shop.tsx` is shared via `packages/ui`, which can't depend on an app. ✅ Done
+- [x] **TASK-022** — Client-side `Cart` (localStorage, namespaced per business, no backend cart entity) + checkout flow that creates a `Sale(source: 'ONLINE')`. Backend: `SaleController.create` now tells STAFF/ONLINE apart by whether `AuthenticatedUser` is null (mirrors `BookingController`), `POST /businesses/*/sales` is public; added `customerEmail`/`customerPhone` columns. Deliberately not best-effort like booking's WhatsApp fallback — checkout surfaces a real error on failure. ✅ Done
+- [x] **TASK-023** — `apps/portal` product catalog CRUD (`/products`) — Owner-only (+ Super Admin), same gating as Staff management, not the "any member" gating Bookings/Billing have. ✅ Done
+- [x] **TASK-024** — New demo business #4, `printforge-3d` (3D printing, `category: 'ecommerce'`): full content (services — a free design consultation, gallery, testimonials, faq, team, theme, seo, pages) + 5 seeded products (`static-data/products.json`, imported into real typed columns by `StaticDataImportRunner.importProducts` — the one static-data collection that isn't the generic JSONB path). `commerceEnabled: true` **and** `bookingEnabled: true` — proves a business isn't forced to pick one. Demoed end-to-end live: public shop listing, consultation service, public checkout creating an ONLINE Sale with correct total, Owner-side analytics reflecting it. ✅ Done — **Milestone 6 complete**
+
+Also fixed along the way: `Product.id` was `@GeneratedValue`, which
+conflicts with the importer needing to assign known, stable ids for
+idempotent re-imports — Hibernate's `merge()` threw
+`StaleObjectStateException` the first time. Fixed by making it
+application-assigned (matching `PageConfig`'s strategy, not
+`Booking`/`Sale`'s), caught by actually running the importer against
+real data rather than trusting it would work from reading the code.
 
 ## Milestone 7 — Customer Accounts
 
@@ -158,6 +166,6 @@ Also fixed along the way: `StaticDataImportRunner`'s default import path
 
 ## Open questions (revisit before the milestone they block)
 
-- **M5**: Does the 3D-printing business also need appointment booking (e.g. "book a design consultation"), or is it purely browse → cart → checkout, with walk-in billing available too?
-- **M6**: Customer accounts are scoped per-business for v1 (register separately on each business's site) — flag if a unified cross-business platform identity is actually wanted; it's a materially bigger change.
-- **Deferred, not forgotten**: no live payment gateway (Razorpay/Stripe) anywhere in this plan — `Sale.paymentMethod` just records cash/card/UPI/other. Matches `ROADMAP.md` Phase 6 already being separate from booking/billing. Say the word if checkout actually needs to take real payments before M5 ships.
+- ~~**M6**: Does the 3D-printing business also need appointment booking...~~ — resolved: yes, both. `printforge-3d` has `commerceEnabled: true` **and** `bookingEnabled: true` (a free design-consultation service), proving a business isn't forced to pick one.
+- **M7**: Customer accounts are scoped per-business for v1 (register separately on each business's site) — flag if a unified cross-business platform identity is actually wanted; it's a materially bigger change.
+- **Deferred, not forgotten**: no live payment gateway (Razorpay/Stripe) anywhere in this plan, including M6's online checkout — `Sale.paymentMethod` just records cash/card/UPI/other, selected by the customer, never actually charged. Matches `ROADMAP.md` Phase 6 already being separate from booking/billing. Say the word if checkout actually needs to take real payments.

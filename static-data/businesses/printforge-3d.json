@@ -1,0 +1,42 @@
+{
+  "id": "printforge-3d",
+  "slug": "printforge-3d",
+  "legalName": "PrintForge 3D LLC",
+  "displayName": "PrintForge 3D",
+  "tagline": "Custom 3D Prints, Made to Order",
+  "category": "ecommerce",
+  "logoUrl": "/assets/businesses/printforge-3d/logo.svg",
+  "faviconUrl": "/assets/businesses/printforge-3d/favicon.svg",
+  "description": "PrintForge 3D designs and prints custom 3D objects — figurines, prototypes, replacement parts, and one-off gifts — plus a ready-made shop for popular prints. Not sure what you need? Book a free design consultation.",
+  "contact": {
+    "phone": "5125550147",
+    "email": "hello@printforge3d.example.com",
+    "whatsapp": "5125550147",
+    "address": {
+      "line1": "1180 Foundry Row, Unit 6",
+      "city": "Austin",
+      "state": "TX",
+      "postalCode": "78702",
+      "country": "USA",
+      "mapEmbedUrl": "https://maps.google.com/maps?q=Austin%2C%20TX&output=embed",
+      "latitude": 30.2672,
+      "longitude": -97.7431
+    }
+  },
+  "hours": [
+    { "day": "monday", "opensAt": "10:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "tuesday", "opensAt": "10:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "wednesday", "opensAt": "10:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "thursday", "opensAt": "10:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "friday", "opensAt": "10:00", "closesAt": "18:00", "isClosed": false },
+    { "day": "saturday", "opensAt": "11:00", "closesAt": "16:00", "isClosed": false },
+    { "day": "sunday", "opensAt": null, "closesAt": null, "isClosed": true }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/printforge3d",
+    "youtube": "https://youtube.com/@printforge3d"
+  },
+  "domains": ["printforge-3d.rdplatforms.dev"],
+  "portalDomains": ["admin.printforge-3d.rdplatforms.dev"],
+  "isActive": true
+}

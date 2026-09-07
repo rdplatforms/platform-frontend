@@ -131,5 +131,17 @@
       "category": "Immersive",
       "isFeatured": false
     }
+  ],
+  "printforge-3d": [
+    {
+      "id": "pf3d-svc-consultation",
+      "businessId": "printforge-3d",
+      "name": "3D Design Consultation",
+      "description": "Not sure your idea is printable, or want it designed from scratch? Book a free 30-minute call with a designer before you order.",
+      "durationMinutes": 30,
+      "imageUrl": "/assets/businesses/printforge-3d/services/consultation.svg",
+      "category": "Consultation",
+      "isFeatured": true
+    }
   ]
 }

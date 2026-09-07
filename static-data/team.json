@@ -33,5 +33,15 @@
       "photoUrl": "/assets/businesses/vision3d/team/ines.svg",
       "bio": "Produces cinematic walkthroughs and VR experiences for investor and leasing presentations."
     }
+  ],
+  "printforge-3d": [
+    {
+      "id": "pf3d-team-1",
+      "businessId": "printforge-3d",
+      "name": "Devon Ashworth",
+      "role": "Founder & Lead Designer",
+      "photoUrl": "/assets/businesses/printforge-3d/team/devon.svg",
+      "bio": "Started PrintForge 3D out of a garage printer and a habit of fixing broken things by redesigning them."
+    }
   ]
 }

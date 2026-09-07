@@ -18,5 +18,25 @@
       "question": "How many revision rounds are included?",
       "answer": "Every project includes two rounds of revisions. Additional rounds are billed at an hourly rate."
     }
+  ],
+  "printforge-3d": [
+    {
+      "id": "pf3d-faq-1",
+      "businessId": "printforge-3d",
+      "question": "What materials do you print in?",
+      "answer": "PLA, PETG, and ABS for most orders, plus resin for high-detail figurines. Ask about material options during your consultation or in your order note."
+    },
+    {
+      "id": "pf3d-faq-2",
+      "businessId": "printforge-3d",
+      "question": "Do you do custom/one-off designs?",
+      "answer": "Yes — that's exactly what the free design consultation is for. Send us your idea and we'll tell you what's possible before you pay for anything."
+    },
+    {
+      "id": "pf3d-faq-3",
+      "businessId": "printforge-3d",
+      "question": "How long does an order take?",
+      "answer": "Ready-made shop items ship within 2-3 business days. Custom prints depend on complexity — we'll give you a timeline during your consultation."
+    }
   ]
 }

@@ -65,5 +65,30 @@
         { "type": "map", "enabled": false, "order": 10 }
       ]
     }
+  ],
+  "printforge-3d": [
+    {
+      "businessId": "printforge-3d",
+      "path": "/",
+      "name": "Home",
+      "sections": [
+        { "type": "hero", "enabled": true, "order": 1, "title": "Custom 3D Prints, Made to Order" },
+        { "type": "about", "enabled": true, "order": 2, "title": "About PrintForge 3D" },
+        { "type": "shop", "enabled": true, "order": 3, "title": "Shop" },
+        {
+          "type": "appointment",
+          "enabled": true,
+          "order": 4,
+          "title": "Book a Free Design Consultation"
+        },
+        { "type": "gallery", "enabled": true, "order": 5, "title": "Recent Prints" },
+        { "type": "testimonials", "enabled": true, "order": 6, "title": "What Makers Say" },
+        { "type": "faq", "enabled": true, "order": 7, "title": "Common Questions" },
+        { "type": "team", "enabled": true, "order": 8, "title": "Who's Behind It" },
+        { "type": "cta", "enabled": true, "order": 9, "title": "Got an Idea? Let's Print It" },
+        { "type": "contact", "enabled": true, "order": 10, "title": "Get In Touch" },
+        { "type": "map", "enabled": true, "order": 11 }
+      ]
+    }
   ]
 }

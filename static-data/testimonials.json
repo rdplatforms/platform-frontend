@@ -50,5 +50,23 @@
       "rating": 4,
       "quote": "Fast turnaround, precise material accuracy, and they take revisions in stride. Our go-to render partner."
     }
+  ],
+  "printforge-3d": [
+    {
+      "id": "pf3d-test-1",
+      "businessId": "printforge-3d",
+      "authorName": "Marcus Webb",
+      "authorRole": "Maker & Hobbyist",
+      "rating": 5,
+      "quote": "Sent them a rough sketch of a part I needed and they turned it into a print that just works. Consultation call was genuinely useful."
+    },
+    {
+      "id": "pf3d-test-2",
+      "businessId": "printforge-3d",
+      "authorName": "Priya Raman",
+      "authorRole": "Product Designer",
+      "rating": 5,
+      "quote": "Ordered a batch of prototype housings — accurate dimensions, clean finish, delivered on time."
+    }
   ]
 }

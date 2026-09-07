@@ -45,5 +45,13 @@
     ],
     "ogImageUrl": "/assets/businesses/vision3d/og-image.svg",
     "canonicalUrl": "https://vision3d.rdplatforms.dev"
+  },
+  "printforge-3d": {
+    "businessId": "printforge-3d",
+    "title": "PrintForge 3D | Custom 3D Printing & Design in Austin, TX",
+    "description": "Custom 3D printed parts, figurines, and prototypes — plus a ready-made shop and free design consultations.",
+    "keywords": ["3d printing austin", "custom 3d prints", "3d printing shop", "rapid prototyping"],
+    "ogImageUrl": "/assets/businesses/printforge-3d/og-image.svg",
+    "canonicalUrl": "https://printforge-3d.rdplatforms.dev"
   }
 }

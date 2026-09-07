@@ -7,6 +7,7 @@
     "bookingEnabled": true,
     "whatsappEnabled": true,
     "maintenanceMode": false,
+    "commerceEnabled": false,
     "appointmentSlotMinutes": 60
   },
   "urban-bistro": {
@@ -16,7 +17,8 @@
     "timezone": "America/Los_Angeles",
     "bookingEnabled": false,
     "whatsappEnabled": true,
-    "maintenanceMode": false
+    "maintenanceMode": false,
+    "commerceEnabled": false
   },
   "vision3d": {
     "businessId": "vision3d",
@@ -25,6 +27,18 @@
     "timezone": "America/Denver",
     "bookingEnabled": false,
     "whatsappEnabled": false,
-    "maintenanceMode": false
+    "maintenanceMode": false,
+    "commerceEnabled": false
+  },
+  "printforge-3d": {
+    "businessId": "printforge-3d",
+    "currency": "USD",
+    "locale": "en-US",
+    "timezone": "America/Denver",
+    "bookingEnabled": true,
+    "whatsappEnabled": true,
+    "maintenanceMode": false,
+    "commerceEnabled": true,
+    "appointmentSlotMinutes": 45
   }
 }

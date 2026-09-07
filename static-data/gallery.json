@@ -116,5 +116,31 @@
       "category": "Immersive",
       "order": 6
     }
+  ],
+  "printforge-3d": [
+    {
+      "id": "pf3d-gal-1",
+      "businessId": "printforge-3d",
+      "title": "Articulated Dragon Print",
+      "imageUrl": "/assets/businesses/printforge-3d/gallery/1.svg",
+      "category": "Figurines",
+      "order": 1
+    },
+    {
+      "id": "pf3d-gal-2",
+      "businessId": "printforge-3d",
+      "title": "Custom Drone Mount Prototype",
+      "imageUrl": "/assets/businesses/printforge-3d/gallery/2.svg",
+      "category": "Prototyping",
+      "order": 2
+    },
+    {
+      "id": "pf3d-gal-3",
+      "businessId": "printforge-3d",
+      "title": "Replacement Bracket Batch",
+      "imageUrl": "/assets/businesses/printforge-3d/gallery/3.svg",
+      "category": "Parts",
+      "order": 3
+    }
   ]
 }

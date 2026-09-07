@@ -5,7 +5,7 @@ describe('BusinessService', () => {
   it('lists all registered demo businesses', async () => {
     const businesses = await businessService.getAll();
     const slugs = businesses.map((business) => business.slug).sort();
-    expect(slugs).toEqual(['swami-hair-salon', 'urban-bistro', 'vision3d']);
+    expect(slugs).toEqual(['printforge-3d', 'swami-hair-salon', 'urban-bistro', 'vision3d']);
   });
 
   it('resolves a business by slug', async () => {

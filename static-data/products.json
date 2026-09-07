@@ -1,0 +1,57 @@
+{
+  "printforge-3d": [
+    {
+      "id": "ef6007a7-e1ec-49a9-8e04-d4d32e5763b2",
+      "name": "Articulated Dragon",
+      "description": "Print-in-place, no supports needed. Poses and moves right off the bed.",
+      "price": 24.99,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/printforge-3d/products/articulated-dragon.svg",
+      "category": "figurines",
+      "stockQuantity": 40,
+      "featured": true
+    },
+    {
+      "id": "a766b5b8-2b29-4c76-aec1-14a3d8d0a2b0",
+      "name": "Modular Desk Cable Organizer",
+      "description": "Snap-together channels keep cables tidy — sold per 3-pack.",
+      "price": 14.5,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/printforge-3d/products/cable-organizer.svg",
+      "category": "home",
+      "stockQuantity": 75,
+      "featured": true
+    },
+    {
+      "id": "5fd8c89e-4d12-482a-985f-d370e7cf99e7",
+      "name": "Low-Poly Planter (Small)",
+      "description": "Geometric planter, fits a 4-inch pot insert. Drainage hole included.",
+      "price": 12.0,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/printforge-3d/products/low-poly-planter.svg",
+      "category": "home",
+      "stockQuantity": 30,
+      "featured": false
+    },
+    {
+      "id": "af1940d2-9ac9-40d0-9f60-7033c374da5c",
+      "name": "Phone Stand — Adjustable",
+      "description": "Multi-angle stand, fits phones with most cases on.",
+      "price": 9.99,
+      "currency": "USD",
+      "imageUrl": "/assets/businesses/printforge-3d/products/phone-stand.svg",
+      "category": "accessories",
+      "stockQuantity": 0,
+      "featured": false
+    },
+    {
+      "id": "9eff89c5-d886-4de2-bb93-7594a819b38a",
+      "name": "Custom Nameplate (Made to Order)",
+      "description": "Send us your text — one to two words, printed and shipped in 3 business days.",
+      "price": 18.0,
+      "currency": "USD",
+      "category": "custom",
+      "featured": false
+    }
+  ]
+}
