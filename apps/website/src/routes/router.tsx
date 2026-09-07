@@ -3,6 +3,7 @@ import { Box, CircularProgress } from '@mui/material';
 import { createBrowserRouter } from 'react-router-dom';
 
 const HomePage = lazy(() => import('../pages/HomePage').then((m) => ({ default: m.HomePage })));
+const CartPage = lazy(() => import('../pages/CartPage').then((m) => ({ default: m.CartPage })));
 const NotFoundPage = lazy(() =>
   import('../pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 );
@@ -27,8 +28,14 @@ function withSuspense(element: ReactNode) {
  * The interim /dashboard route (localStorage-backed sales logging, see
  * ADR 0007) was removed once apps/portal's real Billing/Analytics pages
  * (TASKS.md Milestone 5) covered the same job for real — see ADR 0012.
+ *
+ * /cart (Milestone 6) is the one dedicated route the shop section
+ * needs, not a page section itself — "add to cart" happens inline in
+ * the Shop section, but reviewing/editing the cart and checking out
+ * needs its own page, same reasoning docs/shop.md gives in full.
  */
 export const router = createBrowserRouter([
   { path: '/', element: withSuspense(<HomePage />) },
+  { path: '/cart', element: withSuspense(<CartPage />) },
   { path: '*', element: withSuspense(<NotFoundPage />) },
 ]);

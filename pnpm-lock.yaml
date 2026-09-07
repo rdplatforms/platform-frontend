@@ -215,6 +215,9 @@ importers:
       '@rdplatforms/business':
         specifier: workspace:*
         version: link:../../packages/business
+      '@rdplatforms/contexts':
+        specifier: workspace:*
+        version: link:../../packages/contexts
       '@rdplatforms/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -410,6 +413,9 @@ importers:
       '@mui/material':
         specifier: ^6.1.9
         version: 6.5.0(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@rdplatforms/contexts':
+        specifier: workspace:*
+        version: link:../contexts
       '@rdplatforms/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -428,6 +434,9 @@ importers:
       react-hook-form:
         specifier: ^7.54.0
         version: 7.84.0(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.28.0
+        version: 6.30.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       zod:
         specifier: ^3.24.1
         version: 3.25.76

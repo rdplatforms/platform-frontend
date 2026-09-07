@@ -16,6 +16,7 @@
     "@mui/icons-material": "^6.1.9",
     "@mui/material": "^6.1.9",
     "@rdplatforms/business": "workspace:*",
+    "@rdplatforms/contexts": "workspace:*",
     "@rdplatforms/hooks": "workspace:*",
     "@rdplatforms/providers": "workspace:*",
     "@rdplatforms/services": "workspace:*",

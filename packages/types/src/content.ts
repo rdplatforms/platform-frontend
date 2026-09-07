@@ -58,7 +58,8 @@ export type SectionType =
   | 'map'
   | 'pricing'
   | 'team'
-  | 'appointment';
+  | 'appointment'
+  | 'shop';
 
 export interface SectionConfig {
   type: SectionType;
@@ -99,6 +100,15 @@ export interface BusinessSettings {
   bookingEnabled: boolean;
   whatsappEnabled: boolean;
   maintenanceMode: boolean;
+  /**
+   * Declares whether this business runs a product shop — not gated by
+   * BusinessCategory (a salon could sell retail products too), same
+   * "declared capability, not yet actively enforced anywhere" status as
+   * bookingEnabled currently has. The Shop section's actual visibility
+   * is controlled the same way every section is: its SectionConfig.enabled
+   * flag in PageConfig (see docs/shop.md).
+   */
+  commerceEnabled: boolean;
   /**
    * Appointment time-slot length in minutes for the Appointment section
    * (see docs/appointments.md). Defaults to 60 when unset — change this

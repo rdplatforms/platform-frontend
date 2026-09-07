@@ -10,4 +10,6 @@ export * from './useSeo';
 export * from './usePageSections';
 export * from './useSettings';
 export * from './useCreateBooking';
+export * from './useProducts';
+export * from './useCheckout';
 export * from './useWhatsAppSubmit';

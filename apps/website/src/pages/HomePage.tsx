@@ -14,6 +14,7 @@ const NAV_LABEL_KEYS: Partial<Record<SectionConfig['type'], UiStringKey>> = {
   pricing: 'navPricing',
   appointment: 'navAppointment',
   contact: 'navContact',
+  shop: 'navShop',
 };
 
 function toNavItems(sections: SectionConfig[], locale: SupportedLocale): NavItem[] {

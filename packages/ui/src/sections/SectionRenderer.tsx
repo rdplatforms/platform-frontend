@@ -12,6 +12,7 @@ import { MapSection } from './MapSection';
 import { Pricing } from './Pricing';
 import { Team } from './Team';
 import { Appointment } from './Appointment';
+import { Shop } from './Shop';
 import type { SectionProps } from './types';
 
 const SECTION_COMPONENTS: Record<SectionConfig['type'], ComponentType<SectionProps>> = {
@@ -27,6 +28,7 @@ const SECTION_COMPONENTS: Record<SectionConfig['type'], ComponentType<SectionPro
   pricing: Pricing,
   team: Team,
   appointment: Appointment,
+  shop: Shop,
 };
 
 export interface SectionRendererProps {

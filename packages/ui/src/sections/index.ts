@@ -11,4 +11,5 @@ export * from './MapSection';
 export * from './Pricing';
 export * from './Team';
 export * from './Appointment';
+export * from './Shop';
 export * from './SectionRenderer';

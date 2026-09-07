@@ -3,6 +3,8 @@ export * from './dataSource/JsonDataSource';
 export * from './dataSource/HttpDataSource';
 export * from './dataSource/activeDataSource';
 export * from './dataSource/HttpBookingDataSource';
+export * from './dataSource/HttpProductDataSource';
+export * from './dataSource/HttpCheckoutDataSource';
 
 export * from './BusinessService';
 export * from './ServiceCatalogService';
@@ -15,3 +17,5 @@ export * from './FaqService';
 export * from './TeamService';
 export * from './SettingsService';
 export * from './BookingService';
+export * from './ProductService';
+export * from './CheckoutService';

@@ -1,4 +1,5 @@
 export * from './BusinessProvider';
+export * from './CartProvider';
 export * from './LocaleProvider';
 export * from './AppThemeProvider';
 export * from './QueryProvider';
