@@ -63,6 +63,15 @@ export function PortalLayout() {
                   Staff
                 </Button>
               ) : null}
+              {isOwner ? (
+                <Button
+                  component={RouterLink}
+                  to="/products"
+                  color={location.pathname === '/products' ? 'primary' : 'inherit'}
+                >
+                  Products
+                </Button>
+              ) : null}
             </Stack>
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">

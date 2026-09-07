@@ -134,6 +134,22 @@ the sales list _is_ reading the business's analytics. A Staff member
 without the permission sees a plain explanatory message here instead of
 a dashboard, not an error.
 
+## Products (TASK-020/023, Milestone 6)
+
+`/products` — an Owner-only page (or Super Admin; a Staff member sees
+an "Owners only" message, same pattern as `/staff`, not the "any
+member" gating `/bookings`/`/billing` have — product/pricing changes
+are business configuration, not day-to-day operational work). One form
+doubles as create and edit (toggled by whether a row's Edit button was
+clicked), a table lists the catalog with inline Edit/Delete.
+
+This is the write side of the same `Product` catalog
+`apps/website`'s shop section reads publicly — see
+[shop.md](shop.md) for the full picture, including why `Product`'s
+JSON field is `featured`, not `isFeatured`.
+`apps/portal/src/api/productsApi.ts` follows the same direct-fetch
+pattern as `staffApi.ts`/`bookingsApi.ts`/`salesApi.ts`.
+
 ## Local testing
 
 ```bash
