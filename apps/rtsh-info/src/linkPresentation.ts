@@ -7,6 +7,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LanguageIcon from '@mui/icons-material/Language';
 import EmailIcon from '@mui/icons-material/Email';
+import MapIcon from '@mui/icons-material/Map';
 import LinkIcon from '@mui/icons-material/Link';
 import type { CardLink } from '@rdplatforms/types';
 import { toWhatsAppLink } from '@rdplatforms/utils';
@@ -25,6 +26,7 @@ const ICONS: Record<string, ComponentType<SvgIconProps>> = {
   instagram: InstagramIcon,
   website: LanguageIcon,
   email: EmailIcon,
+  maps: MapIcon,
 };
 
 const LABELS: Record<string, string> = {
@@ -35,6 +37,7 @@ const LABELS: Record<string, string> = {
   instagram: 'Instagram',
   website: 'Website',
   email: 'Email',
+  maps: 'Get Directions',
 };
 
 export function iconForLink(link: CardLink): ComponentType<SvgIconProps> {
@@ -53,6 +56,8 @@ export function hrefForLink(link: CardLink): string {
       return toWhatsAppLink(link.value);
     case 'email':
       return `mailto:${link.value}`;
+    case 'maps':
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(link.value)}`;
     default:
       return /^https?:\/\//.test(link.value) ? link.value : `https://${link.value}`;
   }

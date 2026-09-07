@@ -64,12 +64,51 @@ X, ...) needs no schema change:
    the raw `type` string otherwise).
 3. If the link needs special `href` handling (not "treat `value` as a
    URL"), add a case to `hrefForLink`'s `switch` — see `call`/
-   `whatsapp`/`email` for examples. `whatsapp` reuses
+   `whatsapp`/`email`/`maps` for examples. `whatsapp` reuses
    `@rdplatforms/utils`' `toWhatsAppLink`, the same helper
-   `apps/website`'s Appointment section uses.
+   `apps/website`'s Appointment section uses. `maps` treats `value` as a
+   free-text address/place name and builds a Google Maps search URL
+   from it, not a raw URL passthrough — see `Card.location` on the
+   seeded `ritesh-dhekane.json` for the convention (same text, used as
+   a `maps` link's `value`).
 
 An unrecognized `type` still renders correctly — generic link icon, the
 raw `type` string as its label, `value` treated as a URL.
+
+## Visual styles
+
+`Card.style` picks one of five predefined visual templates
+(`src/cardStyles.ts`) — Linktree-inspired backgrounds/button treatments,
+selected entirely from data, no code change needed per card:
+
+| style key | look |
+| --- | --- |
+| `style1` (default) | Classic — light background, solid dark pill buttons |
+| `style2` | Midnight — dark gradient, translucent outlined buttons |
+| `style3` | Sunset — warm gradient, frosted white buttons |
+| `style4` | Minimal — white background, outlined buttons |
+| `style5` | Ocean — teal/blue gradient, translucent buttons |
+
+A missing or unrecognized `style` value falls back to `style1`
+(`resolveCardStyle`), same tolerance as an unrecognized link `type`.
+Adding a 6th style is one new entry in `CARD_STYLES` — `CardPage` never
+changes.
+
+## Avatar initials/color
+
+`getInitials`/`getAvatarColors` (`@rdplatforms/utils`, not local to this
+app — deliberately shared since any future avatar in the platform, e.g.
+a staff list in `apps/portal`, can reuse the same "no photo yet" look)
+derive a two-letter initials badge and a deterministic background/text
+color pair from a person's name alone, so the same name always renders
+the same badge with no stored color field needed.
+
+## Looking a card up without a QR code
+
+`NotFoundPage` (shown for any path that isn't `/:identifier` — e.g. a
+bare `/`) includes a mobile-number input that navigates to
+`/<number>`, landing back on the same identifier resolution
+`CardPage`/`findCardByIdentifier` already do.
 
 ## Local development
 

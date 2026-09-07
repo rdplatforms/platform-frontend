@@ -26,5 +26,7 @@ export interface Card {
   email?: string;
   location?: string;
   photoUrl?: string;
+  /** One of apps/rtsh-info's predefined visual styles ("style1".."style5") — an unrecognized or missing value falls back to "style1", same tolerance as an unrecognized CardLink.type. */
+  style?: string;
   links: CardLink[];
 }

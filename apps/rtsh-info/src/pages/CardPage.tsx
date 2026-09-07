@@ -2,18 +2,10 @@ import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { formatPhoneForDisplay } from '@rdplatforms/utils';
+import { formatPhoneForDisplay, getAvatarColors, getInitials } from '@rdplatforms/utils';
+import { resolveCardStyle } from '../cardStyles';
 import { useCard } from '../hooks/useCard';
 import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
-
-function initials(name: string): string {
-  return name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join('');
-}
 
 export function CardPage() {
   const { card } = useCard();
@@ -29,28 +21,39 @@ export function CardPage() {
     );
   }
 
+  const style = resolveCardStyle(card.style);
+  const avatarColors = getAvatarColors(card.name);
+
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', display: 'flex', justifyContent: 'center', p: 3 }}>
+    <Box sx={{ minHeight: '100vh', background: style.background, display: 'flex', justifyContent: 'center', p: 3 }}>
       <Stack spacing={3} sx={{ width: '100%', maxWidth: 420, pt: 4 }} alignItems="center">
         <Avatar
           src={card.photoUrl || undefined}
           alt={card.name}
-          sx={{ width: 128, height: 128, fontSize: 40, bgcolor: 'primary.main' }}
+          sx={{
+            width: 128,
+            height: 128,
+            fontSize: 40,
+            fontWeight: 700,
+            bgcolor: avatarColors.bg,
+            color: avatarColors.fg,
+            border: `3px solid ${style.avatarRing}`,
+          }}
         >
-          {initials(card.name)}
+          {getInitials(card.name)}
         </Avatar>
 
         <Stack spacing={0.5} alignItems="center" textAlign="center">
-          <Typography variant="h5" fontWeight={700}>
+          <Typography variant="h5" fontWeight={700} sx={{ color: style.textColor }}>
             {card.name}
           </Typography>
           {card.title ? (
-            <Typography color="text.secondary" variant="body1">
+            <Typography variant="body1" sx={{ color: style.secondaryTextColor }}>
               {card.title}
             </Typography>
           ) : null}
           {card.location ? (
-            <Stack direction="row" spacing={0.5} alignItems="center" color="text.secondary">
+            <Stack direction="row" spacing={0.5} alignItems="center" sx={{ color: style.secondaryTextColor }}>
               <LocationOnIcon fontSize="small" />
               <Typography variant="body2">{card.location}</Typography>
             </Stack>
@@ -58,12 +61,12 @@ export function CardPage() {
         </Stack>
 
         <Stack spacing={1} alignItems="center" sx={{ width: '100%' }}>
-          <Stack direction="row" spacing={1} alignItems="center" color="text.secondary">
+          <Stack direction="row" spacing={1} alignItems="center" sx={{ color: style.secondaryTextColor }}>
             <PhoneIcon fontSize="small" />
             <Typography variant="body2">{formatPhoneForDisplay(card.phone)}</Typography>
           </Stack>
           {card.email ? (
-            <Stack direction="row" spacing={1} alignItems="center" color="text.secondary">
+            <Stack direction="row" spacing={1} alignItems="center" sx={{ color: style.secondaryTextColor }}>
               <EmailIcon fontSize="small" />
               <Typography variant="body2">{card.email}</Typography>
             </Stack>
@@ -80,11 +83,10 @@ export function CardPage() {
                 href={hrefForLink(link)}
                 target={link.type === 'call' ? undefined : '_blank'}
                 rel="noopener noreferrer"
-                variant="contained"
                 size="large"
                 startIcon={<Icon />}
                 fullWidth
-                sx={{ justifyContent: 'flex-start', py: 1.5 }}
+                sx={style.buttonSx}
               >
                 {labelForLink(link)}
               </Button>

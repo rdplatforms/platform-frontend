@@ -6,10 +6,13 @@
   "email": "ritesh.dhekane@outlook.com",
   "location": "Pune, Maharashtra, India",
   "photoUrl": "",
+  "style": "style3",
   "links": [
     { "type": "call", "value": "+919322527567" },
     { "type": "whatsapp", "value": "+919322527567" },
+    { "type": "website", "value": "http://riteshdhekane.netlify.app/" },
     { "type": "linkedin", "value": "https://linkedin.com/in/riteshdhekane" },
-    { "type": "github", "value": "https://github.com/Ritesh-Dhekane", "label": "GitHub" }
+    { "type": "github", "value": "https://github.com/Ritesh-Dhekane", "label": "GitHub" },
+    { "type": "maps", "value": "Pune, Maharashtra, India" }
   ]
 }
