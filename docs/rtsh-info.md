@@ -75,11 +75,24 @@ X, ...) needs no schema change:
 An unrecognized `type` still renders correctly — generic link icon, the
 raw `type` string as its label, `value` treated as a URL.
 
-## Visual styles
+## Styles and templates — two independent axes
 
-`Card.style` picks one of five predefined visual templates
-(`src/cardStyles.ts`) — Linktree-inspired backgrounds/button treatments,
-selected entirely from data, no code change needed per card:
+A card's look is controlled by two separate fields, deliberately kept
+apart:
+
+- **`Card.style`** (`src/cardStyles.ts`) — colors only: background,
+  text colors, button fill/border. Think "which color scheme."
+- **`Card.template`** (`src/templates/`) — actual component structure:
+  where the avatar sits, whether links render as a full-width button
+  list or an icon grid, full-bleed page vs. a framed rounded card on a
+  neutral backdrop. Think "which physical card layout," the way a print
+  shop's card-design series each have a genuinely different layout, not
+  just a recolor of one design.
+
+Both are picked entirely from data — no code change needed per card —
+and both tolerate a missing/unrecognized value by falling back to the
+first option (`resolveCardStyle` → `style1`, `resolveCardTemplate` →
+`template1`), same as an unrecognized link `type`.
 
 | style key | look |
 | --- | --- |
@@ -89,10 +102,31 @@ selected entirely from data, no code change needed per card:
 | `style4` | Minimal — white background, outlined buttons |
 | `style5` | Ocean — teal/blue gradient, translucent buttons |
 
-A missing or unrecognized `style` value falls back to `style1`
-(`resolveCardStyle`), same tolerance as an unrecognized link `type`.
-Adding a 6th style is one new entry in `CARD_STYLES` — `CardPage` never
-changes.
+| template key | structure |
+| --- | --- |
+| `template1` (default) | Stack — full-bleed colored background, centered avatar, full-width button list |
+| `template2` | Banner — colored banner strip up top with the avatar overlapping its edge, plain body below |
+| `template3` | Compact — avatar and name side by side (not stacked), links as a 3-column icon grid |
+| `template4` | Framed — a rounded, shadowed card floating on a neutral backdrop, compact icon grid inside |
+
+Adding a 6th style is one entry in `CARD_STYLES`. Adding a 5th template
+is one new component (see `StackTemplate.tsx` for the simplest example)
+plus one entry in `CARD_TEMPLATES` (`src/templates/index.ts`) —
+`CardPage` itself never changes for either. `src/templates/shared.tsx`
+holds the pieces templates compose differently (`AvatarBadge`,
+`ContactLines`, `LinkButtonList`, `LinkIconGrid`) so a new template
+isn't starting from a blank page.
+
+### Dev-only style/template preview switcher
+
+`CardPage` renders a floating `DevPreviewSwitcher` (bottom-right corner)
+only when `import.meta.env.DEV` is true — i.e. `pnpm dev:rtsh-info`,
+never a production build (verified: the string `"DEV PREVIEW"` doesn't
+appear anywhere in a `vite build` output, meaning it's tree-shaken out,
+not just hidden). It cycles the live preview through every
+style/template combination without touching JSON, for quickly reviewing
+all of them while building. A real visitor scanning a QR code never
+sees it.
 
 ## Avatar initials/color
 
