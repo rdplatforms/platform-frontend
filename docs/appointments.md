@@ -1,10 +1,12 @@
 # Appointment Booking
 
 A config-driven section (`type: 'appointment'`) that lets a website visitor
-request an appointment — which service, preferred date/time — and hands
-that request to the business owner via a prefilled WhatsApp message. See
+request an appointment — which service, preferred date/time — and both
+persists it as a real `Booking` on the backend **and** hands it to the
+business owner via a prefilled WhatsApp message (TASKS.md Milestone 3,
+TASK-013/014). See
 [adr/0010-whatsapp-appointment-handoff.md](adr/0010-whatsapp-appointment-handoff.md)
-for why it's shaped this way instead of a real backend submission, and
+for why the WhatsApp side is shaped the way it is, and
 [business-hours.md](business-hours.md) for how the date/time picker is
 driven entirely by the business's own hours data.
 
@@ -21,14 +23,24 @@ driven entirely by the business's own hours data.
    not freeform text. Picking a day the business is closed (e.g. Monday
    for Swami Hair Salon) disables the time field with an explanatory
    message instead of offering slots that don't exist.
-4. On submit, `buildAppointmentMessage()`
-   (`packages/utils/src/appointment.ts`) formats those into a plain-text
-   message, localized to the visitor's current locale, and
-   `useWhatsAppSubmit` (`packages/hooks/src/useWhatsAppSubmit.ts`) opens
-   it in WhatsApp.
-5. **The visitor still has to tap Send.** Nothing is delivered
-   automatically — there's no backend to submit to, so this is a handoff,
-   not a submission. The UI says so explicitly after opening the link.
+4. On submit, `useCreateBooking` (`packages/hooks/src/useCreateBooking.ts`)
+   POSTs the request to the backend (`bookingService`/
+   `HttpBookingDataSource`, `packages/services`) — a real, persisted
+   `Booking` with `source: 'ONLINE'`, `status: 'PENDING'`, visible to
+   staff in `apps/portal`'s booking queue (TASK-015). This is
+   **best-effort**: if it fails, or no backend is configured at all
+   (`VITE_API_BASE_URL` unset), the error is logged and swallowed —
+   it must never block the next step, which is unchanged from before
+   this existed.
+5. `buildAppointmentMessage()` (`packages/utils/src/appointment.ts`)
+   formats the same details into a plain-text message, localized to the
+   visitor's current locale, and `useWhatsAppSubmit`
+   (`packages/hooks/src/useWhatsAppSubmit.ts`) opens it in WhatsApp —
+   still a real-time notification to the owner, not just a database row
+   they'd have to remember to check.
+6. **The visitor still has to tap Send** on the WhatsApp message. That
+   part hasn't changed — the backend save happens regardless of whether
+   they do.
 
 ## Where it lives
 
@@ -66,17 +78,20 @@ submit buttons are horizontally centered.
 
 ## Known limitations
 
-- **No record on the platform side.** The request lives only in the
-  owner's WhatsApp chat. There's no admin view, no count, no export. If
-  that's needed later, the natural next step is a `BookingDataSource`
-  following the exact pattern `SalesDataSource` already established (see
-  [business-dashboard.md](business-dashboard.md)) — deliberately not built
-  yet, to keep the first version shippable same-day.
-- **Silent drop-off.** A visitor without WhatsApp installed, or who
-  navigates away before hitting send, produces nothing — not even a
-  platform-side signal that someone tried to book. Worth knowing before
-  treating "no bookings" as "no interest."
+- **Silent drop-off, still.** A visitor without WhatsApp installed, or
+  who navigates away before hitting send, still produces a real
+  `Booking` row (`status: PENDING`) — that part's fixed — but the owner
+  gets no real-time notification unless they happen to check the
+  portal's booking queue. The WhatsApp message is still the only
+  "someone wants this now" signal; the backend record is the durable
+  one.
+- **No backend requires no booking, silently.** If `VITE_API_BASE_URL`
+  is unset (e.g. a preview running purely against `static-data/`), the
+  booking is never saved — by design (see `BookingService`'s comment),
+  but worth remembering if bookings seem to be "missing" from a
+  particular deployment.
 - **Slots don't check existing bookings.** A time slot being offered only
-  means it falls within business hours — there's no calendar checking
-  whether that slot is already taken, since there's nowhere bookings are
-  recorded yet (see the point above).
+  means it falls within business hours — there's no check against
+  already-booked slots yet, even though the data to do that now exists
+  (`GET /businesses/{id}/bookings`). A reasonable follow-up once the
+  booking queue (TASK-015) is in daily use.

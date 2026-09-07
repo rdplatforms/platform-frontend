@@ -2,6 +2,7 @@ export * from './dataSource/types';
 export * from './dataSource/JsonDataSource';
 export * from './dataSource/HttpDataSource';
 export * from './dataSource/activeDataSource';
+export * from './dataSource/HttpBookingDataSource';
 export * from './dataSource/LocalStorageDataSource';
 
 export * from './BusinessService';
@@ -15,3 +16,4 @@ export * from './FaqService';
 export * from './TeamService';
 export * from './SettingsService';
 export * from './SalesService';
+export * from './BookingService';

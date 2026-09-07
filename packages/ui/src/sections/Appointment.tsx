@@ -4,7 +4,13 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { Alert, Box, MenuItem, Stack, TextField } from '@mui/material';
 import type { BusinessHours, SupportedLocale } from '@rdplatforms/types';
-import { useLocale, useServices, useSettings, useWhatsAppSubmit } from '@rdplatforms/hooks';
+import {
+  useCreateBooking,
+  useLocale,
+  useServices,
+  useSettings,
+  useWhatsAppSubmit,
+} from '@rdplatforms/hooks';
 import {
   buildAppointmentMessage,
   generateTimeSlots,
@@ -51,9 +57,13 @@ function createAppointmentFormSchema(locale: SupportedLocale, hours: BusinessHou
 type AppointmentFormValues = z.infer<ReturnType<typeof createAppointmentFormSchema>>;
 
 /**
- * No backend exists to receive a booking, so this hands off to WhatsApp
- * instead: the message is prefilled, but the customer taps send — nothing
- * is delivered silently. See docs/appointments.md for the full reasoning.
+ * Persists a real Booking to the backend (TASK-013/014) *and* hands off
+ * to WhatsApp: the WhatsApp message is prefilled, but the customer still
+ * taps send — nothing is delivered silently there. The backend save is
+ * best-effort and never blocks the WhatsApp handoff (see
+ * useCreateBooking/BookingService) — if no backend is configured, or
+ * the request fails, the customer's experience is unchanged from
+ * before this task. See docs/appointments.md for the full reasoning.
  * Available time slots come entirely from the business's own
  * BusinessHours + BusinessSettings.appointmentSlotMinutes — see
  * docs/business-hours.md.
@@ -64,6 +74,7 @@ export function Appointment({ business, config }: SectionProps) {
   const { data: settings } = useSettings(business.id);
   const whatsappNumber = business.contact.whatsapp ?? business.contact.phone;
   const { sent, send, reset: dismissSent } = useWhatsAppSubmit(whatsappNumber);
+  const { mutateAsync: createBooking } = useCreateBooking(business.id);
 
   const schema = useMemo(
     () => createAppointmentFormSchema(locale, business.hours),
@@ -100,9 +111,23 @@ export function Appointment({ business, config }: SectionProps) {
     setValue('preferredTime', '');
   }, [selectedDate, setValue]);
 
-  const onSubmit = handleSubmit((values) => {
+  const onSubmit = handleSubmit(async (values) => {
     const service = services?.find((item) => item.id === values.serviceId);
     const serviceName = service ? resolveLocalizedText(service.name, locale) : values.serviceId;
+
+    try {
+      await createBooking({
+        serviceId: values.serviceId,
+        customerName: values.customerName,
+        preferredDate: values.preferredDate,
+        preferredTime: values.preferredTime,
+        note: values.note || undefined,
+      });
+    } catch (err) {
+      // Best-effort: the WhatsApp handoff below is still the customer's
+      // actual request reaching the business, so it must proceed either way.
+      console.error('Failed to save the booking to the backend:', err);
+    }
 
     const message = buildAppointmentMessage(
       {

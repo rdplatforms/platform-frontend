@@ -12,4 +12,5 @@ export * from './useSettings';
 export * from './useSales';
 export * from './useCreateSale';
 export * from './useDeleteSale';
+export * from './useCreateBooking';
 export * from './useWhatsAppSubmit';
