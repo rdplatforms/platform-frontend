@@ -1,0 +1,15 @@
+{
+  "id": "ritesh-dhekane",
+  "phone": "+919322527567",
+  "name": "Ritesh Dhekane",
+  "title": "Software Engineer | Full Stack Java Developer",
+  "email": "ritesh.dhekane@outlook.com",
+  "location": "Pune, Maharashtra, India",
+  "photoUrl": "",
+  "links": [
+    { "type": "call", "value": "+919322527567" },
+    { "type": "whatsapp", "value": "+919322527567" },
+    { "type": "linkedin", "value": "https://linkedin.com/in/riteshdhekane" },
+    { "type": "github", "value": "https://github.com/Ritesh-Dhekane", "label": "GitHub" }
+  ]
+}

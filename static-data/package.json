@@ -2,7 +2,7 @@
   "name": "@rdplatforms/static-data",
   "version": "0.1.0",
   "private": true,
-  "description": "Temporary static JSON data source. Consumed only through @rdplatforms/services — never import these files directly from UI code. See docs/future-backend-contract.md.",
+  "description": "Temporary static JSON data source. Business-content collections (businesses/services/gallery/etc.) are consumed only through @rdplatforms/services, never imported directly from UI code — see docs/future-backend-contract.md. Other, non-business collections (e.g. cards/, for apps/rtsh-info) are outside that domain and may have their own dedicated registry in the consuming app instead.",
   "exports": {
     "./businesses/index": "./businesses/index.json",
     "./businesses/*": "./businesses/*.json",
@@ -14,6 +14,8 @@
     "./pages": "./pages.json",
     "./settings": "./settings.json",
     "./faq": "./faq.json",
-    "./team": "./team.json"
+    "./team": "./team.json",
+    "./cards/index": "./cards/index.json",
+    "./cards/*": "./cards/*.json"
   }
 }
