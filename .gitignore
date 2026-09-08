@@ -15,6 +15,7 @@ pnpm-debug.log*
 !.vscode/extensions.json
 .idea/
 *.tsbuildinfo
+.vercel
 
 # Each business's own Apps Script deployment (integrations/apps-script)
 # points clasp at their own scriptId — never one to commit. See

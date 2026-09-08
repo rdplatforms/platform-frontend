@@ -1,0 +1,91 @@
+name: Deploy business site to GitHub Pages
+
+# Reusable workflow — lives here (the public template repo), called from
+# each business's own thin GitHub Pages repo. See
+# templates/github-pages-business-repo/ for the caller and
+# docs/deployment.md for the full model (one thin repo per business,
+# since GitHub Pages ties one deployment to one repo/custom domain,
+# unlike Netlify/Vercel where many sites can share this one repo).
+on:
+  workflow_call:
+    inputs:
+      business-slug:
+        description: 'Business slug, e.g. printforge-3d. Sets VITE_DEFAULT_BUSINESS_SLUG.'
+        required: true
+        type: string
+      base-path:
+        description: "'/' for a custom domain or a root user/org page; '/<repo-name>/' for a project page URL (rdplatforms.github.io/<repo-name>)."
+        required: false
+        type: string
+        default: '/'
+      apps-script-url:
+        description: 'Tier 2 backend URL for this business, if any. See docs/backend-tiers.md.'
+        required: false
+        type: string
+        default: ''
+      api-base-url:
+        description: 'Tier 3 backend URL for this business, if any. Takes priority over apps-script-url.'
+        required: false
+        type: string
+        default: ''
+      google-analytics-id:
+        description: "This business's own GA4 measurement id, if any. See docs/analytics.md."
+        required: false
+        type: string
+        default: ''
+      platform-ref:
+        description: 'platform-frontend ref to build from.'
+        required: false
+        type: string
+        default: 'main'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout platform-frontend
+        uses: actions/checkout@v4
+        with:
+          repository: rdplatforms/platform-frontend
+          ref: ${{ inputs.platform-ref }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build apps/website
+        env:
+          VITE_DEFAULT_BUSINESS_SLUG: ${{ inputs.business-slug }}
+          VITE_APPS_SCRIPT_URL: ${{ inputs.apps-script-url }}
+          VITE_API_BASE_URL: ${{ inputs.api-base-url }}
+          VITE_GOOGLE_ANALYTICS_ID: ${{ inputs.google-analytics-id }}
+          VITE_BASE_PATH: ${{ inputs.base-path }}
+        run: pnpm build:website
+
+      - name: SPA fallback (direct links / refresh don't 404)
+        run: cp apps/website/dist/index.html apps/website/dist/404.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/website/dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

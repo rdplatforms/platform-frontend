@@ -1,0 +1,15 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    uses: rdplatforms/platform-frontend/.github/workflows/deploy-business-github-pages.yml@main
+    with:
+      business-slug: CHANGE-ME # e.g. printforge-3d
+      base-path: /CHANGE-ME/ # this repo's name, e.g. /printforge-3d-site/ — use '/' instead if you added a custom domain (see ../CNAME.example)
+      # apps-script-url: https://script.google.com/macros/s/XXXX/exec
+      # google-analytics-id: G-XXXXXXXXXX
