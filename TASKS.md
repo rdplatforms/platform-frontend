@@ -167,6 +167,18 @@ live via curl in addition to new/updated tests.
 - [x] **`apps/admin`'s `RequireAuth` checked only `isAuthenticated`, not `superAdmin`** — since `/auth/login` is shared across every account type, a Business Owner's own valid token previously passed straight through to the admin shell (the backend independently rejects any actual write, but the app's own gate should say so). ✅ Done
 - [x] **Super Admin had no UI, curl-only** (TASK-009's original gap) — built `apps/admin`'s real `/businesses` page: list, create, suspend/reactivate, create-owner dialog, wired to the backend endpoints that already existed. ✅ Done
 
+## Backend tiers — Plan 1 (see chat history for the full 3-plan discussion; Plans 2/3 — Google Analytics per business, multi-host deployment — not started)
+
+Not every business needs, or can pay for, the same backend. See
+[docs/backend-tiers.md](docs/backend-tiers.md) and
+[docs/adr/0013-tiered-backend-per-business.md](docs/adr/0013-tiered-backend-per-business.md)
+for the full picture.
+
+- [x] **Tier 2 frontend plumbing** — `BookingDataSource`/`ContactDataSource` interfaces extracted (now that a second implementation of each exists); `AppsScriptBookingDataSource`/`AppsScriptContactDataSource` (`packages/services`) POST to a business's own Apps Script Web App. `BookingService` extended to a 3-way tier check (`VITE_API_BASE_URL` → Tier 3, else `VITE_APPS_SCRIPT_URL` → Tier 2, else Tier 1); new `ContactService` (Tier 2 only — no Tier 3 `ContactMessage` entity exists). `Contact.tsx` gained the same best-effort backend-save pattern `Appointment.tsx` already had — previously WhatsApp-only, no backend save at all. ✅ Done
+- [x] **Tier 2 Apps Script template** (`integrations/apps-script/`) — `doPost` router, per-type validation matching `platform-backend`'s own rules, Sheet-tab-per-type with auto-created headers, best-effort owner-email notification. A template only — deployed unmodified into each business's own Google account (not rdplatforms'), per the "business owns their own data" decision. Full deployment runbook in that folder's README. ✅ Done (code + docs; **the actual live Google deployment/OAuth flow has not been done by me — no browser/Google account access from this environment.** Verified: Node syntax-checked every `.js` file, the CORS-preflight-avoidance and redirect-following behavior against real-world Apps Script integration writeups (not assumed), and 12 new frontend unit tests against a mocked `fetch`. Not verified: an actual live deployment — that needs to happen for real once you run through the README.)
+- [ ] Plan 2 (Google Analytics per business) — not started.
+- [ ] Plan 3 (multi-host deployment playbook: Vercel/GitHub Pages templates, `docs/deployment.md` rewrite) — not started.
+
 ## Milestone 7 — Customer Accounts
 
 - [ ] **TASK-025** — `Customer` register/login on `apps/website` (separate from staff-side auth), JWT session scoped to one business.

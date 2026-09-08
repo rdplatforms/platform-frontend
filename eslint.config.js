@@ -11,6 +11,11 @@ export default tseslint.config(
       '**/coverage/**',
       '**/node_modules/**',
       '**/*.tsbuildinfo',
+      // Google Apps Script's own runtime (SpreadsheetApp, ContentService,
+      // MailApp, ...) — global across files with no imports/exports, not
+      // a standard JS/TS/browser environment this config knows about.
+      // See integrations/apps-script/README.md.
+      'integrations/apps-script/src/**',
     ],
   },
   js.configs.recommended,

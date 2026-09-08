@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Alert, Grid, Stack, TextField, Typography } from '@mui/material';
-import { useLocale, useWhatsAppSubmit } from '@rdplatforms/hooks';
+import { useCreateContactMessage, useLocale, useWhatsAppSubmit } from '@rdplatforms/hooks';
 import {
   buildContactMessage,
   formatAddressLine,
@@ -24,15 +24,18 @@ const contactFormSchema = z.object({
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 /**
- * No backend exists to submit to, so — same as Appointment — this hands
- * off to WhatsApp: the message is prefilled, the visitor taps send. See
- * docs/appointments.md for the shared reasoning.
+ * Persists the message via ContactService (Tier 2/3 — see
+ * docs/backend-tiers.md) *and* hands off to WhatsApp: the message is
+ * prefilled, the visitor still taps send. The backend save is
+ * best-effort and never blocks the WhatsApp handoff — same reasoning as
+ * Appointment.tsx, see docs/appointments.md.
  */
 export function Contact({ business, config }: SectionProps) {
   const { locale } = useLocale();
   const addressLine = formatAddressLine(business.contact.address);
   const whatsappNumber = business.contact.whatsapp ?? business.contact.phone;
   const { sent, send, reset: dismissSent } = useWhatsAppSubmit(whatsappNumber);
+  const { mutateAsync: createContactMessage } = useCreateContactMessage(business.id);
 
   const {
     control,
@@ -44,12 +47,18 @@ export function Contact({ business, config }: SectionProps) {
     defaultValues: { name: '', email: '', message: '' },
   });
 
-  const onSubmit = handleSubmit((values) => {
-    const message = buildContactMessage(
-      { name: values.name, email: values.email || undefined, message: values.message },
-      locale,
-    );
-    send(message);
+  const onSubmit = handleSubmit(async (values) => {
+    const details = { name: values.name, email: values.email || undefined, message: values.message };
+
+    try {
+      await createContactMessage(details);
+    } catch (err) {
+      // Best-effort: the WhatsApp handoff below is still the visitor's
+      // actual message reaching the business, so it must proceed either way.
+      console.error('Failed to save the contact message to the backend:', err);
+    }
+
+    send(buildContactMessage(details, locale));
     reset();
   });
 

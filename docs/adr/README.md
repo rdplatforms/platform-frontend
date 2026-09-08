@@ -19,3 +19,4 @@ add a new ADR that supersedes it; don't edit history.
 | [0010](0010-whatsapp-appointment-handoff.md)         | Appointment requests hand off to WhatsApp, not a backend submission                          |
 | [0011](0011-hours-driven-slots-and-closed-banner.md) | Appointment slots and the closed banner are derived from BusinessHours, never hardcoded      |
 | [0012](0012-real-billing-supersedes-localstorage-dashboard.md) | Real, backend-persisted `Sale`/billing in `apps/portal` supersedes the localStorage dashboard |
+| [0013](0013-tiered-backend-per-business.md) | Three backend tiers (WhatsApp / Apps Script / `platform-backend`), selected per deployment, never mixed |

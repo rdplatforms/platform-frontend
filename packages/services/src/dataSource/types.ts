@@ -1,15 +1,18 @@
 import type {
+  Booking,
   Business,
   BusinessSettings,
   BusinessTheme,
   FaqItem,
   GalleryItem,
+  NewBooking,
   PageConfig,
   SeoConfig,
   ServiceItem,
   TeamMember,
   Testimonial,
 } from '@rdplatforms/types';
+import type { ContactMessageDetails } from '@rdplatforms/utils';
 
 /**
  * Every method returns a Promise even though the JSON implementation is
@@ -58,4 +61,24 @@ export interface TeamDataSource {
 
 export interface SettingsDataSource {
   getSettingsByBusiness(businessId: string): Promise<BusinessSettings | undefined>;
+}
+
+/**
+ * Implemented by both HttpBookingDataSource (Tier 3 — platform-backend)
+ * and AppsScriptBookingDataSource (Tier 2 — a business's own Google
+ * account) — see docs/backend-tiers.md. BookingService picks whichever
+ * one applies (or neither, Tier 1) based on which env var is set.
+ */
+export interface BookingDataSource {
+  createBooking(businessId: string, booking: NewBooking): Promise<Booking>;
+}
+
+/**
+ * Tier 2 (AppsScriptContactDataSource) only for now — there is no Tier 3
+ * equivalent yet, unlike bookings; platform-backend has no
+ * ContactMessage entity. ContactService still degrades to a no-op with
+ * neither configured, same as BookingService.
+ */
+export interface ContactDataSource {
+  createContactMessage(businessId: string, message: ContactMessageDetails): Promise<void>;
 }

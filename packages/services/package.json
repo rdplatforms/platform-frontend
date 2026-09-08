@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@rdplatforms/static-data": "workspace:*",
-    "@rdplatforms/types": "workspace:*"
+    "@rdplatforms/types": "workspace:*",
+    "@rdplatforms/utils": "workspace:*"
   },
   "devDependencies": {
     "typescript": "~5.7.2"

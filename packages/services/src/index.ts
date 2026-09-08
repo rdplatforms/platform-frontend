@@ -5,6 +5,9 @@ export * from './dataSource/activeDataSource';
 export * from './dataSource/HttpBookingDataSource';
 export * from './dataSource/HttpProductDataSource';
 export * from './dataSource/HttpCheckoutDataSource';
+export * from './dataSource/AppsScriptClient';
+export * from './dataSource/AppsScriptBookingDataSource';
+export * from './dataSource/AppsScriptContactDataSource';
 
 export * from './BusinessService';
 export * from './ServiceCatalogService';
@@ -19,3 +22,4 @@ export * from './SettingsService';
 export * from './BookingService';
 export * from './ProductService';
 export * from './CheckoutService';
+export * from './ContactService';

@@ -24,14 +24,17 @@ driven entirely by the business's own hours data.
    for Swami Hair Salon) disables the time field with an explanatory
    message instead of offering slots that don't exist.
 4. On submit, `useCreateBooking` (`packages/hooks/src/useCreateBooking.ts`)
-   POSTs the request to the backend (`bookingService`/
-   `HttpBookingDataSource`, `packages/services`) — a real, persisted
+   POSTs the request via `bookingService` (`packages/services`) — a
+   real, persisted booking through whichever backend tier this
+   deployment is configured for (Tier 3's `HttpBookingDataSource`, Tier
+   2's `AppsScriptBookingDataSource`, or neither — see
+   [backend-tiers.md](backend-tiers.md)). Tier 3 saves become a real
    `Booking` with `source: 'ONLINE'`, `status: 'PENDING'`, visible to
-   staff in `apps/portal`'s booking queue (TASK-015). This is
-   **best-effort**: if it fails, or no backend is configured at all
-   (`VITE_API_BASE_URL` unset), the error is logged and swallowed —
-   it must never block the next step, which is unchanged from before
-   this existed.
+   staff in `apps/portal`'s booking queue (TASK-015); Tier 2 saves
+   become a row in that business's own Google Sheet. This is
+   **best-effort** either way: if it fails, or no backend is configured
+   at all (Tier 1), the error is logged and swallowed — it must never
+   block the next step, which is unchanged from before this existed.
 5. `buildAppointmentMessage()` (`packages/utils/src/appointment.ts`)
    formats the same details into a plain-text message, localized to the
    visitor's current locale, and `useWhatsAppSubmit`
@@ -74,7 +77,11 @@ non-empty service list (`useServices`) to be useful.
 `Contact` (`packages/ui/src/sections/Contact.tsx`) uses the same handoff —
 `buildContactMessage()` + `useWhatsAppSubmit` — for general inquiries
 (name, optional email, message) rather than a structured booking. Both
-submit buttons are horizontally centered.
+submit buttons are horizontally centered. It also does the same
+best-effort backend save via `useCreateContactMessage`/`contactService`
+— Tier 2 only for now (`AppsScriptContactDataSource`); there's no Tier 3
+equivalent yet since `platform-backend` has no `ContactMessage` entity
+(see [backend-tiers.md](backend-tiers.md)).
 
 ## Known limitations
 
@@ -85,9 +92,10 @@ submit buttons are horizontally centered.
   portal's booking queue. The WhatsApp message is still the only
   "someone wants this now" signal; the backend record is the durable
   one.
-- **No backend requires no booking, silently.** If `VITE_API_BASE_URL`
-  is unset (e.g. a preview running purely against `static-data/`), the
-  booking is never saved — by design (see `BookingService`'s comment),
+- **Tier 1 (no backend var set) requires no booking, silently.** If
+  neither `VITE_API_BASE_URL` nor `VITE_APPS_SCRIPT_URL` is set (e.g. a
+  preview running purely against `static-data/`), the booking is never
+  saved anywhere — by design (see [backend-tiers.md](backend-tiers.md)),
   but worth remembering if bookings seem to be "missing" from a
   particular deployment.
 - **Slots don't check existing bookings.** A time slot being offered only

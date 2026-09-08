@@ -1,4 +1,5 @@
 import type { Booking, NewBooking } from '@rdplatforms/types';
+import type { BookingDataSource } from './types';
 
 export interface HttpBookingDataSourceOptions {
   /** e.g. "http://localhost:8081" — no trailing slash. */
@@ -8,13 +9,14 @@ export interface HttpBookingDataSourceOptions {
 
 /**
  * Calls the backend's POST /businesses/{id}/bookings (see TASK-013 and
- * backend/README.md's Bookings section) — no unauthenticated request
- * ever needs a JsonDataSource-style fallback here, since bookings never
- * existed in static-data to begin with (unlike the read-only content
- * types, which predate the backend). See BookingService for what
- * happens when there's no backend configured at all.
+ * platform-backend/README.md's Bookings section) — no unauthenticated
+ * request ever needs a JsonDataSource-style fallback here, since
+ * bookings never existed in static-data to begin with (unlike the
+ * read-only content types, which predate the backend). See
+ * BookingService for what happens when there's no backend configured
+ * at all, and AppsScriptBookingDataSource for Tier 2's alternative.
  */
-export class HttpBookingDataSource {
+export class HttpBookingDataSource implements BookingDataSource {
   constructor(private readonly options: HttpBookingDataSourceOptions) {}
 
   async createBooking(businessId: string, booking: NewBooking): Promise<Booking> {

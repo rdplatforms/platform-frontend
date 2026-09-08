@@ -385,6 +385,9 @@ importers:
       '@rdplatforms/types':
         specifier: workspace:*
         version: link:../types
+      '@rdplatforms/utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       typescript:
         specifier: ~5.7.2
