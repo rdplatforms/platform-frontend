@@ -30,7 +30,7 @@ const NAV_ITEMS = [
   { label: 'Pages', href: '/pages', icon: ArticleIcon },
   { label: 'Media', href: '/media', icon: PermMediaIcon },
   { label: 'Services', href: '/services', icon: DesignServicesIcon },
-  { label: 'Business', href: '/business', icon: StoreIcon },
+  { label: 'Businesses', href: '/businesses', icon: StoreIcon },
   { label: 'Theme', href: '/theme', icon: PaletteIcon },
   { label: 'Users', href: '/users', icon: GroupIcon },
   { label: 'Settings', href: '/settings', icon: SettingsIcon },

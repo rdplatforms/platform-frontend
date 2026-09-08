@@ -83,7 +83,7 @@ behavior yet, just proving the seam works end-to-end before adding logic.
 
 - [x] **TASK-007** — `User`, `BusinessMembership` (role: owner/staff), and `Customer` data model; Spring Security + JWT issuing/validation. ✅ Done
 - [x] **TASK-008** — Super Admin auth wired into `apps/admin` (real login, protected routes, replacing the "Coming Soon" placeholders for auth-gated pages). ✅ Done
-- [x] **TASK-009** — Super Admin capability: create/suspend a `Business` tenant; create that business's first Business Owner account. ✅ Done (backend only — no `apps/admin` UI for this yet, it's curl/API-only; a UI is a reasonable candidate for TASK-028's polish pass or a follow-up task)
+- [x] **TASK-009** — Super Admin capability: create/suspend a `Business` tenant; create that business's first Business Owner account. ✅ Done — backend + `apps/admin`'s `/businesses` UI (the UI half landed later, in the audit-fixes entry below, once curl-only access was flagged as a real requirements gap)
 - [x] **TASK-010** — Scaffold `apps/portal` (new app): Business Owner/Staff login, resolves the current business via `Business.portalDomains[]`. ✅ Done
 - [x] **TASK-011** — Business Owner capability in `apps/portal`: invite/create/deactivate Staff accounts; per-staff "can view full analytics" toggle. ✅ Done
 - [x] **TASK-012 (partial)** — Update `docs/business-dashboard.md`/`docs/portal.md` to reflect the real portal. ✅ Done (docs updated throughout TASK-010/011). **Deferred to TASK-019**: actually removing the interim localStorage `/dashboard` + passcode gate from `apps/website`. Caught while starting this task: `apps/portal` only has login + staff management so far — it does _not_ yet have sales logging/totals, which is the dashboard's entire purpose. Deleting it now would be a real regression (owners lose the ability to log sales at all) with no replacement until Milestone 4 (TASK-016/017/018) actually builds that functionality into the portal. TASK-019 already covers this removal at the correct point in the sequence — expanded its wording below to be explicit about the route/passcode gate, not just the sales-entry form.
@@ -151,6 +151,21 @@ idempotent re-imports — Hibernate's `merge()` threw
 application-assigned (matching `PageConfig`'s strategy, not
 `Booking`/`Sale`'s), caught by actually running the importer against
 real data rather than trusting it would work from reading the code.
+
+## Audit fixes — security/UX findings from a retrospective review
+
+Not part of the milestone sequence — a full review of Milestones 1–3
+(UI, security, logic) surfaced findings that sat unaddressed for
+several milestones before being fixed here in one pass. All verified
+live via curl in addition to new/updated tests.
+
+- [x] **Backend validation** — `CreateOwnerRequest`/`CreateStaffRequest` accepted a blank/1-char password and any string as an email; `CreateBusinessRequest` accepted a blank phone/displayName and an unvalidated slug; the public booking endpoint had zero server-side validation despite being reachable directly, bypassing the website's client-side Zod checks entirely. Added `AccountValidation` (shared between the two account-creating controllers) plus per-field checks on `BusinessAdminController`/`BookingController`. ✅ Done
+- [x] **`StaffController` missing business-exists check** — every other write controller 404s for an unknown `businessId`; `StaffController`'s Super-Admin path didn't, since `requireOwner` lets a Super Admin through purely on `superAdmin()` with no membership to anchor "this business is real." Could have silently created orphaned rows for a mistyped/deleted business. ✅ Done
+- [x] **Session expiry only checked at app load** — `apps/portal`/`apps/admin`'s `AuthProvider` never re-checked token expiry during an open session; a session left open past expiration stayed "logged in" until the next reload, with every API call failing with a generic error in the meantime. Now polled every 30s. ✅ Done
+- [x] **Inconsistent error handling / no confirmation on destructive actions** — `StaffPage`'s toggle/remove and `BookingsPage`'s status-change handlers had no try/catch (unlike their sibling `onSubmit`s); removing staff, deleting a product, or cancelling a booking fired immediately with no "are you sure?". ✅ Done
+- [x] **No loading indicator** — `StaffPage`/`BookingsPage`/`ProductsPage`'s tables showed a blank table with no feedback during initial load, indistinguishable from "genuinely empty." ✅ Done
+- [x] **`apps/admin`'s `RequireAuth` checked only `isAuthenticated`, not `superAdmin`** — since `/auth/login` is shared across every account type, a Business Owner's own valid token previously passed straight through to the admin shell (the backend independently rejects any actual write, but the app's own gate should say so). ✅ Done
+- [x] **Super Admin had no UI, curl-only** (TASK-009's original gap) — built `apps/admin`'s real `/businesses` page: list, create, suspend/reactivate, create-owner dialog, wired to the backend endpoints that already existed. ✅ Done
 
 ## Milestone 7 — Customer Accounts
 

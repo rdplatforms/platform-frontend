@@ -15,12 +15,26 @@ for the full route table.
 
 **Real auth is now wired in (TASK-008)**: every route above is gated by
 `RequireAuth` (`apps/admin/src/auth/`), which redirects to `/login` if
-there's no valid, unexpired JWT. `LoginPage` calls the backend's
-`POST /auth/login` (see `../platform-backend/README.md`'s Auth section) and stores
-the token in `localStorage`; `AuthProvider`/`useAuth` expose it (and the
-decoded claims) to the rest of the app. The pages themselves are still
-"Coming Soon" placeholders — only the login/route-protection layer is
-real so far, per TASK-009+ below.
+there's no valid, unexpired JWT — and, since `/auth/login` is shared
+across every account type, also checks `user.superAdmin` specifically
+(found missing in a retrospective audit — a valid Business Owner token
+previously passed straight through to the admin shell) and shows a
+plain "Super Admin only" message rather than an empty/broken admin UI
+for anyone else. `LoginPage` calls the backend's `POST /auth/login`
+(see `../platform-backend/README.md`'s Auth section) and stores the
+token in `localStorage`; `AuthProvider`/`useAuth` expose it (and the
+decoded claims) to the rest of the app, polling for expiry every 30s so
+a session left open past expiration doesn't stay "logged in" until the
+next reload.
+
+**Businesses is real, not a placeholder** (TASK-009's UI half, closing
+a gap flagged in the same audit — the backend endpoints existed but
+had no way to reach them except curl): `apps/admin/src/pages/BusinessesPage.tsx`
+lists every business (`GET /businesses`, public but sent with a token
+for consistency), creates a new tenant, suspends/reactivates one
+(`PATCH .../status`), and creates its first Owner via a dialog
+(`POST .../owners`). Every other page is still a "Coming Soon"
+placeholder.
 
 The admin runs its own fixed theme (`apps/admin/src/App.tsx`) rather than
 the per-business theme engine — it manages every business at once, so
@@ -37,7 +51,7 @@ re-theming the whole admin shell.
 | **Pages**     | Enable/disable/reorder sections per business page — editing `PageConfig`/`SectionConfig` directly              | `PageDataSource` write endpoints                                |
 | **Media**     | Upload/manage logos, gallery photos, service images                                                            | New media storage service (not modeled in `packages/types` yet) |
 | **Services**  | CRUD for a business's service catalog                                                                          | `ServiceCatalogDataSource` write endpoints                      |
-| **Business**  | Edit core identity: contact, hours, domains, social                                                            | `BusinessDataSource` write endpoints                            |
+| **Businesses** | ✅ Real (see above) — create/suspend a tenant, create its first Owner. Editing an *existing* business's own identity (contact, hours, domains, social) is still a future `BusinessDataSource` write-endpoint gap. | `BusinessAdminController` (done); full-identity edit not yet built |
 | **Theme**     | Adjust colors/typography/button style/border radius with a live preview rendered via the real `createAppTheme` | `ThemeDataSource` write endpoints                               |
 | **Users**     | Manage platform operators and per-business access                                                              | `User`/`BusinessMembership` write endpoints (TASK-009/011)      |
 | **Settings**  | Per-business operational toggles (currency, locale, timezone, booking, WhatsApp)                               | `SettingsDataSource` write endpoints                            |
