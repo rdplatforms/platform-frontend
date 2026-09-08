@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Chip,
+  CircularProgress,
   MenuItem,
   Paper,
   Select,
@@ -86,8 +87,19 @@ export function BookingsPage() {
 
   const onStatusChange = async (booking: Booking, status: BookingStatus) => {
     if (!token || !business) return;
-    await updateBookingStatus(token, business.id, booking.id, status);
-    await refresh();
+    if (
+      (status === 'CANCELLED' || status === 'NO_SHOW') &&
+      !window.confirm(`Mark ${booking.customerName}'s booking as ${status}?`)
+    ) {
+      return;
+    }
+    setError(undefined);
+    try {
+      await updateBookingStatus(token, business.id, booking.id, status);
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update booking status.');
+    }
   };
 
   const onSubmit = async (event: FormEvent) => {
@@ -121,55 +133,61 @@ export function BookingsPage() {
       {error ? <Alert severity="error">{error}</Alert> : null}
 
       <Paper variant="outlined">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Time</TableCell>
-              <TableCell>Customer</TableCell>
-              <TableCell>Service</TableCell>
-              <TableCell>Source</TableCell>
-              <TableCell>Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {bookings.map((booking) => (
-              <TableRow key={booking.id}>
-                <TableCell>{booking.preferredDate}</TableCell>
-                <TableCell>{booking.preferredTime}</TableCell>
-                <TableCell>{booking.customerName}</TableCell>
-                <TableCell>{serviceName(booking.serviceId)}</TableCell>
-                <TableCell>
-                  <Chip
-                    size="small"
-                    label={booking.source}
-                    variant={booking.source === 'STAFF' ? 'filled' : 'outlined'}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Select
-                    size="small"
-                    value={booking.status}
-                    onChange={(e) => onStatusChange(booking, e.target.value as BookingStatus)}
-                  >
-                    {STATUS_OPTIONS.map((status) => (
-                      <MenuItem key={status} value={status}>
-                        <Chip size="small" color={STATUS_COLOR[status]} label={status} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </TableCell>
-              </TableRow>
-            ))}
-            {!loading && bookings.length === 0 ? (
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+            <CircularProgress size={28} />
+          </Box>
+        ) : (
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={6}>
-                  <Typography color="text.secondary">No bookings yet.</Typography>
-                </TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Time</TableCell>
+                <TableCell>Customer</TableCell>
+                <TableCell>Service</TableCell>
+                <TableCell>Source</TableCell>
+                <TableCell>Status</TableCell>
               </TableRow>
-            ) : null}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {bookings.map((booking) => (
+                <TableRow key={booking.id}>
+                  <TableCell>{booking.preferredDate}</TableCell>
+                  <TableCell>{booking.preferredTime}</TableCell>
+                  <TableCell>{booking.customerName}</TableCell>
+                  <TableCell>{serviceName(booking.serviceId)}</TableCell>
+                  <TableCell>
+                    <Chip
+                      size="small"
+                      label={booking.source}
+                      variant={booking.source === 'STAFF' ? 'filled' : 'outlined'}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Select
+                      size="small"
+                      value={booking.status}
+                      onChange={(e) => onStatusChange(booking, e.target.value as BookingStatus)}
+                    >
+                      {STATUS_OPTIONS.map((status) => (
+                        <MenuItem key={status} value={status}>
+                          <Chip size="small" color={STATUS_COLOR[status]} label={status} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {bookings.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <Typography color="text.secondary">No bookings yet.</Typography>
+                  </TableCell>
+                </TableRow>
+              ) : null}
+            </TableBody>
+          </Table>
+        )}
       </Paper>
 
       <Paper variant="outlined" sx={{ p: 3, maxWidth: 480 }}>

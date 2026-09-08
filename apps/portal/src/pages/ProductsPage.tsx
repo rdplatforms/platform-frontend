@@ -1,8 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import {
   Alert,
+  Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   Grid,
   IconButton,
@@ -117,6 +119,9 @@ export function ProductsPage() {
 
   const onDelete = async (product: Product) => {
     if (!token || !business) return;
+    if (!window.confirm(`Delete "${product.name}"? This can't be undone.`)) {
+      return;
+    }
     try {
       await deleteProduct(token, business.id, product.id);
       await refresh();
@@ -133,44 +138,50 @@ export function ProductsPage() {
       {error ? <Alert severity="error">{error}</Alert> : null}
 
       <Paper variant="outlined">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Stock</TableCell>
-              <TableCell>Featured</TableCell>
-              <TableCell align="right" />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.category ?? '—'}</TableCell>
-                <TableCell align="right">{formatCurrency(product.price, product.currency)}</TableCell>
-                <TableCell align="right">{product.stockQuantity ?? '—'}</TableCell>
-                <TableCell>{product.featured ? 'Yes' : ''}</TableCell>
-                <TableCell align="right">
-                  <IconButton size="small" aria-label="Edit" onClick={() => startEdit(product)}>
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small" aria-label="Delete" onClick={() => onDelete(product)}>
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-            {!loading && products.length === 0 ? (
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+            <CircularProgress size={28} />
+          </Box>
+        ) : (
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={6}>
-                  <Typography color="text.secondary">No products yet.</Typography>
-                </TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Stock</TableCell>
+                <TableCell>Featured</TableCell>
+                <TableCell align="right" />
               </TableRow>
-            ) : null}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {products.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.category ?? '—'}</TableCell>
+                  <TableCell align="right">{formatCurrency(product.price, product.currency)}</TableCell>
+                  <TableCell align="right">{product.stockQuantity ?? '—'}</TableCell>
+                  <TableCell>{product.featured ? 'Yes' : ''}</TableCell>
+                  <TableCell align="right">
+                    <IconButton size="small" aria-label="Edit" onClick={() => startEdit(product)}>
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" aria-label="Delete" onClick={() => onDelete(product)}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {products.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <Typography color="text.secondary">No products yet.</Typography>
+                  </TableCell>
+                </TableRow>
+              ) : null}
+            </TableBody>
+          </Table>
+        )}
       </Paper>
 
       <Paper variant="outlined" sx={{ p: 3, maxWidth: 640 }}>

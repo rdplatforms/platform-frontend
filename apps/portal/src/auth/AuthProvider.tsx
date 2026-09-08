@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
   clearStoredToken,
   decodeJwtPayload,
@@ -7,6 +7,9 @@ import {
   setStoredToken,
 } from './portalAuth';
 import { AuthContext, type AuthContextValue } from './authContext';
+
+/** Frequent enough that expiry is caught well within a session, cheap enough (pure client-side decode, no network) to not matter. */
+const EXPIRY_CHECK_INTERVAL_MS = 30_000;
 
 function initialToken(): string | null {
   const stored = getStoredToken();
@@ -46,6 +49,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     clearStoredToken();
     setToken(null);
   }, []);
+
+  /**
+   * Before this, token expiry was only ever checked once, at app load
+   * (initialToken above) — a session left open past expiration stayed
+   * "logged in" in the UI until the next full reload, and every API
+   * call in the meantime failed with a generic error instead of
+   * prompting re-login (found in a retrospective audit). Polling is a
+   * deliberately simple fix over wiring 401-detection into every
+   * fetch call site (staffApi/bookingsApi/salesApi/productsApi) —
+   * logout() here flips isAuthenticated to false, which RequireAuth
+   * already turns into a redirect to /login with no further plumbing.
+   */
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    const interval = setInterval(() => {
+      const payload = decodeJwtPayload(token);
+      if (!payload || isExpired(payload)) {
+        logout();
+      }
+    }, EXPIRY_CHECK_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, [token, logout]);
 
   const user = useMemo(() => (token ? decodeJwtPayload(token) : undefined), [token]);
 

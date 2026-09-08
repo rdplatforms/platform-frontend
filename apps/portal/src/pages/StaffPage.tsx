@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   IconButton,
   Paper,
@@ -91,14 +92,27 @@ export function StaffPage() {
 
   const onToggleAnalytics = async (member: StaffMember, next: boolean) => {
     if (!token || !business) return;
-    await updateStaffAnalyticsAccess(token, business.id, member.membershipId, next);
-    await refresh();
+    setError(undefined);
+    try {
+      await updateStaffAnalyticsAccess(token, business.id, member.membershipId, next);
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update analytics access.');
+    }
   };
 
   const onRemove = async (member: StaffMember) => {
     if (!token || !business) return;
-    await removeStaff(token, business.id, member.membershipId);
-    await refresh();
+    if (!window.confirm(`Remove ${member.displayName} (${member.email}) from staff? This revokes their access immediately.`)) {
+      return;
+    }
+    setError(undefined);
+    try {
+      await removeStaff(token, business.id, member.membershipId);
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to remove staff member.');
+    }
   };
 
   return (
@@ -109,42 +123,48 @@ export function StaffPage() {
       {error ? <Alert severity="error">{error}</Alert> : null}
 
       <Paper variant="outlined">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Email</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Full analytics access</TableCell>
-              <TableCell align="right" />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {staff.map((member) => (
-              <TableRow key={member.membershipId}>
-                <TableCell>{member.email}</TableCell>
-                <TableCell>{member.displayName}</TableCell>
-                <TableCell>
-                  <Checkbox
-                    checked={member.canViewFullAnalytics}
-                    onChange={(e) => onToggleAnalytics(member, e.target.checked)}
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <IconButton aria-label="Remove" onClick={() => onRemove(member)}>
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-            {!loading && staff.length === 0 ? (
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+            <CircularProgress size={28} />
+          </Box>
+        ) : (
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={4}>
-                  <Typography color="text.secondary">No staff members yet.</Typography>
-                </TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Full analytics access</TableCell>
+                <TableCell align="right" />
               </TableRow>
-            ) : null}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {staff.map((member) => (
+                <TableRow key={member.membershipId}>
+                  <TableCell>{member.email}</TableCell>
+                  <TableCell>{member.displayName}</TableCell>
+                  <TableCell>
+                    <Checkbox
+                      checked={member.canViewFullAnalytics}
+                      onChange={(e) => onToggleAnalytics(member, e.target.checked)}
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    <IconButton aria-label="Remove" onClick={() => onRemove(member)}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {staff.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4}>
+                    <Typography color="text.secondary">No staff members yet.</Typography>
+                  </TableCell>
+                </TableRow>
+              ) : null}
+            </TableBody>
+          </Table>
+        )}
       </Paper>
 
       <Paper variant="outlined" sx={{ p: 3, maxWidth: 480 }}>
@@ -172,8 +192,10 @@ export function StaffPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            helperText="At least 8 characters"
             required
             fullWidth
+            slotProps={{ htmlInput: { minLength: 8 } }}
           />
           <FormControlLabel
             control={
