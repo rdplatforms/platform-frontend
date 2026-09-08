@@ -115,4 +115,12 @@ export interface BusinessSettings {
    * instead of touching any code to offer 30-minute slots, etc.
    */
   appointmentSlotMinutes?: number;
+  /**
+   * This business's own GA4 Measurement ID ("G-XXXXXXXXXX") — their own
+   * Google Analytics property, not rdplatforms'. Undefined disables
+   * analytics entirely for this business (no script loads at all), the
+   * same "declared, optional capability" pattern as commerceEnabled.
+   * See docs/analytics.md.
+   */
+  googleAnalyticsId?: string;
 }

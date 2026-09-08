@@ -62,6 +62,9 @@ importers:
       '@rdplatforms/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@rdplatforms/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       react:
         specifier: ^18.3.1
         version: 18.3.1

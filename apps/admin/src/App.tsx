@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { RouterProvider } from 'react-router-dom';
+import { loadGoogleAnalytics } from '@rdplatforms/utils';
 import { AuthProvider } from './auth/AuthProvider';
 import { router } from './routes/router';
 
@@ -14,6 +16,14 @@ const adminTheme = createTheme({
 });
 
 export function App() {
+  useEffect(() => {
+    const id = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+    if (!id) {
+      return;
+    }
+    return loadGoogleAnalytics(id);
+  }, []);
+
   return (
     <ThemeProvider theme={adminTheme}>
       <CssBaseline />

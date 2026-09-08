@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { AppProviders } from '@rdplatforms/providers';
 import { portalBusinessResolver } from '@rdplatforms/business';
+import { loadGoogleAnalytics } from '@rdplatforms/utils';
 import { AuthProvider } from './auth/AuthProvider';
 import { router } from './routes/router';
 
@@ -13,6 +15,14 @@ import { router } from './routes/router';
  * (which already renders MUI's ThemeProvider + CssBaseline internally).
  */
 export function App() {
+  useEffect(() => {
+    const id = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+    if (!id) {
+      return;
+    }
+    return loadGoogleAnalytics(id);
+  }, []);
+
   return (
     <AppProviders resolver={portalBusinessResolver}>
       <AuthProvider>
