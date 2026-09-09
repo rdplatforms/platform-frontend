@@ -43,5 +43,18 @@
       "photoUrl": "/assets/businesses/printforge-3d/team/devon.svg",
       "bio": "Started PrintForge 3D out of a garage printer and a habit of fixing broken things by redesigning them."
     }
+  ],
+  "rupali-imitation-jewellery": [
+    {
+      "id": "rij-team-1",
+      "businessId": "rupali-imitation-jewellery",
+      "name": "Rupali Deshmukh",
+      "role": { "en": "Owner & Designer", "mr": "मालक आणि डिझायनर" },
+      "photoUrl": "/assets/businesses/rupali-imitation-jewellery/team/rupali-deshmukh.svg",
+      "bio": {
+        "en": "Started Rupali Imitation Jewellery from a small Kolhapur stall, now designing bridal and everyday collections for customers across Maharashtra.",
+        "mr": "कोल्हापूरमधील एका छोट्या स्टॉलपासून रुपाली इमिटेशन ज्वेलरी सुरू केली, आता महाराष्ट्रभरातील ग्राहकांसाठी ब्रायडल आणि रोजच्या वापरातील दागिने डिझाइन करते."
+      }
+    }
   ]
 }

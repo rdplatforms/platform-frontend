@@ -67,12 +67,18 @@ makes the backend record `source: ONLINE` instead of `STAFF` (see
 `platform-backend`'s `SaleController`, and `docs/portal.md`'s Billing
 section for the STAFF side of the same endpoint).
 
-**Deliberately not best-effort** — unlike `BookingService`, which
-silently swallows a failed save because the WhatsApp handoff is still a
-real fallback channel, there is no equivalent fallback for an order.
-`CheckoutService`/`useCheckout` surface a real, visible error
-(`CartPage` shows it in an `Alert`) rather than pretending an order
-succeeded when it didn't.
+**Best-effort, same shape as `BookingService`** (superseded the original
+"no WhatsApp-style fallback for an order" decision — see
+[adr/0015-whatsapp-checkout-fallback.md](adr/0015-whatsapp-checkout-fallback.md)):
+`CheckoutService`/`useCheckout` themselves still reject on failure or a
+missing backend, but `CartPage` awaits that, swallows any error, and
+always fires a WhatsApp handoff afterward regardless — the order's
+contents formatted by `buildCartOrderMessage` (`@rdplatforms/utils`),
+sent the same way `Appointment`/`Contact` already do. A Tier 1 business
+(no backend at all) gets a fully working checkout this way; a Tier 2/3
+business gets both a persisted `Sale` _and_ the WhatsApp handoff, since
+the WhatsApp confirmation is a platform-wide capability, not conditional
+on which tier is configured.
 
 `NewSale.customerEmail`/`customerPhone` only make sense for an online
 checkout — how else would the business reach the customer? A
@@ -105,6 +111,21 @@ have to pick one or the other. Seeded via `static-data/products.json` +
 static-data collection that isn't the generic JSONB passthrough path,
 since `Product` needs its fields parsed into real typed columns.
 
+## Demo business: `rupali-imitation-jewellery`
+
+A Tier 1 (WhatsApp-only, no backend at all — [0013](adr/0013-tiered-backend-per-business.md))
+e-commerce business — `commerceEnabled: true`, `bookingEnabled: false`
+(pure retail, no appointment concept), and bilingual
+(`supportedLocales: ["en", "mr"]` — [0008](adr/0008-per-business-bilingual-content.md)).
+Demonstrates the [0015](adr/0015-whatsapp-checkout-fallback.md) fallback
+end to end: with no `VITE_API_BASE_URL`/`VITE_APPS_SCRIPT_URL`
+configured, checkout is _entirely_ the WhatsApp handoff — nothing is
+persisted, same as this business's bookings/contact would be if it had
+any. `Product.name`/`description` stay English-only even here — see
+`packages/types/src/product.ts`'s own comment on why `Product` isn't
+bilingual yet, a real (documented, not silent) limitation for a
+Marathi-speaking business's product catalog specifically.
+
 ## Local testing
 
 ```bash
@@ -122,4 +143,12 @@ VITE_API_BASE_URL=http://localhost:8081 pnpm --filter @rdplatforms/website dev
 # Terminal 3 — portal (create an owner first — see docs/portal.md)
 VITE_API_BASE_URL=http://localhost:8081 pnpm --filter @rdplatforms/portal dev
 # open http://localhost:5175/?business=printforge-3d
+```
+
+`rupali-imitation-jewellery` needs none of the above — no backend, no
+importer, no portal — since it's Tier 1:
+
+```bash
+pnpm --filter @rdplatforms/website dev
+# open http://localhost:5173/?business=rupali-imitation-jewellery
 ```

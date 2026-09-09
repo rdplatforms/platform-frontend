@@ -16,6 +16,7 @@ import swamiHairSalon from '@rdplatforms/static-data/businesses/swami-hair-salon
 import urbanBistro from '@rdplatforms/static-data/businesses/urban-bistro';
 import vision3d from '@rdplatforms/static-data/businesses/vision3d';
 import printforge3d from '@rdplatforms/static-data/businesses/printforge-3d';
+import rupaliImitationJewellery from '@rdplatforms/static-data/businesses/rupali-imitation-jewellery';
 import servicesData from '@rdplatforms/static-data/services';
 import galleryData from '@rdplatforms/static-data/gallery';
 import testimonialsData from '@rdplatforms/static-data/testimonials';
@@ -50,6 +51,7 @@ const BUSINESSES_BY_SLUG: Record<string, Business> = {
   'urban-bistro': urbanBistro as Business,
   vision3d: vision3d as Business,
   'printforge-3d': printforge3d as Business,
+  'rupali-imitation-jewellery': rupaliImitationJewellery as Business,
 };
 
 const SERVICES_BY_BUSINESS = servicesData as Record<string, ServiceItem[]>;

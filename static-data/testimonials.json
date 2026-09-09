@@ -68,5 +68,29 @@
       "rating": 5,
       "quote": "Ordered a batch of prototype housings — accurate dimensions, clean finish, delivered on time."
     }
+  ],
+  "rupali-imitation-jewellery": [
+    {
+      "id": "rij-test-1",
+      "businessId": "rupali-imitation-jewellery",
+      "authorName": "Snehal Patil",
+      "authorRole": { "en": "Bride, 2025", "mr": "नवरी, २०२५" },
+      "rating": 5,
+      "quote": {
+        "en": "Ordered my full bridal set over WhatsApp and it looked exactly like the photos. Delivery was quick too.",
+        "mr": "मी माझा संपूर्ण ब्रायडल सेट व्हॉट्सॲपवर ऑर्डर केला आणि तो अगदी फोटोसारखाच दिसत होता. डिलिव्हरीही लवकर मिळाली."
+      }
+    },
+    {
+      "id": "rij-test-2",
+      "businessId": "rupali-imitation-jewellery",
+      "authorName": "Aarti Kulkarni",
+      "authorRole": { "en": "Regular Customer", "mr": "नियमित ग्राहक" },
+      "rating": 5,
+      "quote": {
+        "en": "The Kolhapuri saaj is beautifully finished — you'd never guess it's imitation. Great prices too.",
+        "mr": "कोल्हापुरी साज खूप सुंदर फिनिशिंगचा आहे — हे इमिटेशन आहे हे कळतच नाही. किंमतही योग्य आहे."
+      }
+    }
   ]
 }

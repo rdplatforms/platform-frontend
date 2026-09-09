@@ -5,6 +5,7 @@ export * from './sales';
 export * from './locale';
 export * from './uiStrings';
 export * from './appointment';
+export * from './cartOrder';
 export * from './businessHours';
 export * from './contactMessage';
 export * from './avatar';

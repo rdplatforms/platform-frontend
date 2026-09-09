@@ -40,5 +40,15 @@
     "maintenanceMode": false,
     "commerceEnabled": true,
     "appointmentSlotMinutes": 45
+  },
+  "rupali-imitation-jewellery": {
+    "businessId": "rupali-imitation-jewellery",
+    "currency": "INR",
+    "locale": "en-IN",
+    "timezone": "Asia/Kolkata",
+    "bookingEnabled": false,
+    "whatsappEnabled": true,
+    "maintenanceMode": false,
+    "commerceEnabled": true
   }
 }

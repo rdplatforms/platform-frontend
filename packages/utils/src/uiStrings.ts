@@ -83,8 +83,9 @@ const UI_STRINGS = {
     paymentMethod: 'Payment Method',
     phoneOptional: 'Phone (optional)',
     placeOrder: 'Place Order',
-    orderPlacedTitle: 'Order placed!',
-    orderPlacedMessage: "We've received your order and will be in touch shortly.",
+    orderRequestHeading: 'New Order Request',
+    orderPlacedTitle: 'Order sent!',
+    orderPlacedMessage: 'WhatsApp is open with your order ready — just hit send.',
   },
   mr: {
     navAbout: 'आमच्याविषयी',
@@ -157,8 +158,9 @@ const UI_STRINGS = {
     paymentMethod: 'पेमेंट पद्धत',
     phoneOptional: 'फोन (ऐच्छिक)',
     placeOrder: 'ऑर्डर द्या',
-    orderPlacedTitle: 'ऑर्डर दिली!',
-    orderPlacedMessage: 'आम्हाला तुमची ऑर्डर मिळाली आहे — आम्ही लवकरच संपर्क करू.',
+    orderRequestHeading: 'नवीन ऑर्डर विनंती',
+    orderPlacedTitle: 'ऑर्डर पाठवली!',
+    orderPlacedMessage: 'तुमची ऑर्डर व्हॉट्सॲपवर तयार आहे — फक्त पाठवा दाबा.',
   },
 } satisfies Record<SupportedLocale, Record<string, string>>;
 

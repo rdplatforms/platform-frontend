@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react';
 import {
-  Alert,
   Box,
   Button,
   IconButton,
@@ -18,9 +17,15 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link as RouterLink } from 'react-router-dom';
 import { useCart } from '@rdplatforms/contexts';
-import { useBusiness, useCheckout, useLocale, useSettings } from '@rdplatforms/hooks';
+import {
+  useBusiness,
+  useCheckout,
+  useLocale,
+  useSettings,
+  useWhatsAppSubmit,
+} from '@rdplatforms/hooks';
 import type { PaymentMethod } from '@rdplatforms/types';
-import { formatCurrency, translateUi } from '@rdplatforms/utils';
+import { buildCartOrderMessage, formatCurrency, translateUi } from '@rdplatforms/utils';
 
 const PAYMENT_METHODS: PaymentMethod[] = ['CASH', 'CARD', 'UPI', 'OTHER'];
 
@@ -30,15 +35,18 @@ export function CartPage() {
   const { data: settings } = useSettings(business?.id);
   const cart = useCart();
   const checkout = useCheckout(business?.id ?? '');
+  const whatsappNumber = business?.contact.whatsapp ?? business?.contact.phone ?? '';
+  const { sent, send } = useWhatsAppSubmit(whatsappNumber);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CASH');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const currency = settings?.currency ?? cart.items[0]?.currency ?? 'USD';
 
-  if (checkout.isSuccess) {
+  if (sent) {
     return (
       <Box sx={{ maxWidth: 480, mx: 'auto', p: 4, textAlign: 'center' }}>
         <Typography variant="h5" fontWeight={700} gutterBottom>
@@ -54,11 +62,13 @@ export function CartPage() {
     );
   }
 
-  const onSubmit = (event: FormEvent) => {
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!business || cart.items.length === 0) return;
-    checkout.mutate(
-      {
+    setIsSubmitting(true);
+
+    try {
+      await checkout.mutateAsync({
         paymentMethod,
         customerName: name.trim() || undefined,
         customerEmail: email.trim() || undefined,
@@ -70,9 +80,33 @@ export function CartPage() {
           unitPrice: item.price,
           discount: 0,
         })),
+      });
+    } catch (err) {
+      // Best-effort, same as Appointment/Contact: the WhatsApp handoff
+      // below is still the customer's actual order reaching the
+      // business, so it must proceed regardless of whether a backend is
+      // configured for this business or the save failed. See docs/shop.md.
+      console.error('Failed to save the order to the backend:', err);
+    }
+
+    const message = buildCartOrderMessage(
+      {
+        customerName: name.trim(),
+        items: cart.items.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+          unitPrice: item.price,
+        })),
+        subtotal: cart.subtotal,
+        currency,
+        paymentMethod,
       },
-      { onSuccess: () => cart.clear() },
+      locale,
     );
+
+    send(message);
+    cart.clear();
+    setIsSubmitting(false);
   };
 
   return (
@@ -110,12 +144,20 @@ export function CartPage() {
                         size="small"
                         value={item.quantity}
                         onChange={(e) => cart.setQuantity(item.productId, Number(e.target.value))}
-                        slotProps={{ htmlInput: { min: 1, style: { width: 48, textAlign: 'right' } } }}
+                        slotProps={{
+                          htmlInput: { min: 1, style: { width: 48, textAlign: 'right' } },
+                        }}
                       />
                     </TableCell>
-                    <TableCell align="right">{formatCurrency(item.price * item.quantity, item.currency)}</TableCell>
                     <TableCell align="right">
-                      <IconButton size="small" aria-label={translateUi('remove', locale)} onClick={() => cart.removeItem(item.productId)}>
+                      {formatCurrency(item.price * item.quantity, item.currency)}
+                    </TableCell>
+                    <TableCell align="right">
+                      <IconButton
+                        size="small"
+                        aria-label={translateUi('remove', locale)}
+                        onClick={() => cart.removeItem(item.productId)}
+                      >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
                     </TableCell>
@@ -135,11 +177,6 @@ export function CartPage() {
               <Typography variant="h6" fontWeight={700}>
                 {translateUi('checkout', locale)}
               </Typography>
-              {checkout.isError ? (
-                <Alert severity="error">
-                  {checkout.error instanceof Error ? checkout.error.message : 'Failed to place order.'}
-                </Alert>
-              ) : null}
               <TextField
                 label={translateUi('name', locale)}
                 value={name}
@@ -174,7 +211,7 @@ export function CartPage() {
                 ))}
               </TextField>
               <Box>
-                <Button type="submit" variant="contained" size="large" disabled={checkout.isPending}>
+                <Button type="submit" variant="contained" size="large" disabled={isSubmitting}>
                   {translateUi('placeOrder', locale)}
                 </Button>
               </Box>

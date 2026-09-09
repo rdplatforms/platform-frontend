@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="100%" height="100%" fill="#FFFDF7"/>
+  <rect x="60" y="150" width="280" height="90" rx="6" fill="#8C1D40"/>
+  <rect x="80" y="70" width="240" height="80" rx="4" fill="none" stroke="#D4AF37" stroke-width="4"/>
+  <circle cx="140" cy="110" r="16" fill="#D4AF37"/>
+  <circle cx="200" cy="110" r="16" fill="#D4AF37"/>
+  <circle cx="260" cy="110" r="16" fill="#D4AF37"/>
+  <text x="50%" y="88%" dominant-baseline="middle" text-anchor="middle" fill="#8C1D40" font-family="serif" font-size="20" font-weight="700">Store Counter</text>
+</svg>

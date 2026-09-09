@@ -6,10 +6,12 @@ const apiBaseUrl = (import.meta as unknown as { env?: Record<string, string | un
   ?.VITE_API_BASE_URL;
 
 /**
- * Deliberately NOT best-effort like BookingService — there's no
- * WhatsApp-style fallback channel for an order the way there is for an
- * appointment request, so a checkout that can't reach the backend must
- * surface as a real, visible error, not fail silently.
+ * Rejects when no backend is configured (Tier 1) or the request fails —
+ * this class itself makes no attempt at a fallback. CartPage is what
+ * makes checkout best-effort in practice: it awaits this and swallows any
+ * error before always firing the WhatsApp handoff regardless, the same
+ * shape BookingService gets for free from its own tier check. See
+ * docs/shop.md and the Appointment section for the same pattern.
  */
 export class CheckoutService {
   constructor(private readonly dataSource: HttpCheckoutDataSource | undefined) {}

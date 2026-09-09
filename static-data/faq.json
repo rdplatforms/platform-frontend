@@ -38,5 +38,43 @@
       "question": "How long does an order take?",
       "answer": "Ready-made shop items ship within 2-3 business days. Custom prints depend on complexity — we'll give you a timeline during your consultation."
     }
+  ],
+  "rupali-imitation-jewellery": [
+    {
+      "id": "rij-faq-1",
+      "businessId": "rupali-imitation-jewellery",
+      "question": {
+        "en": "How do I place an order?",
+        "mr": "मी ऑर्डर कशी द्यावी?"
+      },
+      "answer": {
+        "en": "Add the items you want to your cart, fill in your name and preferred payment method, and tap \"Place Order\" — this opens WhatsApp with your order ready to send. We'll confirm availability and payment details there.",
+        "mr": "तुम्हाला हवे असलेले दागिने कार्टमध्ये टाका, तुमचे नाव आणि पसंतीची पेमेंट पद्धत भरा आणि \"ऑर्डर द्या\" दाबा — यामुळे तुमची ऑर्डर तयार असलेले व्हॉट्सॲप उघडेल. आम्ही तिथेच उपलब्धता आणि पेमेंटची माहिती कन्फर्म करू."
+      }
+    },
+    {
+      "id": "rij-faq-2",
+      "businessId": "rupali-imitation-jewellery",
+      "question": {
+        "en": "Does the jewellery tarnish or fade?",
+        "mr": "दागिने काळे पडतात किंवा रंग उडतो का?"
+      },
+      "answer": {
+        "en": "Our pieces are anti-tarnish plated and last for years with normal care — avoid perfume/water contact and store in the pouch provided.",
+        "mr": "आमचे दागिने अँटी-टार्निश प्लेटेड आहेत आणि नीट काळजी घेतल्यास वर्षानुवर्षे टिकतात — परफ्यूम/पाण्याचा संपर्क टाळा आणि दिलेल्या पाऊचमध्ये ठेवा."
+      }
+    },
+    {
+      "id": "rij-faq-3",
+      "businessId": "rupali-imitation-jewellery",
+      "question": {
+        "en": "Can I return or exchange an item?",
+        "mr": "मी वस्तू परत करू शकते का किंवा बदलून घेऊ शकते का?"
+      },
+      "answer": {
+        "en": "Yes — message us on WhatsApp within 3 days of delivery if there's a defect or sizing issue, and we'll arrange an exchange.",
+        "mr": "हो — डिलिव्हरीनंतर ३ दिवसांच्या आत काही दोष किंवा साइजची अडचण असल्यास व्हॉट्सॲपवर आम्हाला कळवा, आम्ही बदलून देऊ."
+      }
+    }
   ]
 }

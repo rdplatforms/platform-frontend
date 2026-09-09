@@ -74,5 +74,27 @@
     "backgroundStyle": "solid",
     "logoUrl": "/assets/businesses/printforge-3d/logo.svg",
     "darkModeEnabled": false
+  },
+  "rupali-imitation-jewellery": {
+    "businessId": "rupali-imitation-jewellery",
+    "primaryColor": "#8C1D40",
+    "secondaryColor": "#1A1A1A",
+    "accentColor": "#D4AF37",
+    "backgroundColor": "#FFFDF7",
+    "textColor": "#241014",
+    "typography": {
+      "fontFamily": "'Noto Sans Devanagari', 'Inter', sans-serif",
+      "headingFontFamily": "'Playfair Display', 'Noto Sans Devanagari', serif",
+      "headingFontFamilyByLocale": {
+        "mr": "'Noto Sans Devanagari', 'Inter', sans-serif"
+      },
+      "pairing": "editorial",
+      "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"
+    },
+    "borderRadius": 6,
+    "buttonStyle": "pill",
+    "backgroundStyle": "soft-gradient",
+    "logoUrl": "/assets/businesses/rupali-imitation-jewellery/logo.svg",
+    "darkModeEnabled": false
   }
 }

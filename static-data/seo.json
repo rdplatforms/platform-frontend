@@ -53,5 +53,25 @@
     "keywords": ["3d printing austin", "custom 3d prints", "3d printing shop", "rapid prototyping"],
     "ogImageUrl": "/assets/businesses/printforge-3d/og-image.svg",
     "canonicalUrl": "https://printforge-3d.rdplatforms.dev"
+  },
+  "rupali-imitation-jewellery": {
+    "businessId": "rupali-imitation-jewellery",
+    "title": {
+      "en": "Rupali Imitation Jewellery | Kolhapuri Saaj, Kundan & Bridal Sets",
+      "mr": "रुपाली इमिटेशन ज्वेलरी | कोल्हापुरी साज, कुंदन आणि ब्रायडल सेट्स"
+    },
+    "description": {
+      "en": "Shop handcrafted Kolhapuri saaj, kundan sets, and bridal jewellery from Rupali Imitation Jewellery, Kolhapur. Order online, confirm on WhatsApp.",
+      "mr": "रुपाली इमिटेशन ज्वेलरी, कोल्हापूर येथून हाताने बनवलेले कोल्हापुरी साज, कुंदन सेट्स आणि ब्रायडल दागिने खरेदी करा. ऑनलाइन ऑर्डर करा, व्हॉट्सॲपवर कन्फर्म करा."
+    },
+    "keywords": [
+      "imitation jewellery kolhapur",
+      "kolhapuri saaj",
+      "kundan jewellery online",
+      "bridal jewellery maharashtra",
+      "इमिटेशन ज्वेलरी"
+    ],
+    "ogImageUrl": "/assets/businesses/rupali-imitation-jewellery/og-image.svg",
+    "canonicalUrl": "https://rupali-imitation-jewellery.rdplatforms.dev"
   }
 }

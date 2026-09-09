@@ -142,5 +142,31 @@
       "category": "Parts",
       "order": 3
     }
+  ],
+  "rupali-imitation-jewellery": [
+    {
+      "id": "rij-gal-1",
+      "businessId": "rupali-imitation-jewellery",
+      "title": { "en": "Kolhapuri Saaj Collection", "mr": "कोल्हापुरी साज संग्रह" },
+      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/gallery/1.svg",
+      "category": "Necklaces",
+      "order": 1
+    },
+    {
+      "id": "rij-gal-2",
+      "businessId": "rupali-imitation-jewellery",
+      "title": { "en": "Bridal Display", "mr": "ब्रायडल डिस्प्ले" },
+      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/gallery/2.svg",
+      "category": "Bridal",
+      "order": 2
+    },
+    {
+      "id": "rij-gal-3",
+      "businessId": "rupali-imitation-jewellery",
+      "title": { "en": "Store Counter", "mr": "दुकानाचा काउंटर" },
+      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/gallery/3.svg",
+      "category": "Store",
+      "order": 3
+    }
   ]
 }

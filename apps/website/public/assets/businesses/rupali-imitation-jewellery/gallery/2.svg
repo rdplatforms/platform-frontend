@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="100%" height="100%" fill="#FFFDF7"/>
+  <circle cx="140" cy="90" r="18" fill="#D4AF37"/>
+  <circle cx="260" cy="90" r="18" fill="#D4AF37"/>
+  <path d="M100 115 Q200 200 300 115" stroke="#8C1D40" stroke-width="6" fill="none"/>
+  <path d="M170 60 L200 30 L230 60 Z" fill="#D4AF37"/>
+  <text x="50%" y="88%" dominant-baseline="middle" text-anchor="middle" fill="#8C1D40" font-family="serif" font-size="20" font-weight="700">Bridal Display</text>
+</svg>
