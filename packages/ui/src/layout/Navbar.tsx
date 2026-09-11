@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   AppBar,
+  Badge,
   Box,
   Drawer,
   IconButton,
@@ -14,9 +15,12 @@ import {
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link as RouterLink } from 'react-router-dom';
+import { useOptionalCart } from '@rdplatforms/contexts';
 import type { Business } from '@rdplatforms/types';
 import { useLocale } from '@rdplatforms/hooks';
-import { resolveLocalizedText } from '@rdplatforms/utils';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -38,6 +42,21 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { locale } = useLocale();
   const brandNote = resolveLocalizedText(business.brandNote, locale);
+  const cart = useOptionalCart();
+
+  const cartButton =
+    cart && cart.itemCount > 0 ? (
+      <IconButton
+        component={RouterLink}
+        to="/cart"
+        aria-label={translateUi('viewCart', locale)}
+        color="inherit"
+      >
+        <Badge badgeContent={cart.itemCount} color="primary">
+          <ShoppingCartIcon />
+        </Badge>
+      </IconButton>
+    ) : null;
 
   const brand = (
     <Stack direction="row" spacing={1.5} alignItems="center" sx={{ minWidth: 0 }}>
@@ -84,14 +103,15 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
 
         <Box sx={{ justifySelf: 'end' }}>
           {isMobile ? (
-            <Stack direction="row" spacing={1} alignItems="center">
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              {cartButton}
               <LanguageSwitcher />
               <IconButton onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu">
                 <MenuIcon />
               </IconButton>
             </Stack>
           ) : (
-            <Stack direction="row" spacing={3} alignItems="center">
+            <Stack direction="row" spacing={2.5} alignItems="center">
               {navItems.map((item) => (
                 <Typography
                   key={item.href}
@@ -102,6 +122,7 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
                   {item.label}
                 </Typography>
               ))}
+              {cartButton}
               <LanguageSwitcher />
               {ctaLabel ? (
                 <Button href={ctaHref} size="medium">
