@@ -1,0 +1,51 @@
+{
+  "id": "jagdamb-creation",
+  "slug": "jagdamb-creation",
+  "legalName": "Jagdamb Creation",
+  "displayName": "Jagdamb Creation",
+  "tagline": {
+    "en": "Traditional & Trendy Imitation Jewellery",
+    "mr": "पारंपरिक आणि ट्रेंडी इमिटेशन ज्वेलरी"
+  },
+  "brandNote": {
+    "en": "Kolhapur's own imitation jewellery, since 2010",
+    "mr": "कोल्हापूरची स्वतःची इमिटेशन ज्वेलरी, २०१० पासून"
+  },
+  "category": "ecommerce",
+  "logoUrl": "/assets/businesses/jagdamb-creation/logo.svg",
+  "faviconUrl": "/assets/businesses/jagdamb-creation/favicon.svg",
+  "description": {
+    "en": "Jagdamb Creation brings you handcrafted Kolhapuri saaj, kundan sets, oxidised silver-look pieces, and bridal collections. Browse the shop, add your favourites to the cart, and confirm your order on WhatsApp — no card or account needed.",
+    "mr": "जगदंब क्रिएशन तुमच्यासाठी घेऊन येते हाताने बनवलेले कोल्हापुरी साज, कुंदन सेट्स, ऑक्सिडाइज्ड सिल्व्हर लूकचे दागिने आणि ब्रायडल कलेक्शन. दुकानात बघा, आवडते दागिने कार्टमध्ये टाका आणि व्हॉट्सॲपवर ऑर्डर कन्फर्म करा — कार्ड किंवा खात्याची गरज नाही."
+  },
+  "contact": {
+    "phone": "+918983201934",
+    "whatsapp": "+918983201934",
+    "address": {
+      "line1": "12, Shivaji Peth Main Road",
+      "city": "Kolhapur",
+      "state": "Maharashtra",
+      "postalCode": "416012",
+      "country": "India",
+      "mapEmbedUrl": "https://maps.google.com/maps?q=16.7050,74.2433&z=17&output=embed",
+      "latitude": 16.705,
+      "longitude": 74.2433
+    }
+  },
+  "hours": [
+    { "day": "monday", "opensAt": null, "closesAt": null, "isClosed": true },
+    { "day": "tuesday", "opensAt": "10:30", "closesAt": "21:00", "isClosed": false },
+    { "day": "wednesday", "opensAt": "10:30", "closesAt": "21:00", "isClosed": false },
+    { "day": "thursday", "opensAt": "10:30", "closesAt": "21:00", "isClosed": false },
+    { "day": "friday", "opensAt": "10:30", "closesAt": "21:00", "isClosed": false },
+    { "day": "saturday", "opensAt": "10:30", "closesAt": "21:30", "isClosed": false },
+    { "day": "sunday", "opensAt": "11:00", "closesAt": "21:30", "isClosed": false }
+  ],
+  "social": {
+    "instagram": "https://www.instagram.com/jagdamb_creation2/"
+  },
+  "domains": ["jagdamb-creation.rdplatforms.dev"],
+  "portalDomains": ["admin.jagdamb-creation.rdplatforms.dev"],
+  "isActive": true,
+  "supportedLocales": ["en", "mr"]
+}

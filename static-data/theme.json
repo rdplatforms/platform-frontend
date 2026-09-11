@@ -75,8 +75,8 @@
     "logoUrl": "/assets/businesses/printforge-3d/logo.svg",
     "darkModeEnabled": false
   },
-  "rupali-imitation-jewellery": {
-    "businessId": "rupali-imitation-jewellery",
+  "jagdamb-creation": {
+    "businessId": "jagdamb-creation",
     "primaryColor": "#8C1D40",
     "secondaryColor": "#1A1A1A",
     "accentColor": "#D4AF37",
@@ -94,7 +94,7 @@
     "borderRadius": 6,
     "buttonStyle": "pill",
     "backgroundStyle": "soft-gradient",
-    "logoUrl": "/assets/businesses/rupali-imitation-jewellery/logo.svg",
+    "logoUrl": "/assets/businesses/jagdamb-creation/logo.svg",
     "darkModeEnabled": false
   }
 }

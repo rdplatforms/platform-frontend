@@ -69,10 +69,10 @@
       "quote": "Ordered a batch of prototype housings — accurate dimensions, clean finish, delivered on time."
     }
   ],
-  "rupali-imitation-jewellery": [
+  "jagdamb-creation": [
     {
       "id": "rij-test-1",
-      "businessId": "rupali-imitation-jewellery",
+      "businessId": "jagdamb-creation",
       "authorName": "Snehal Patil",
       "authorRole": { "en": "Bride, 2025", "mr": "नवरी, २०२५" },
       "rating": 5,
@@ -83,7 +83,7 @@
     },
     {
       "id": "rij-test-2",
-      "businessId": "rupali-imitation-jewellery",
+      "businessId": "jagdamb-creation",
       "authorName": "Aarti Kulkarni",
       "authorRole": { "en": "Regular Customer", "mr": "नियमित ग्राहक" },
       "rating": 5,

@@ -54,14 +54,14 @@
       "featured": false
     }
   ],
-  "rupali-imitation-jewellery": [
+  "jagdamb-creation": [
     {
       "id": "3a7c1e2a-4b5e-4c1a-9b6a-1a2b3c4d5e6f",
       "name": "Kolhapuri Saaj",
       "description": "Traditional gold-look Kolhapuri saaj necklace with lakshmi and paisley motifs — handcrafted finish.",
       "price": 899,
       "currency": "INR",
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/products/kolhapuri-saaj.svg",
+      "imageUrl": "/assets/businesses/jagdamb-creation/products/kolhapuri-saaj.svg",
       "category": "necklaces",
       "stockQuantity": 25,
       "featured": true
@@ -72,7 +72,7 @@
       "description": "Full bridal set — necklace, earrings, and maang tikka — kundan stonework with pearl drops.",
       "price": 2499,
       "currency": "INR",
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/products/kundan-bridal-set.svg",
+      "imageUrl": "/assets/businesses/jagdamb-creation/products/kundan-bridal-set.svg",
       "category": "bridal",
       "stockQuantity": 10,
       "featured": true
@@ -83,7 +83,7 @@
       "description": "Antique oxidised finish jhumkas with a light ghungroo jingle — everyday wear.",
       "price": 349,
       "currency": "INR",
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/products/oxidised-jhumka.svg",
+      "imageUrl": "/assets/businesses/jagdamb-creation/products/oxidised-jhumka.svg",
       "category": "earrings",
       "stockQuantity": 60,
       "featured": true
@@ -94,7 +94,7 @@
       "description": "Delicate pearl-drop maang tikka on an adjustable chain — pairs well with any bridal set.",
       "price": 249,
       "currency": "INR",
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/products/pearl-maang-tikka.svg",
+      "imageUrl": "/assets/businesses/jagdamb-creation/products/pearl-maang-tikka.svg",
       "category": "hair-jewellery",
       "stockQuantity": 40,
       "featured": false
@@ -105,7 +105,7 @@
       "description": "Temple-carved pattern bangles, gold-look plating — sold as a set of 4.",
       "price": 599,
       "currency": "INR",
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/products/antique-bangles.svg",
+      "imageUrl": "/assets/businesses/jagdamb-creation/products/antique-bangles.svg",
       "category": "bangles",
       "stockQuantity": 35,
       "featured": false
@@ -116,7 +116,7 @@
       "description": "Temple-style choker with ruby-red and emerald-green stone work — a festive statement piece.",
       "price": 1299,
       "currency": "INR",
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/products/temple-choker.svg",
+      "imageUrl": "/assets/businesses/jagdamb-creation/products/temple-choker.svg",
       "category": "necklaces",
       "stockQuantity": 15,
       "featured": false

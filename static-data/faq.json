@@ -39,10 +39,10 @@
       "answer": "Ready-made shop items ship within 2-3 business days. Custom prints depend on complexity — we'll give you a timeline during your consultation."
     }
   ],
-  "rupali-imitation-jewellery": [
+  "jagdamb-creation": [
     {
       "id": "rij-faq-1",
-      "businessId": "rupali-imitation-jewellery",
+      "businessId": "jagdamb-creation",
       "question": {
         "en": "How do I place an order?",
         "mr": "मी ऑर्डर कशी द्यावी?"
@@ -54,7 +54,7 @@
     },
     {
       "id": "rij-faq-2",
-      "businessId": "rupali-imitation-jewellery",
+      "businessId": "jagdamb-creation",
       "question": {
         "en": "Does the jewellery tarnish or fade?",
         "mr": "दागिने काळे पडतात किंवा रंग उडतो का?"
@@ -66,7 +66,7 @@
     },
     {
       "id": "rij-faq-3",
-      "businessId": "rupali-imitation-jewellery",
+      "businessId": "jagdamb-creation",
       "question": {
         "en": "Can I return or exchange an item?",
         "mr": "मी वस्तू परत करू शकते का किंवा बदलून घेऊ शकते का?"

@@ -41,8 +41,8 @@
     "commerceEnabled": true,
     "appointmentSlotMinutes": 45
   },
-  "rupali-imitation-jewellery": {
-    "businessId": "rupali-imitation-jewellery",
+  "jagdamb-creation": {
+    "businessId": "jagdamb-creation",
     "currency": "INR",
     "locale": "en-IN",
     "timezone": "Asia/Kolkata",

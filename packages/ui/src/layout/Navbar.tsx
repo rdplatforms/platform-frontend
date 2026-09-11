@@ -40,9 +40,14 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
   const brandNote = resolveLocalizedText(business.brandNote, locale);
 
   const brand = (
-    <Stack spacing={0} sx={{ minWidth: 0, overflow: 'hidden' }}>
+    <Stack spacing={0} sx={{ minWidth: 0, overflow: 'hidden', alignItems: 'center' }}>
       {brandNote ? (
-        <Typography variant="caption" color="text.secondary" noWrap sx={{ lineHeight: 1.2 }}>
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          noWrap
+          sx={{ lineHeight: 1.2, textAlign: 'center' }}
+        >
           {brandNote}
         </Typography>
       ) : null}

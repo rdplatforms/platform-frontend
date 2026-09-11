@@ -111,7 +111,7 @@ have to pick one or the other. Seeded via `static-data/products.json` +
 static-data collection that isn't the generic JSONB passthrough path,
 since `Product` needs its fields parsed into real typed columns.
 
-## Demo business: `rupali-imitation-jewellery`
+## Demo business: `jagdamb-creation`
 
 A Tier 1 (WhatsApp-only, no backend at all — [0013](adr/0013-tiered-backend-per-business.md))
 e-commerce business — `commerceEnabled: true`, `bookingEnabled: false`
@@ -125,6 +125,12 @@ any. `Product.name`/`description` stay English-only even here — see
 `packages/types/src/product.ts`'s own comment on why `Product` isn't
 bilingual yet, a real (documented, not silent) limitation for a
 Marathi-speaking business's product catalog specifically.
+
+Started as a fictional demo (`rupali-imitation-jewellery`), then
+connected to the real business it's modeled on — real WhatsApp number,
+real Instagram profile, real owner name, real gallery photos (see
+[instagram.md](instagram.md) for why there's no live Instagram feed
+embed, just a profile link).
 
 ## Local testing
 
@@ -145,10 +151,10 @@ VITE_API_BASE_URL=http://localhost:8081 pnpm --filter @rdplatforms/portal dev
 # open http://localhost:5175/?business=printforge-3d
 ```
 
-`rupali-imitation-jewellery` needs none of the above — no backend, no
-importer, no portal — since it's Tier 1:
+`jagdamb-creation` needs none of the above — no backend, no importer, no
+portal — since it's Tier 1:
 
 ```bash
 pnpm --filter @rdplatforms/website dev
-# open http://localhost:5173/?business=rupali-imitation-jewellery
+# open http://localhost:5173/?business=jagdamb-creation
 ```
