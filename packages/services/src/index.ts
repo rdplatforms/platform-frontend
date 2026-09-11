@@ -3,7 +3,6 @@ export * from './dataSource/JsonDataSource';
 export * from './dataSource/HttpDataSource';
 export * from './dataSource/activeDataSource';
 export * from './dataSource/HttpBookingDataSource';
-export * from './dataSource/HttpProductDataSource';
 export * from './dataSource/HttpCheckoutDataSource';
 export * from './dataSource/AppsScriptClient';
 export * from './dataSource/AppsScriptBookingDataSource';

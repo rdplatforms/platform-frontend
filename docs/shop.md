@@ -19,11 +19,15 @@ renders is the same mechanism every section uses: a `shop`
 (`static-data/pages.json`), enabled or not.
 
 `Shop` (`packages/ui/src/sections/Shop.tsx`) fetches its product grid
-via `useProducts` (`@rdplatforms/hooks`) — backend-only, no
-`static-data` fallback the way `Services`/`Gallery`/etc. have, since a
-`Product` needs real CRUD from day one (see "Products" below). No
-backend configured means an empty grid, not an error — same tolerance
-`BookingService` has.
+via `useProducts` (`@rdplatforms/hooks`) → `ProductService` →
+`activeDataSource` — the same read-tier seam every other content type
+uses (see [adr/0016-product-listing-static-fallback.md](adr/0016-product-listing-static-fallback.md)):
+a Tier 1 business with no backend at all gets its products from
+`static-data/products.json`, a Tier 3 business gets them from
+`platform-backend`. This superseded the original "backend-only, no
+static-data fallback" design once a real Tier 1 e-commerce business
+(`jagdamb-creation`) needed a shop with no backend to talk to — see
+"Products" below for what's unchanged (writes stay backend-only).
 
 ## Cart
 
@@ -94,12 +98,23 @@ strips the `is` prefix off a `boolean isFeatured` getter, so `featured`
 is what's actually on the wire; matching it exactly avoids a silent
 runtime mismatch masked by TypeScript).
 
-Read (`apps/website`'s shop) is public. Write (`apps/portal`'s
-`/products`, TASK-023) is Owner-only — same gating as Staff management,
+Read (`apps/website`'s shop) is public, and — for a Tier 1 business —
+comes from `static-data/products.json` rather than
+`platform-backend`, per the fallback above. Write (`apps/portal`'s
+`/products`, TASK-023) is Owner-only, backend-only regardless of tier
+(a Tier 1 business simply has no `apps/portal` write path, same as it
+has no bookings-management path) — same gating as Staff management,
 not the "any member" gating Bookings/Billing have, since product/
 pricing changes are business configuration, not day-to-day operational
 work. `apps/portal/src/api/productsApi.ts` follows the same
 direct-fetch pattern as `staffApi.ts`/`bookingsApi.ts`/`salesApi.ts`.
+
+`Product.sku?: string` (optional) — an internal stock-keeping code for
+the business's own reference, never shown to customers, added once a
+real Tier 1 business (`jagdamb-creation`) asked for one so its owner
+could track inventory without a backend. Not yet mirrored to
+`platform-backend`'s `Product` entity — a `printforge-3d`-style Tier 3
+business just gets `sku: undefined` until that catches up.
 
 ## Demo business: `printforge-3d`
 
@@ -130,7 +145,15 @@ Started as a fictional demo (`rupali-imitation-jewellery`), then
 connected to the real business it's modeled on — real WhatsApp number,
 real Instagram profile, real owner name, real gallery photos (see
 [instagram.md](instagram.md) for why there's no live Instagram feed
-embed, just a profile link).
+embed, just a profile link). Its 6 products (`static-data/products.json`)
+each carry a `sku` (`JC-NEC-001`, etc.) for the owner's own internal
+tracking. Prices are placeholders — nobody in this session has real
+pricing from the business, so they're deliberately approximate, pending
+the actual owner setting real prices through whatever the eventual
+pricing-management path turns out to be. `team` is disabled in
+`pages.json` for this business (no team/owner section on the page) —
+kept as data, just not shown, the same on/off pattern used for
+`printforge-3d`'s or `swami-hair-salon`'s disabled sections.
 
 ## Local testing
 

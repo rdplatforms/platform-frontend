@@ -108,7 +108,7 @@
         { "type": "gallery", "enabled": true, "order": 4 },
         { "type": "testimonials", "enabled": true, "order": 5 },
         { "type": "faq", "enabled": true, "order": 6 },
-        { "type": "team", "enabled": true, "order": 7 },
+        { "type": "team", "enabled": false, "order": 7 },
         { "type": "cta", "enabled": true, "order": 8 },
         { "type": "contact", "enabled": true, "order": 9 },
         { "type": "map", "enabled": true, "order": 10 }

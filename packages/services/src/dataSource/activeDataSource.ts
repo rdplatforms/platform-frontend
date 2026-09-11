@@ -5,6 +5,7 @@ import type {
   FaqDataSource,
   GalleryDataSource,
   PageDataSource,
+  ProductCatalogDataSource,
   SeoDataSource,
   ServiceCatalogDataSource,
   SettingsDataSource,
@@ -22,7 +23,8 @@ type ReadOnlyDataSource = BusinessDataSource &
   PageDataSource &
   FaqDataSource &
   TeamDataSource &
-  SettingsDataSource;
+  SettingsDataSource &
+  ProductCatalogDataSource;
 
 /**
  * The single seam every read-only *Service constructs against (TASK-005

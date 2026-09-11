@@ -15,6 +15,7 @@
     "./settings": "./settings.json",
     "./faq": "./faq.json",
     "./team": "./team.json",
+    "./products": "./products.json",
     "./cards/index": "./cards/index.json",
     "./cards/*": "./cards/*.json"
   }

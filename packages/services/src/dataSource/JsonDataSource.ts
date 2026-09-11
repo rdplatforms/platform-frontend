@@ -5,6 +5,7 @@ import type {
   FaqItem,
   GalleryItem,
   PageConfig,
+  Product,
   SeoConfig,
   ServiceItem,
   TeamMember,
@@ -26,12 +27,14 @@ import pagesData from '@rdplatforms/static-data/pages';
 import settingsData from '@rdplatforms/static-data/settings';
 import faqData from '@rdplatforms/static-data/faq';
 import teamData from '@rdplatforms/static-data/team';
+import productsData from '@rdplatforms/static-data/products';
 
 import type {
   BusinessDataSource,
   FaqDataSource,
   GalleryDataSource,
   PageDataSource,
+  ProductCatalogDataSource,
   SeoDataSource,
   ServiceCatalogDataSource,
   SettingsDataSource,
@@ -63,6 +66,10 @@ const PAGES_BY_BUSINESS = pagesData as Record<string, PageConfig[]>;
 const SETTINGS_BY_BUSINESS = settingsData as Record<string, BusinessSettings>;
 const FAQ_BY_BUSINESS = faqData as Record<string, FaqItem[]>;
 const TEAM_BY_BUSINESS = teamData as Record<string, TeamMember[]>;
+// Hand-authored products.json entries omit businessId/createdAt (see
+// listProductsByBusiness below) — the literal JSON type doesn't
+// structurally satisfy Product, hence the double cast.
+const PRODUCTS_BY_BUSINESS = productsData as unknown as Record<string, Product[]>;
 
 export class JsonDataSource
   implements
@@ -75,7 +82,8 @@ export class JsonDataSource
     PageDataSource,
     FaqDataSource,
     TeamDataSource,
-    SettingsDataSource
+    SettingsDataSource,
+    ProductCatalogDataSource
 {
   async listBusinesses(): Promise<Business[]> {
     return businessIndex.slugs
@@ -128,6 +136,17 @@ export class JsonDataSource
 
   async getSettingsByBusiness(businessId: string): Promise<BusinessSettings | undefined> {
     return SETTINGS_BY_BUSINESS[businessId];
+  }
+
+  async listProductsByBusiness(businessId: string): Promise<Product[]> {
+    // products.json entries are hand-authored without businessId/createdAt
+    // (meaningless to author by hand for a static seed) — filled in here,
+    // the same way a real backend would stamp them automatically.
+    return (PRODUCTS_BY_BUSINESS[businessId] ?? []).map((product) => ({
+      ...product,
+      businessId,
+      createdAt: product.createdAt ?? '2026-01-01T00:00:00.000Z',
+    }));
   }
 }
 

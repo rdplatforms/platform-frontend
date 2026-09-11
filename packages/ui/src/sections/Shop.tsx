@@ -10,10 +10,10 @@ import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 /**
- * Products are backend-only (see HttpProductDataSource) — there's no
- * static-data fallback, so an unconfigured/offline environment just
- * shows an empty shop, same tolerance the Appointment section has for
- * a missing backend.
+ * Products come from activeDataSource (ProductService) — a Tier 1
+ * business with no backend gets its products from
+ * static-data/products.json, same as Services/Gallery/etc.; a Tier 3
+ * business gets them from platform-backend. See docs/shop.md.
  *
  * Cart access is optional (useOptionalCart, not useCart) because
  * @rdplatforms/ui is shared by any app that composes SectionRenderer —
@@ -29,7 +29,13 @@ export function Shop({ business, config }: SectionProps) {
 
   return (
     <PageSection id="shop" tone="subtle">
-      <Stack direction="row" justifyContent="space-between" alignItems="flex-start" flexWrap="wrap" gap={2}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        flexWrap="wrap"
+        gap={2}
+      >
         <SectionTitle
           title={resolveLocalizedText(config.title, locale) || translateUi('ourShop', locale)}
           subtitle={resolveLocalizedText(config.subtitle, locale)}
@@ -88,7 +94,9 @@ export function Shop({ business, config }: SectionProps) {
                           })
                         }
                       >
-                        {outOfStock ? translateUi('outOfStock', locale) : translateUi('addToCart', locale)}
+                        {outOfStock
+                          ? translateUi('outOfStock', locale)
+                          : translateUi('addToCart', locale)}
                       </Button>
                     </Stack>
                   }

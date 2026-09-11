@@ -63,6 +63,7 @@
       "currency": "INR",
       "imageUrl": "/assets/businesses/jagdamb-creation/products/kolhapuri-saaj.svg",
       "category": "necklaces",
+      "sku": "JC-NEC-001",
       "stockQuantity": 25,
       "featured": true
     },
@@ -74,6 +75,7 @@
       "currency": "INR",
       "imageUrl": "/assets/businesses/jagdamb-creation/products/kundan-bridal-set.svg",
       "category": "bridal",
+      "sku": "JC-BRD-001",
       "stockQuantity": 10,
       "featured": true
     },
@@ -85,6 +87,7 @@
       "currency": "INR",
       "imageUrl": "/assets/businesses/jagdamb-creation/products/oxidised-jhumka.svg",
       "category": "earrings",
+      "sku": "JC-EAR-001",
       "stockQuantity": 60,
       "featured": true
     },
@@ -96,6 +99,7 @@
       "currency": "INR",
       "imageUrl": "/assets/businesses/jagdamb-creation/products/pearl-maang-tikka.svg",
       "category": "hair-jewellery",
+      "sku": "JC-HRJ-001",
       "stockQuantity": 40,
       "featured": false
     },
@@ -107,6 +111,7 @@
       "currency": "INR",
       "imageUrl": "/assets/businesses/jagdamb-creation/products/antique-bangles.svg",
       "category": "bangles",
+      "sku": "JC-BNG-001",
       "stockQuantity": 35,
       "featured": false
     },
@@ -118,6 +123,7 @@
       "currency": "INR",
       "imageUrl": "/assets/businesses/jagdamb-creation/products/temple-choker.svg",
       "category": "necklaces",
+      "sku": "JC-NEC-002",
       "stockQuantity": 15,
       "featured": false
     }

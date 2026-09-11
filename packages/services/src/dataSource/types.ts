@@ -7,6 +7,7 @@ import type {
   GalleryItem,
   NewBooking,
   PageConfig,
+  Product,
   SeoConfig,
   ServiceItem,
   TeamMember,
@@ -28,6 +29,18 @@ export interface BusinessDataSource {
 
 export interface ServiceCatalogDataSource {
   listServicesByBusiness(businessId: string): Promise<ServiceItem[]>;
+}
+
+/**
+ * Read-only product listing — implemented by both JsonDataSource (a
+ * static-data seed, for a Tier 1 business with no backend at all) and
+ * HttpDataSource (Tier 3). Unlike the old HttpProductDataSource-only
+ * design, a Product's write path (create/update/delete, apps/portal,
+ * Owner-only) stays backend-only regardless — this interface only
+ * covers the customer-facing read path, which never needed CRUD.
+ */
+export interface ProductCatalogDataSource {
+  listProductsByBusiness(businessId: string): Promise<Product[]>;
 }
 
 export interface GalleryDataSource {
