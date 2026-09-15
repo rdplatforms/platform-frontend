@@ -1,5 +1,4 @@
-import { AppBar, Avatar, Box, Button, Chip, Stack, Toolbar, Typography } from '@mui/material';
-import BadgeIcon from '@mui/icons-material/Badge';
+import { Avatar, Box, Button, Chip, Stack, Typography } from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
 import CallIcon from '@mui/icons-material/Call';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -51,25 +50,6 @@ export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
       }}
     >
       <AmbientBackdrop tokens={tokens} />
-
-      <AppBar
-        position="sticky"
-        elevation={0}
-        sx={{
-          bgcolor: tokens.headerBg,
-          backdropFilter: 'blur(24px)',
-          borderBottom: tokens.panelBorder,
-          boxShadow: `0 24px 48px -8px rgba(0,0,0,0.7), 0 0 20px ${tokens.primaryContainer}33`,
-        }}
-      >
-        <Toolbar>
-          <BadgeIcon sx={{ color: tokens.primary, mr: 1 }} />
-          <Typography variant="subtitle1" fontWeight={700} sx={{ flexGrow: 1 }}>
-            Card Viewer
-          </Typography>
-          <QrShareButton url={cardUrl} iconOnly sx={{ color: tokens.onSurfaceVariant }} />
-        </Toolbar>
-      </AppBar>
 
       <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>

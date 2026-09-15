@@ -1,28 +1,11 @@
 import { useState } from 'react';
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Chip,
-  Stack,
-  TextField,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, Button, Chip, Stack, TextField, Typography } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DownloadIcon from '@mui/icons-material/Download';
 import SendIcon from '@mui/icons-material/Send';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { downloadVCard, getAvatarColors, getInitials, toWhatsAppLink } from '@rdplatforms/utils';
-import {
-  ActionTile,
-  AmbientBackdrop,
-  BadgeChip,
-  GlassSection,
-  LinkRowList,
-  QrShareButton,
-} from './shared';
+import { ActionTile, AmbientBackdrop, BadgeChip, GlassSection, LinkRowList } from './shared';
 import { DARK_GLASS_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
 
@@ -37,7 +20,6 @@ import type { CardTemplateProps } from './types';
  */
 export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
-  const cardUrl = typeof window !== 'undefined' ? window.location.href : '';
   const whatsappNumber =
     card.whatsapp ?? card.links.find((link) => link.type === 'whatsapp')?.value;
   const bookingLink = card.links.find((link) => link.type === 'booking');
@@ -86,23 +68,6 @@ export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
       }}
     >
       <AmbientBackdrop tokens={tokens} />
-
-      <AppBar
-        position="sticky"
-        elevation={0}
-        sx={{
-          bgcolor: tokens.headerBg,
-          backdropFilter: 'blur(24px)',
-          borderBottom: tokens.panelBorder,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="subtitle1" fontWeight={700} sx={{ flexGrow: 1 }}>
-            Card Viewer
-          </Typography>
-          <QrShareButton url={cardUrl} iconOnly sx={{ color: tokens.onSurfaceVariant }} />
-        </Toolbar>
-      </AppBar>
 
       <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>

@@ -1,17 +1,9 @@
-import { AppBar, Avatar, Box, Button, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
-import DiamondIcon from '@mui/icons-material/Diamond';
 import DownloadIcon from '@mui/icons-material/Download';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { downloadVCard, getAvatarColors, getInitials, toWhatsAppLink } from '@rdplatforms/utils';
-import {
-  BadgeChip,
-  CatalogCard,
-  GlassSection,
-  MapEmbed,
-  QrShareButton,
-  UpiPaymentQr,
-} from './shared';
+import { BadgeChip, CatalogCard, GlassSection, MapEmbed, UpiPaymentQr } from './shared';
 import { WARM_LUXURY_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
 
@@ -25,7 +17,6 @@ import type { CardTemplateProps } from './types';
  */
 export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
-  const cardUrl = typeof window !== 'undefined' ? window.location.href : '';
   const whatsappNumber =
     card.whatsapp ?? card.links.find((link) => link.type === 'whatsapp')?.value;
 
@@ -45,24 +36,6 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: tokens.pageBackground, color: tokens.onSurface }}>
-      <AppBar
-        position="sticky"
-        elevation={0}
-        color="inherit"
-        sx={{
-          bgcolor: tokens.headerBg,
-          borderBottom: tokens.panelBorder,
-        }}
-      >
-        <Toolbar>
-          <DiamondIcon sx={{ color: tokens.primary, mr: 1 }} />
-          <Typography variant="subtitle1" fontWeight={700} sx={{ flexGrow: 1 }}>
-            Card Viewer
-          </Typography>
-          <QrShareButton url={cardUrl} iconOnly sx={{ color: tokens.onSurfaceVariant }} />
-        </Toolbar>
-      </AppBar>
-
       <Box sx={{ maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>
           <Button

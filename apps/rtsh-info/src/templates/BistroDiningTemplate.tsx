@@ -1,17 +1,15 @@
-import { AppBar, Avatar, Box, Button, Chip, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Chip, Stack, Typography } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DownloadIcon from '@mui/icons-material/Download';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { downloadVCard, getAvatarColors, getInitials, toWhatsAppLink } from '@rdplatforms/utils';
-import { BadgeChip, CatalogCard, GlassSection, MapEmbed, QrShareButton } from './shared';
+import { BadgeChip, CatalogCard, GlassSection, MapEmbed } from './shared';
 import { WARM_LUXURY_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
 
 /** Light, warm dining — reuses the same WARM_LUXURY_TOKENS as Artisanal Jewelry Boutique (no blur/ambient glow, per artisanal_warm_luxury/DESIGN.md). Menu items reuse CatalogCard; hours reuse Card.hours' multi-block shape (lunch/dinner as two separate rows). */
 export function BistroDiningTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
-  const cardUrl = typeof window !== 'undefined' ? window.location.href : '';
   const whatsappNumber =
     card.whatsapp ?? card.links.find((link) => link.type === 'whatsapp')?.value;
   const bookingLink = card.links.find((link) => link.type === 'booking');
@@ -32,21 +30,6 @@ export function BistroDiningTemplate({ card }: CardTemplateProps) {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: tokens.pageBackground, color: tokens.onSurface }}>
-      <AppBar
-        position="sticky"
-        elevation={0}
-        color="inherit"
-        sx={{ bgcolor: tokens.headerBg, borderBottom: tokens.panelBorder }}
-      >
-        <Toolbar>
-          <RestaurantIcon sx={{ color: tokens.primary, mr: 1 }} />
-          <Typography variant="subtitle1" fontWeight={700} sx={{ flexGrow: 1 }}>
-            Card Viewer
-          </Typography>
-          <QrShareButton url={cardUrl} iconOnly sx={{ color: tokens.onSurfaceVariant }} />
-        </Toolbar>
-      </AppBar>
-
       <Box sx={{ maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>
           <Button

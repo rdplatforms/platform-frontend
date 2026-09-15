@@ -1,6 +1,5 @@
-import { AppBar, Avatar, Box, Button, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { getAvatarColors, getInitials, toWhatsAppLink } from '@rdplatforms/utils';
 import {
@@ -9,7 +8,6 @@ import {
   CatalogCard,
   GlassSection,
   MapEmbed,
-  QrShareButton,
   UpiPaymentQr,
 } from './shared';
 import { DARK_GLASS_TOKENS as tokens } from './designTokens';
@@ -19,7 +17,6 @@ import type { CardTemplateProps } from './types';
 /** Dark, merchant/commerce-oriented — a catalog grid with per-item WhatsApp inquiries, UPI settlement, hours, and a map. Matches digital_business_card_platform/DESIGN.md's tokens, same as Executive Minimal. */
 export function WhatsAppStorefrontTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
-  const cardUrl = typeof window !== 'undefined' ? window.location.href : '';
   const whatsappNumber =
     card.whatsapp ?? card.links.find((link) => link.type === 'whatsapp')?.value;
   const socialLinks = card.links.filter((link) => link.type !== 'call' && link.type !== 'whatsapp');
@@ -34,24 +31,6 @@ export function WhatsAppStorefrontTemplate({ card }: CardTemplateProps) {
       }}
     >
       <AmbientBackdrop tokens={tokens} />
-
-      <AppBar
-        position="sticky"
-        elevation={0}
-        sx={{
-          bgcolor: tokens.headerBg,
-          backdropFilter: 'blur(24px)',
-          borderBottom: tokens.panelBorder,
-        }}
-      >
-        <Toolbar>
-          <ShoppingBagIcon sx={{ color: tokens.primary, mr: 1 }} />
-          <Typography variant="subtitle1" fontWeight={700} sx={{ flexGrow: 1 }}>
-            Card Viewer
-          </Typography>
-          <QrShareButton url={cardUrl} iconOnly sx={{ color: tokens.onSurfaceVariant }} />
-        </Toolbar>
-      </AppBar>
 
       <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>

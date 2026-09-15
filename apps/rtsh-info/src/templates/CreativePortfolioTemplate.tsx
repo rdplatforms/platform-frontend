@@ -1,22 +1,14 @@
-import { AppBar, Avatar, Box, Button, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import { downloadVCard, getAvatarColors, getInitials } from '@rdplatforms/utils';
-import {
-  AmbientBackdrop,
-  BadgeChip,
-  CatalogCard,
-  GlassSection,
-  QrShareButton,
-  TestimonialCard,
-} from './shared';
+import { AmbientBackdrop, BadgeChip, CatalogCard, GlassSection, TestimonialCard } from './shared';
 import { DARK_GLASS_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
 
 /** Dark, personal-professional — a featured-work grid and client testimonials, for designers/creatives who lead with a portfolio rather than a contact/company line. Same digital_business_card_platform/DESIGN.md tokens as Executive Minimal/WhatsApp Storefront. */
 export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
-  const cardUrl = typeof window !== 'undefined' ? window.location.href : '';
   const downloadLink = card.links.find((link) => link.type === 'download');
 
   const handleSaveContact = () => {
@@ -43,23 +35,6 @@ export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
       }}
     >
       <AmbientBackdrop tokens={tokens} />
-
-      <AppBar
-        position="sticky"
-        elevation={0}
-        sx={{
-          bgcolor: tokens.headerBg,
-          backdropFilter: 'blur(24px)',
-          borderBottom: tokens.panelBorder,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="subtitle1" fontWeight={700} sx={{ flexGrow: 1 }}>
-            Card Viewer
-          </Typography>
-          <QrShareButton url={cardUrl} iconOnly sx={{ color: tokens.onSurfaceVariant }} />
-        </Toolbar>
-      </AppBar>
 
       <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>
