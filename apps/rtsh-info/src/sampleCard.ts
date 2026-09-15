@@ -22,7 +22,15 @@ export const SAMPLE_CARD: Card = {
     { label: 'Verified', tone: 'verified' },
     { label: 'Available Now', tone: 'available' },
   ],
+  rating: { value: 4.9, count: 184 },
+  highlights: [
+    { label: 'Express Delivery', icon: 'delivery' },
+    { label: 'Escrow Guaranteed', icon: 'escrow' },
+    { label: 'Avg Reply: 10m', icon: 'reply' },
+  ],
   hours: [{ label: 'Mon - Sat', value: '10:00 AM - 8:00 PM' }],
+  openNow: true,
+  locationName: 'Flagship Studio & Outlet',
   upiId: 'yourname@upi',
   catalog: [
     {
@@ -30,12 +38,20 @@ export const SAMPLE_CARD: Card = {
       name: 'Featured Item',
       price: '₹999',
       description: 'A short description of this product or service.',
+      badge: 'Popular',
+      deliveryInfo: '14 Days Delivery',
+      ctaLabel: 'Inquire Package',
+      ctaTone: 'solid',
     },
     {
       id: 'sample-2',
       name: 'Another Item',
       price: '₹1,499',
       description: 'Another short description.',
+      badge: 'New',
+      deliveryInfo: '48h Turnaround',
+      ctaLabel: 'Instant Booking',
+      ctaTone: 'accent',
     },
   ],
   testimonials: [

@@ -123,8 +123,9 @@ Adding a 7th template: one new component in `src/templates/`, composing
 whichever `shared.tsx` pieces fit (add a new one there first if the
 template needs something none of the existing pieces cover — that's
 exactly how `CatalogCard`/`MapEmbed`/`UpiPaymentQr`/`TestimonialCard`/
-`LinkRowList` were added, each the first time a template actually
-needed it, not speculatively ahead of that), plus one entry in
+`LinkRowList`/`LinkValueGrid`/`HighlightRow`/`RatingSummary` were added,
+each the first time a template actually needed it, not speculatively
+ahead of that), plus one entry in
 `CARD_TEMPLATES` (`src/templates/index.ts`, including a one-line
 `description` — shown on the showcase page below). `CardPage` itself
 never changes.
@@ -133,10 +134,15 @@ The richer `Card` fields the business-style templates read —
 `category`, `whatsapp` (distinct from `phone`), `mapEmbedUrl`, `hours`
 (an array of labeled blocks, e.g. separate lunch/dinner rows), `upiId`
 (renders as a payment QR — display only, no processing happens on our
-side), `catalog`, `testimonials`, `badges`, `bio`, `skills` — are all
-optional (`packages/types/src/card.ts`). A personal card that sets none
-of them (Ritesh Dhekane's) renders exactly as a card with just
-name/title/links always has.
+side), `catalog`, `testimonials`, `badges`, `bio`, `skills`,
+`bannerUrl` (a cover photo behind the hero avatar), `rating`
+(an aggregate review score), `openNow` (manually set — no live
+clock/backend to compute it from `hours`), `highlights` (short
+trust/fulfilment chips, e.g. "Express Delivery"), `locationName` (the
+specific outlet/venue name shown above a map embed) — are all optional
+(`packages/types/src/card.ts`). A personal card that sets none of them
+(Ritesh Dhekane's) renders exactly as a card with just name/title/links
+always has.
 
 ### Dev-only template preview switcher
 

@@ -18,6 +18,20 @@ export interface CardCatalogItem {
   price?: string;
   imageUrl?: string;
   description?: string;
+  /** A small overlay label on the item's image, e.g. "Turnkey Package", "Popular Audit". */
+  badge?: string;
+  /** A short fulfilment line, e.g. "14 Days Delivery", "48h Turnaround". */
+  deliveryInfo?: string;
+  /** Overrides the default "Inquire on WhatsApp" button text, e.g. "Instant Booking", "Details & Buy". */
+  ctaLabel?: string;
+  /** Visual weight of the CTA button. Defaults to 'outline' (the original single-style button). */
+  ctaTone?: 'solid' | 'accent' | 'outline';
+}
+
+/** A short trust/fulfilment highlight shown near a merchant's contact actions, e.g. "Express Delivery", "Escrow Guaranteed". `icon` only drives which glyph renders. */
+export interface CardHighlight {
+  label: string;
+  icon?: 'delivery' | 'escrow' | 'reply' | 'check';
 }
 
 /** A short quote/review shown on the creative-portfolio-style templates. */
@@ -81,4 +95,13 @@ export interface Card {
   bio?: string;
   /** Skill/stack tags shown alongside `bio`, e.g. ["Kubernetes", "AWS/GCP", "Terraform"]. */
   skills?: string[];
+  /** A wide cover photo shown behind the hero panel's avatar, e.g. a storefront/workspace photo. Distinct from `photoUrl` (the avatar image itself). */
+  bannerUrl?: string;
+  /** An aggregate review score, e.g. from Google/WhatsApp Business, shown next to the verification badges. */
+  rating?: { value: number; count: number };
+  /** Manually set by whoever maintains the card (no live backend/clock in Milestone 9) — renders an "Open Now" chip when true. Omit rather than guess from `hours`. */
+  openNow?: boolean;
+  highlights?: CardHighlight[];
+  /** The specific outlet/venue name shown above the map embed, e.g. "Flagship Studio & Tech Hub" — distinct from the business name (`name`/`title`). */
+  locationName?: string;
 }

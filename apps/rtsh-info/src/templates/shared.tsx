@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ComponentType } from 'react';
 import {
   Avatar,
   Box,
@@ -10,18 +10,31 @@ import {
   Stack,
   Tooltip,
   Typography,
+  type SvgIconProps,
   type SxProps,
   type Theme,
 } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import BoltIcon from '@mui/icons-material/Bolt';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DirectionsIcon from '@mui/icons-material/Directions';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import StarIcon from '@mui/icons-material/Star';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import {
   generateQrCodeDataUrl,
   getAvatarColors,
   getInitials,
   toWhatsAppLink,
 } from '@rdplatforms/utils';
-import type { CardBadge, CardCatalogItem, CardLink, CardTestimonial } from '@rdplatforms/types';
+import type {
+  CardBadge,
+  CardCatalogItem,
+  CardHighlight,
+  CardLink,
+  CardTestimonial,
+} from '@rdplatforms/types';
 import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
 import type { GlassTokens } from './designTokens';
 
@@ -324,6 +337,38 @@ export function ActionTile({
   );
 }
 
+type CatalogCtaStyle = { variant: 'contained' | 'outlined'; sx: object };
+
+const CTA_TONE_SX: Record<
+  NonNullable<CardCatalogItem['ctaTone']>,
+  (t: GlassTokens) => CatalogCtaStyle
+> = {
+  solid: (tokens) => ({
+    variant: 'contained',
+    sx: {
+      bgcolor: tokens.primary,
+      color: tokens.onPrimary,
+      '&:hover': { bgcolor: tokens.primary, opacity: 0.9 },
+    },
+  }),
+  accent: (tokens) => ({
+    variant: 'contained',
+    sx: {
+      bgcolor: tokens.secondary,
+      color: tokens.onPrimary,
+      '&:hover': { bgcolor: tokens.secondary, opacity: 0.9 },
+    },
+  }),
+  outline: (tokens) => ({
+    variant: 'outlined',
+    sx: {
+      color: tokens.primary,
+      borderColor: tokens.primary,
+      '&:hover': { borderColor: tokens.primary, bgcolor: `${tokens.primary}14` },
+    },
+  }),
+};
+
 /** One product/service card — image-forward, for the merchant-style templates' catalog grids (storefront, boutique). For a plain list-style menu row instead (no image), use PriceRow. */
 export function CatalogCard({
   tokens,
@@ -334,6 +379,8 @@ export function CatalogCard({
   item: CardCatalogItem;
   whatsappNumber?: string;
 }) {
+  const cta = CTA_TONE_SX[item.ctaTone ?? 'outline'](tokens);
+
   return (
     <Stack
       sx={{
@@ -346,33 +393,54 @@ export function CatalogCard({
       }}
     >
       {item.imageUrl ? (
-        <Box
-          component="img"
-          src={item.imageUrl}
-          alt={item.name}
-          sx={{ width: '100%', height: 140, objectFit: 'cover', display: 'block' }}
-        />
+        <Box sx={{ position: 'relative' }}>
+          <Box
+            component="img"
+            src={item.imageUrl}
+            alt={item.name}
+            sx={{ width: '100%', height: 140, objectFit: 'cover', display: 'block' }}
+          />
+          {item.badge ? (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                bgcolor: 'rgba(15, 15, 20, 0.72)',
+                color: '#fff',
+                borderRadius: 999,
+                px: 1.25,
+                py: 0.4,
+              }}
+            >
+              <Typography variant="caption" fontWeight={700} sx={{ letterSpacing: 0.3 }}>
+                {item.badge.toUpperCase()}
+              </Typography>
+            </Box>
+          ) : null}
+        </Box>
       ) : null}
       <Stack spacing={1} sx={{ p: 2 }}>
         <PriceRow name={item.name} description={item.description} price={item.price} />
+        {item.deliveryInfo ? (
+          <Stack direction="row" spacing={0.5} alignItems="center" sx={{ opacity: 0.75 }}>
+            <AccessTimeIcon sx={{ fontSize: 15 }} />
+            <Typography variant="caption" color="inherit">
+              {item.deliveryInfo}
+            </Typography>
+          </Stack>
+        ) : null}
         {whatsappNumber ? (
           <Button
             size="small"
-            variant="outlined"
+            variant={cta.variant}
             component="a"
             href={toWhatsAppLink(whatsappNumber, `Hi, I'm interested in ${item.name}`)}
             target="_blank"
             rel="noopener noreferrer"
-            sx={{
-              alignSelf: 'flex-start',
-              textTransform: 'none',
-              fontWeight: 600,
-              color: tokens.primary,
-              borderColor: tokens.primary,
-              '&:hover': { borderColor: tokens.primary, bgcolor: `${tokens.primary}14` },
-            }}
+            sx={{ alignSelf: 'flex-start', textTransform: 'none', fontWeight: 600, ...cta.sx }}
           >
-            Inquire on WhatsApp
+            {item.ctaLabel ?? 'Inquire on WhatsApp'}
           </Button>
         ) : null}
       </Stack>
@@ -380,26 +448,84 @@ export function CatalogCard({
   );
 }
 
-/** An embedded Google Maps iframe (Card.mapEmbedUrl), framed the same as every other tile so it sits consistently among catalog/link sections. */
-export function MapEmbed({ tokens, url }: { tokens: GlassTokens; url: string }) {
+/**
+ * An embedded Google Maps iframe (Card.mapEmbedUrl), framed the same as
+ * every other tile so it sits consistently among catalog/link sections.
+ * `venueName`/`address` are optional — when given, they render as a
+ * header row above the map with a "Directions" link (a Google Maps
+ * directions search built from `address`, not tied to `url`'s own
+ * embed source).
+ */
+export function MapEmbed({
+  tokens,
+  url,
+  venueName,
+  address,
+}: {
+  tokens: GlassTokens;
+  url: string;
+  venueName?: string;
+  address?: string;
+}) {
   return (
-    <Box
+    <Stack
+      spacing={venueName || address ? 1.25 : 0}
       sx={{
         borderRadius: tokens.tileRadius,
         overflow: 'hidden',
         border: tokens.tileBorder,
         boxShadow: tokens.tileShadow,
-        lineHeight: 0,
       }}
     >
-      <Box
-        component="iframe"
-        src={url}
-        title="Location map"
-        loading="lazy"
-        sx={{ width: '100%', height: 200, border: 0, display: 'block' }}
-      />
-    </Box>
+      {venueName || address ? (
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="flex-start"
+          spacing={1}
+          sx={{ bgcolor: tokens.tileBg, px: 2, pt: 1.5, pb: 1, color: tokens.onSurface }}
+        >
+          <Box sx={{ minWidth: 0 }}>
+            {venueName ? (
+              <Typography variant="body2" fontWeight={700} noWrap>
+                {venueName}
+              </Typography>
+            ) : null}
+            {address ? (
+              <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+                {address}
+              </Typography>
+            ) : null}
+          </Box>
+          {address ? (
+            <Stack
+              component="a"
+              href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              direction="row"
+              spacing={0.4}
+              alignItems="center"
+              sx={{ flexShrink: 0, textDecoration: 'none', color: tokens.primary }}
+            >
+              <DirectionsIcon sx={{ fontSize: 16 }} />
+              <Typography variant="caption" fontWeight={700} color="inherit">
+                Directions
+              </Typography>
+            </Stack>
+          ) : null}
+        </Stack>
+      ) : null}
+      <Box sx={{ lineHeight: 0 }}>
+        <Box
+          component="iframe"
+          src={url}
+          title="Location map"
+          loading="lazy"
+          sx={{ width: '100%', height: 200, border: 0, display: 'block' }}
+        />
+      </Box>
+    </Stack>
   );
 }
 
@@ -411,14 +537,19 @@ export function MapEmbed({ tokens, url }: { tokens: GlassTokens; url: string }) 
  * Shared because at least two templates (WhatsApp Storefront,
  * Artisanal Jewelry Boutique) need it, not a one-off.
  */
+const ACCEPTED_PAYMENT_METHODS = ['Google Pay', 'PhonePe', 'Visa / Mastercard', 'NEFT / RTGS'];
+
 export function UpiPaymentQr({
   tokens,
   upiId,
   payeeName,
+  eyebrow,
 }: {
   tokens: GlassTokens;
   upiId: string;
   payeeName: string;
+  /** A short label above the QR, e.g. "Secure Instant Checkout". */
+  eyebrow?: string;
 }) {
   const [dataUrl, setDataUrl] = useState<string | null>(null);
 
@@ -436,6 +567,15 @@ export function UpiPaymentQr({
 
   return (
     <Stack alignItems="center" spacing={1.5}>
+      {eyebrow ? (
+        <Typography
+          variant="caption"
+          fontWeight={700}
+          sx={{ color: tokens.primaryContainer, letterSpacing: 0.6 }}
+        >
+          {eyebrow.toUpperCase()}
+        </Typography>
+      ) : null}
       <Box
         sx={{
           width: 168,
@@ -463,6 +603,24 @@ export function UpiPaymentQr({
       <Typography variant="body2" sx={{ color: tokens.onSurfaceVariant }}>
         {upiId}
       </Typography>
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap justifyContent="center">
+        {ACCEPTED_PAYMENT_METHODS.map((method) => (
+          <Box
+            key={method}
+            sx={{
+              bgcolor: tokens.tileBg,
+              border: tokens.tileBorder,
+              borderRadius: 999,
+              px: 1.1,
+              py: 0.3,
+            }}
+          >
+            <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+              {method}
+            </Typography>
+          </Box>
+        ))}
+      </Stack>
     </Stack>
   );
 }
@@ -572,6 +730,129 @@ export function LinkRowList({ tokens, links }: { tokens: GlassTokens; links: Car
           </Stack>
         );
       })}
+    </Stack>
+  );
+}
+
+/**
+ * A 2-column grid of CardLinks, each an icon square + the friendly
+ * label + the raw value/handle underneath (e.g. "Instagram" /
+ * "@ritesh.gear") — for the merchant-style templates' "Connect &
+ * Follow" section, where showing the actual handle matters more than
+ * it does in LinkRowList's icon-tile pattern.
+ */
+export function LinkValueGrid({ tokens, links }: { tokens: GlassTokens; links: CardLink[] }) {
+  return (
+    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1.25 }}>
+      {links.map((link, index) => {
+        const Icon = iconForLink(link);
+        return (
+          <Stack
+            key={`${link.type}-${index}`}
+            component="a"
+            href={hrefForLink(link)}
+            target="_blank"
+            rel="noopener noreferrer"
+            direction="row"
+            spacing={1.25}
+            alignItems="center"
+            sx={{
+              textDecoration: 'none',
+              color: tokens.onSurface,
+              bgcolor: tokens.tileBg,
+              border: tokens.tileBorder,
+              borderRadius: tokens.tileRadius * 0.75,
+              p: 1.25,
+              minWidth: 0,
+              transition: 'background-color 0.15s ease',
+              '&:hover': { bgcolor: tokens.tileHoverBg },
+            }}
+          >
+            <Box
+              sx={{
+                flexShrink: 0,
+                width: 36,
+                height: 36,
+                borderRadius: tokens.tileRadius * 0.5,
+                bgcolor: 'rgba(255,255,255,0.08)',
+                color: tokens.primary,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Icon fontSize="small" />
+            </Box>
+            <Box sx={{ minWidth: 0 }}>
+              <Typography variant="body2" fontWeight={700} noWrap>
+                {labelForLink(link)}
+              </Typography>
+              <Typography variant="caption" noWrap sx={{ color: tokens.onSurfaceVariant }}>
+                {link.value}
+              </Typography>
+            </Box>
+          </Stack>
+        );
+      })}
+    </Box>
+  );
+}
+
+const HIGHLIGHT_ICONS: Record<NonNullable<CardHighlight['icon']>, ComponentType<SvgIconProps>> = {
+  delivery: LocalShippingIcon,
+  escrow: VerifiedUserIcon,
+  reply: BoltIcon,
+  check: CheckCircleIcon,
+};
+
+/** A row of small trust/fulfilment highlights (e.g. "Express Delivery", "Escrow Guaranteed") next to a merchant's primary contact actions. Wraps on narrow screens rather than scrolling. */
+export function HighlightRow({
+  tokens,
+  highlights,
+}: {
+  tokens: GlassTokens;
+  highlights: CardHighlight[];
+}) {
+  return (
+    <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap justifyContent="center">
+      {highlights.map((highlight, index) => {
+        const Icon = HIGHLIGHT_ICONS[highlight.icon ?? 'check'];
+        return (
+          <Stack
+            key={`${highlight.label}-${index}`}
+            direction="row"
+            spacing={0.5}
+            alignItems="center"
+            sx={{ color: tokens.onSurfaceVariant }}
+          >
+            <Icon sx={{ fontSize: 15, color: tokens.primaryContainer }} />
+            <Typography variant="caption" fontWeight={600} color="inherit">
+              {highlight.label}
+            </Typography>
+          </Stack>
+        );
+      })}
+    </Stack>
+  );
+}
+
+/** A compact "★ 4.9 · 184 reviews" summary next to a merchant's verification badges. */
+export function RatingSummary({
+  tokens,
+  rating,
+}: {
+  tokens: GlassTokens;
+  rating: { value: number; count: number };
+}) {
+  return (
+    <Stack direction="row" spacing={0.5} alignItems="center">
+      <StarIcon sx={{ fontSize: 16, color: tokens.primaryContainer }} />
+      <Typography variant="body2" fontWeight={700} color="inherit">
+        {rating.value.toFixed(1)}
+      </Typography>
+      <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+        ({rating.count} reviews)
+      </Typography>
     </Stack>
   );
 }
