@@ -17,6 +17,7 @@ import {
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import BoltIcon from '@mui/icons-material/Bolt';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
@@ -714,6 +715,7 @@ export function LinkRowList({ tokens, links }: { tokens: GlassTokens; links: Car
               border: tokens.tileBorder,
               borderRadius: tokens.tileRadius * 0.75,
               p: 1.5,
+              minWidth: 0,
               transition: 'background-color 0.15s ease',
               '&:hover': { bgcolor: tokens.tileHoverBg },
             }}
@@ -721,13 +723,23 @@ export function LinkRowList({ tokens, links }: { tokens: GlassTokens; links: Car
             <IconButton
               size="small"
               component="span"
-              sx={{ bgcolor: 'rgba(255,255,255,0.08)', color: tokens.primary }}
+              sx={{ bgcolor: 'rgba(255,255,255,0.08)', color: tokens.primary, flexShrink: 0 }}
             >
               <Icon fontSize="small" />
             </IconButton>
-            <Typography variant="body2" fontWeight={600}>
-              {labelForLink(link)}
-            </Typography>
+            <Box sx={{ minWidth: 0, flexGrow: 1 }}>
+              <Typography variant="body2" fontWeight={600} noWrap>
+                {labelForLink(link)}
+              </Typography>
+              {link.subtitle ? (
+                <Typography variant="caption" noWrap sx={{ color: tokens.onSurfaceVariant }}>
+                  {link.subtitle}
+                </Typography>
+              ) : null}
+            </Box>
+            <ChevronRightIcon
+              sx={{ flexShrink: 0, color: tokens.onSurfaceVariant, opacity: 0.6 }}
+            />
           </Stack>
         );
       })}

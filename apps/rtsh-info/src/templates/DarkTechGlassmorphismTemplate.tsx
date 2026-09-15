@@ -1,13 +1,23 @@
 import { useState } from 'react';
 import { Avatar, Box, Button, Chip, Stack, TextField, Typography } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import SendIcon from '@mui/icons-material/Send';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { downloadVCard, getAvatarColors, getInitials, toWhatsAppLink } from '@rdplatforms/utils';
-import { ActionTile, AmbientBackdrop, BadgeChip, GlassSection, LinkRowList } from './shared';
+import {
+  ActionTile,
+  AmbientBackdrop,
+  BadgeChip,
+  GlassSection,
+  LinkRowList,
+  QrShareButton,
+} from './shared';
 import { DARK_GLASS_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
+
+const SKILL_DOT_COLORS = [tokens.secondary, tokens.primary, tokens.primaryContainer];
 
 /**
  * Dark, Web3/tech-flavored — a production-stack chip list (Card.skills)
@@ -20,6 +30,7 @@ import type { CardTemplateProps } from './types';
  */
 export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
+  const cardUrl = typeof window !== 'undefined' ? window.location.href : '';
   const whatsappNumber =
     card.whatsapp ?? card.links.find((link) => link.type === 'whatsapp')?.value;
   const bookingLink = card.links.find((link) => link.type === 'booking');
@@ -90,7 +101,8 @@ export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
                     bgcolor: avatarColors.bg,
                     color: avatarColors.fg,
                     fontWeight: 700,
-                    border: `2px solid ${tokens.primary}`,
+                    border: `2px solid ${tokens.secondary}`,
+                    boxShadow: `0 0 0 4px ${tokens.secondary}22, 0 0 20px ${tokens.secondary}55`,
                   }}
                 >
                   {getInitials(card.name)}
@@ -98,15 +110,20 @@ export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
                 <Box
                   sx={{
                     position: 'absolute',
-                    bottom: 2,
-                    right: 2,
-                    width: 14,
-                    height: 14,
+                    bottom: 0,
+                    right: 0,
+                    width: 20,
+                    height: 20,
                     borderRadius: '50%',
                     bgcolor: tokens.secondary,
                     border: `2px solid ${tokens.pageBackground}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
-                />
+                >
+                  <CheckIcon sx={{ fontSize: 13, color: '#003824' }} />
+                </Box>
               </Box>
               <Stack sx={{ minWidth: 0 }}>
                 <Typography variant="h6" fontWeight={800} noWrap>
@@ -153,7 +170,7 @@ export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: whatsappNumber && bookingLink ? '1fr 1fr' : '1fr',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
               gap: 1.5,
             }}
           >
@@ -173,6 +190,28 @@ export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
                 href={bookingLink.value}
               />
             ) : null}
+            <QrShareButton
+              url={cardUrl}
+              label="Share Card"
+              sx={{
+                width: '100%',
+                minHeight: 68,
+                borderRadius: tokens.tileRadius,
+                bgcolor: tokens.tileBg,
+                border: tokens.tileBorder,
+                boxShadow: tokens.tileShadow,
+                backdropFilter: tokens.blur,
+                color: tokens.onSurface,
+                flexDirection: 'column',
+                gap: 0.75,
+                py: 1.75,
+                fontWeight: 600,
+                fontSize: '0.75rem',
+                textTransform: 'none',
+                transition: 'transform 0.15s ease',
+                '&:hover': { bgcolor: tokens.tileHoverBg, transform: 'translateY(-2px)' },
+              }}
+            />
           </Box>
 
           {card.skills && card.skills.length > 0 ? (
@@ -181,19 +220,26 @@ export function DarkTechGlassmorphismTemplate({ card }: CardTemplateProps) {
                 Production Stack
               </Typography>
               <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                {card.skills.map((skill) => (
-                  <Chip
-                    key={skill}
-                    label={skill}
-                    size="small"
-                    sx={{
-                      bgcolor: tokens.tileBg,
-                      border: tokens.tileBorder,
-                      color: tokens.onSurface,
-                      fontWeight: 600,
-                    }}
-                  />
-                ))}
+                {card.skills.map((skill, index) => {
+                  const dotColor = SKILL_DOT_COLORS[index % SKILL_DOT_COLORS.length];
+                  return (
+                    <Chip
+                      key={skill}
+                      label={skill}
+                      size="small"
+                      icon={
+                        <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: dotColor }} />
+                      }
+                      sx={{
+                        bgcolor: tokens.tileBg,
+                        border: tokens.tileBorder,
+                        color: tokens.onSurface,
+                        fontWeight: 600,
+                        '& .MuiChip-icon': { ml: 1.25 },
+                      }}
+                    />
+                  );
+                })}
               </Stack>
             </GlassSection>
           ) : null}

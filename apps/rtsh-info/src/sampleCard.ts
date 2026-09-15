@@ -71,10 +71,19 @@ export const SAMPLE_CARD: Card = {
   ],
   links: [
     { type: 'whatsapp', value: '+910000000000', label: 'Chat' },
+    { type: 'booking', value: 'https://example.com/book' },
     { type: 'behance', value: 'yourhandle' },
     { type: 'dribbble', value: 'yourhandle' },
-    { type: 'instagram', value: 'yourhandle' },
+    {
+      type: 'instagram',
+      value: 'yourhandle',
+      subtitle: '12k Followers · Top Voice',
+    },
     { type: 'email', value: 'you@example.com' },
-    { type: 'website', value: 'https://example.com' },
+    {
+      type: 'website',
+      value: 'https://example.com',
+      subtitle: 'Portfolio & case studies',
+    },
   ],
 };

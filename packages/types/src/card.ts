@@ -9,6 +9,8 @@ export interface CardLink {
   type: string;
   value: string;
   label?: string;
+  /** A short second line under the label, e.g. "48 Public Repos · 1.2k Stars" — for the templates (Dark Tech Glassmorphism) whose link rows read as a richer directory entry rather than a bare icon + name. */
+  subtitle?: string;
 }
 
 /** A catalog/menu entry (Milestone 9 — the WhatsApp-storefront/boutique/bistro-style templates). `price` is free text, not a number+currency pair like Product — the designs mix "₹1,85,000", "$150/hr", "₹35,000 / $450 USD" on the same card, and a card owner typing a price by hand has no need for arithmetic on it. */
