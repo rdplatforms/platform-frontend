@@ -11,3 +11,4 @@ export * from './contactMessage';
 export * from './avatar';
 export * from './saleAnalytics';
 export * from './googleAnalytics';
+export * from './qrCode';
