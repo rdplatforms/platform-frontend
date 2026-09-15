@@ -4,6 +4,7 @@ import { BannerTemplate } from './BannerTemplate';
 import { CompactTemplate } from './CompactTemplate';
 import { FramedTemplate } from './FramedTemplate';
 import { ExecutiveMinimalTemplate } from './ExecutiveMinimalTemplate';
+import { WhatsAppStorefrontTemplate } from './WhatsAppStorefrontTemplate';
 import type { CardTemplateProps } from './types';
 
 export type { CardTemplateProps } from './types';
@@ -31,6 +32,7 @@ export const CARD_TEMPLATES: Record<
   template3: { label: 'Compact', component: CompactTemplate },
   template4: { label: 'Framed', component: FramedTemplate },
   'executive-minimal': { label: 'Executive Minimal', component: ExecutiveMinimalTemplate },
+  'whatsapp-storefront': { label: 'WhatsApp Storefront', component: WhatsAppStorefrontTemplate },
 };
 
 const DEFAULT_TEMPLATE = CARD_TEMPLATES.template1 as {

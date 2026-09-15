@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -21,8 +21,9 @@ import {
   generateQrCodeDataUrl,
   getAvatarColors,
   getInitials,
+  toWhatsAppLink,
 } from '@rdplatforms/utils';
-import type { Card, CardBadge, CardLink } from '@rdplatforms/types';
+import type { Card, CardBadge, CardCatalogItem, CardLink } from '@rdplatforms/types';
 import type { CardStyleConfig } from '../cardStyles';
 import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
 import type { GlassTokens } from './designTokens';
@@ -455,6 +456,149 @@ export function ActionTile({
       {icon}
       <Typography variant="caption" fontWeight={600}>
         {label}
+      </Typography>
+    </Stack>
+  );
+}
+
+/** One product/service card — image-forward, for the merchant-style templates' catalog grids (storefront, boutique). For a plain list-style menu row instead (no image), use PriceRow. */
+export function CatalogCard({
+  tokens,
+  item,
+  whatsappNumber,
+}: {
+  tokens: GlassTokens;
+  item: CardCatalogItem;
+  whatsappNumber?: string;
+}) {
+  return (
+    <Stack
+      sx={{
+        bgcolor: tokens.tileBg,
+        border: tokens.tileBorder,
+        boxShadow: tokens.tileShadow,
+        backdropFilter: tokens.blur,
+        borderRadius: tokens.tileRadius,
+        overflow: 'hidden',
+      }}
+    >
+      {item.imageUrl ? (
+        <Box
+          component="img"
+          src={item.imageUrl}
+          alt={item.name}
+          sx={{ width: '100%', height: 140, objectFit: 'cover', display: 'block' }}
+        />
+      ) : null}
+      <Stack spacing={1} sx={{ p: 2 }}>
+        <PriceRow name={item.name} description={item.description} price={item.price} />
+        {whatsappNumber ? (
+          <Button
+            size="small"
+            variant="outlined"
+            component="a"
+            href={toWhatsAppLink(whatsappNumber, `Hi, I'm interested in ${item.name}`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              alignSelf: 'flex-start',
+              textTransform: 'none',
+              fontWeight: 600,
+              color: tokens.primary,
+              borderColor: tokens.primary,
+              '&:hover': { borderColor: tokens.primary, bgcolor: `${tokens.primary}14` },
+            }}
+          >
+            Inquire on WhatsApp
+          </Button>
+        ) : null}
+      </Stack>
+    </Stack>
+  );
+}
+
+/** An embedded Google Maps iframe (Card.mapEmbedUrl), framed the same as every other tile so it sits consistently among catalog/link sections. */
+export function MapEmbed({ tokens, url }: { tokens: GlassTokens; url: string }) {
+  return (
+    <Box
+      sx={{
+        borderRadius: tokens.tileRadius,
+        overflow: 'hidden',
+        border: tokens.tileBorder,
+        boxShadow: tokens.tileShadow,
+        lineHeight: 0,
+      }}
+    >
+      <Box
+        component="iframe"
+        src={url}
+        title="Location map"
+        loading="lazy"
+        sx={{ width: '100%', height: 200, border: 0, display: 'block' }}
+      />
+    </Box>
+  );
+}
+
+/**
+ * A scannable UPI payment QR (Card.upiId) — a `upi://pay` deep link
+ * encoded client-side via generateQrCodeDataUrl (@rdplatforms/utils).
+ * Display only: no payment processing happens on our side, and no
+ * amount is pre-filled — the customer's own UPI app fills that in.
+ * Shared because at least two templates (WhatsApp Storefront,
+ * Artisanal Jewelry Boutique) need it, not a one-off.
+ */
+export function UpiPaymentQr({
+  tokens,
+  upiId,
+  payeeName,
+}: {
+  tokens: GlassTokens;
+  upiId: string;
+  payeeName: string;
+}) {
+  const [dataUrl, setDataUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    generateQrCodeDataUrl(
+      `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}`,
+    ).then((url) => {
+      if (active) setDataUrl(url);
+    });
+    return () => {
+      active = false;
+    };
+  }, [upiId, payeeName]);
+
+  return (
+    <Stack alignItems="center" spacing={1.5}>
+      <Box
+        sx={{
+          width: 168,
+          height: 168,
+          borderRadius: tokens.tileRadius,
+          border: tokens.tileBorder,
+          bgcolor: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+        }}
+      >
+        {dataUrl ? (
+          <Box
+            component="img"
+            src={dataUrl}
+            alt="UPI payment QR"
+            sx={{ width: '100%', height: '100%' }}
+          />
+        ) : (
+          <CircularProgress size={24} />
+        )}
+      </Box>
+      <Typography variant="body2" sx={{ color: tokens.onSurfaceVariant }}>
+        {upiId}
       </Typography>
     </Stack>
   );
