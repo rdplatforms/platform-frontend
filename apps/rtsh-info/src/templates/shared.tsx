@@ -33,6 +33,7 @@ import type {
   CardCatalogItem,
   CardHighlight,
   CardLink,
+  CardStat,
   CardTestimonial,
 } from '@rdplatforms/types';
 import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
@@ -855,5 +856,87 @@ export function RatingSummary({
         ({rating.count} reviews)
       </Typography>
     </Stack>
+  );
+}
+
+/** An equal-width row of quantified achievements (Card.stats) — a big colored number over a short caption, e.g. "9+ / Yrs Exp". `minmax(0, 1fr)` (not bare `1fr`) so a track never grows past its share of the row just because one stat's text is longer — see LinkValueGrid's own note on this. */
+export function StatRow({ tokens, stats }: { tokens: GlassTokens; stats: CardStat[] }) {
+  return (
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))`,
+        gap: 1,
+      }}
+    >
+      {stats.map((stat, index) => (
+        <Stack key={`${stat.label}-${index}`} alignItems="center" spacing={0.25}>
+          <Typography variant="h6" fontWeight={800} sx={{ color: tokens.primaryContainer }} noWrap>
+            {stat.value}
+          </Typography>
+          <Typography
+            variant="caption"
+            noWrap
+            sx={{ color: tokens.onSurfaceVariant, textTransform: 'uppercase', letterSpacing: 0.4 }}
+          >
+            {stat.label}
+          </Typography>
+        </Stack>
+      ))}
+    </Box>
+  );
+}
+
+/** A row of circular icon actions, one per CardLink, label underneath — the "Chat / Behance / Dribbble / Insta / Email" pattern on the personal-professional templates that lead with several link types at once rather than one primary action. Wraps via `auto-fit` rather than a fixed column count, since the link list length varies per card. */
+export function LinkActionGrid({ tokens, links }: { tokens: GlassTokens; links: CardLink[] }) {
+  return (
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 1fr))',
+        gap: 1,
+      }}
+    >
+      {links.map((link, index) => {
+        const Icon = iconForLink(link);
+        return (
+          <Stack
+            key={`${link.type}-${index}`}
+            component="a"
+            href={hrefForLink(link)}
+            target="_blank"
+            rel="noopener noreferrer"
+            alignItems="center"
+            spacing={0.5}
+            sx={{ textDecoration: 'none', color: tokens.onSurface, minWidth: 0 }}
+          >
+            <Box
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: '50%',
+                bgcolor: tokens.tileBg,
+                border: tokens.tileBorder,
+                color: tokens.primary,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background-color 0.15s ease',
+                '&:hover': { bgcolor: tokens.tileHoverBg },
+              }}
+            >
+              <Icon fontSize="small" />
+            </Box>
+            <Typography
+              variant="caption"
+              noWrap
+              sx={{ color: tokens.onSurfaceVariant, maxWidth: '100%' }}
+            >
+              {labelForLink(link)}
+            </Typography>
+          </Stack>
+        );
+      })}
+    </Box>
   );
 }

@@ -34,6 +34,12 @@ export interface CardHighlight {
   icon?: 'delivery' | 'escrow' | 'reply' | 'check';
 }
 
+/** A quantified achievement shown as a big number + a short label underneath, e.g. { value: "9+", label: "Yrs Exp" } — for the personal-professional templates (Creative Portfolio and similar) that lead with a track record. */
+export interface CardStat {
+  value: string;
+  label: string;
+}
+
 /** A short quote/review shown on the creative-portfolio-style templates. */
 export interface CardTestimonial {
   id: string;
@@ -104,4 +110,7 @@ export interface Card {
   highlights?: CardHighlight[];
   /** The specific outlet/venue name shown above the map embed, e.g. "Flagship Studio & Tech Hub" — distinct from the business name (`name`/`title`). */
   locationName?: string;
+  /** A social/portfolio handle shown above the name, e.g. "@ritesh.designs" — distinct from `title` (the role line below the name). */
+  handle?: string;
+  stats?: CardStat[];
 }

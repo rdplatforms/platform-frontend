@@ -1,8 +1,18 @@
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import DownloadIcon from '@mui/icons-material/Download';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { downloadVCard, getAvatarColors, getInitials } from '@rdplatforms/utils';
-import { AmbientBackdrop, BadgeChip, CatalogCard, GlassSection, TestimonialCard } from './shared';
+import {
+  AmbientBackdrop,
+  BadgeChip,
+  CatalogCard,
+  GlassSection,
+  LinkActionGrid,
+  StatRow,
+  TestimonialCard,
+} from './shared';
 import { DARK_GLASS_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
 
@@ -10,6 +20,7 @@ import type { CardTemplateProps } from './types';
 export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
   const downloadLink = card.links.find((link) => link.type === 'download');
+  const actionLinks = card.links.filter((link) => link.type !== 'download');
 
   const handleSaveContact = () => {
     downloadVCard(
@@ -39,6 +50,14 @@ export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
       <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>
           <GlassSection tokens={tokens} sx={{ alignItems: 'center', textAlign: 'center' }}>
+            {card.badges && card.badges.length > 0 ? (
+              <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" useFlexGap>
+                {card.badges.map((badge, index) => (
+                  <BadgeChip key={`${badge.label}-${index}`} badge={badge} />
+                ))}
+              </Stack>
+            ) : null}
+
             <Avatar
               src={card.photoUrl || undefined}
               alt={card.name}
@@ -49,10 +68,20 @@ export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
                 color: avatarColors.fg,
                 fontSize: 32,
                 fontWeight: 700,
+                boxShadow: `0 0 0 4px ${tokens.primary}26, 0 8px 24px -6px rgba(0,0,0,0.5)`,
               }}
             >
               {getInitials(card.name)}
             </Avatar>
+            {card.handle ? (
+              <Typography
+                variant="caption"
+                fontWeight={700}
+                sx={{ color: tokens.primaryContainer, letterSpacing: 0.3 }}
+              >
+                {card.handle}
+              </Typography>
+            ) : null}
             <Typography variant="h5" fontWeight={800}>
               {card.name}
             </Typography>
@@ -61,12 +90,17 @@ export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
                 {card.title}
               </Typography>
             ) : null}
-            {card.badges && card.badges.length > 0 ? (
-              <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" useFlexGap>
-                {card.badges.map((badge, index) => (
-                  <BadgeChip key={`${badge.label}-${index}`} badge={badge} />
-                ))}
-              </Stack>
+
+            {card.stats && card.stats.length > 0 ? (
+              <Box sx={{ width: '100%', pt: 1 }}>
+                <StatRow tokens={tokens} stats={card.stats} />
+              </Box>
+            ) : null}
+
+            {actionLinks.length > 0 ? (
+              <Box sx={{ width: '100%' }}>
+                <LinkActionGrid tokens={tokens} links={actionLinks} />
+              </Box>
             ) : null}
 
             <Stack direction="row" spacing={1.5} sx={{ width: '100%', mt: 1 }}>
@@ -124,9 +158,17 @@ export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
 
           {card.catalog && card.catalog.length > 0 ? (
             <Stack spacing={1.5}>
-              <Typography variant="subtitle2" fontWeight={700}>
-                Featured Works
-              </Typography>
+              <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Stack direction="row" spacing={0.75} alignItems="center">
+                  <AutoAwesomeIcon sx={{ fontSize: 18, color: tokens.primaryContainer }} />
+                  <Typography variant="subtitle2" fontWeight={700}>
+                    Featured Works
+                  </Typography>
+                </Stack>
+                <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+                  Archive ({card.catalog.length})
+                </Typography>
+              </Stack>
               <Stack spacing={2}>
                 {card.catalog.map((item) => (
                   <CatalogCard key={item.id} tokens={tokens} item={item} />
@@ -137,9 +179,12 @@ export function CreativePortfolioTemplate({ card }: CardTemplateProps) {
 
           {card.testimonials && card.testimonials.length > 0 ? (
             <Stack spacing={1.5}>
-              <Typography variant="subtitle2" fontWeight={700}>
-                Client Words
-              </Typography>
+              <Stack direction="row" spacing={0.75} alignItems="center">
+                <FormatQuoteIcon sx={{ fontSize: 18, color: tokens.primaryContainer }} />
+                <Typography variant="subtitle2" fontWeight={700}>
+                  Client Words
+                </Typography>
+              </Stack>
               <Stack spacing={2}>
                 {card.testimonials.map((testimonial) => (
                   <TestimonialCard key={testimonial.id} tokens={tokens} testimonial={testimonial} />

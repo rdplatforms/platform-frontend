@@ -100,7 +100,8 @@ Both token sets share the same shape (`GlassTokens`), so the shared
 building blocks in `src/templates/shared.tsx` (`GlassSection`,
 `ActionTile`, `AmbientBackdrop`, `HeroMesh`, `CatalogCard`, `MapEmbed`,
 `UpiPaymentQr`, `TestimonialCard`, `BadgeChip`, `LinkRowList`,
-`QrShareButton`) work with either — `WARM_LUXURY_TOKENS` sets `blur:
+`LinkValueGrid`, `LinkActionGrid`, `HighlightRow`, `RatingSummary`,
+`StatRow`, `QrShareButton`) work with either — `WARM_LUXURY_TOKENS` sets `blur:
 undefined` and a tighter `panelRadius`/`tileRadius`, since that spec
 explicitly rejects backdrop blur and heavy shadows in favor of flat
 tonal layering, and the shared components render accordingly rather
@@ -139,10 +140,12 @@ side), `catalog`, `testimonials`, `badges`, `bio`, `skills`,
 (an aggregate review score), `openNow` (manually set — no live
 clock/backend to compute it from `hours`), `highlights` (short
 trust/fulfilment chips, e.g. "Express Delivery"), `locationName` (the
-specific outlet/venue name shown above a map embed) — are all optional
-(`packages/types/src/card.ts`). A personal card that sets none of them
-(Ritesh Dhekane's) renders exactly as a card with just name/title/links
-always has.
+specific outlet/venue name shown above a map embed), `handle` (a
+social/portfolio handle shown above the name), `stats` (quantified
+achievements, e.g. "9+ / Yrs Exp", rendered by the new `StatRow`) —
+are all optional (`packages/types/src/card.ts`). A personal card that
+sets none of them (Ritesh Dhekane's) renders exactly as a card with
+just name/title/links always has.
 
 ### Dev-only template preview switcher
 

@@ -12,12 +12,18 @@ export const SAMPLE_CARD: Card = {
   phone: '+910000000000',
   whatsapp: '+910000000000',
   name: 'Your Name Here',
+  handle: '@yourhandle',
   title: 'Your Title or Business',
   category: 'Your Category',
   email: 'you@example.com',
   location: 'Your City',
   bio: 'A short line about you or your business goes here — a couple of sentences is plenty.',
   skills: ['Skill One', 'Skill Two', 'Skill Three'],
+  stats: [
+    { value: '9+', label: 'Yrs Exp' },
+    { value: '42', label: 'Projects' },
+    { value: '14', label: 'Awards' },
+  ],
   badges: [
     { label: 'Verified', tone: 'verified' },
     { label: 'Available Now', tone: 'available' },
@@ -64,8 +70,11 @@ export const SAMPLE_CARD: Card = {
     },
   ],
   links: [
-    { type: 'whatsapp', value: '+910000000000' },
+    { type: 'whatsapp', value: '+910000000000', label: 'Chat' },
+    { type: 'behance', value: 'yourhandle' },
+    { type: 'dribbble', value: 'yourhandle' },
     { type: 'instagram', value: 'yourhandle' },
+    { type: 'email', value: 'you@example.com' },
     { type: 'website', value: 'https://example.com' },
   ],
 };
