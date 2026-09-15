@@ -133,7 +133,7 @@ function ActionTile({ icon, label, href }: { icon: React.ReactNode; label: strin
         border: TOKENS.tileBorder,
         boxShadow: TOKENS.tileShadow,
         backdropFilter: 'blur(12px)',
-        borderRadius: 3,
+        borderRadius: 2,
         py: 1.75,
         transition: 'transform 0.15s ease, background-color 0.15s ease',
         '&:hover': { bgcolor: 'rgba(30,41,59,0.85)', transform: 'translateY(-2px)' },
@@ -158,7 +158,7 @@ function GlassSection({ children }: { children: React.ReactNode }) {
         backdropFilter: 'blur(20px) saturate(180%)',
         border: TOKENS.glassBorder,
         boxShadow: TOKENS.glassShadow,
-        borderRadius: 4,
+        borderRadius: 2.5,
         p: 2.5,
       }}
     >
@@ -224,7 +224,7 @@ export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
           <Box
             sx={{
               position: 'relative',
-              borderRadius: 4,
+              borderRadius: 2.5,
               bgcolor: TOKENS.glassBg,
               backdropFilter: 'blur(20px) saturate(180%)',
               border: TOKENS.glassBorder,
@@ -365,7 +365,7 @@ export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
                 width: '100%',
                 height: '100%',
                 minHeight: 68,
-                borderRadius: 3,
+                borderRadius: 2,
                 bgcolor: TOKENS.tileBg,
                 border: TOKENS.tileBorder,
                 boxShadow: TOKENS.tileShadow,
@@ -430,7 +430,7 @@ export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
                         color: TOKENS.onSurface,
                         bgcolor: TOKENS.tileBg,
                         border: TOKENS.tileBorder,
-                        borderRadius: 2,
+                        borderRadius: 1.5,
                         p: 1.5,
                         transition: 'background-color 0.15s ease',
                         '&:hover': { bgcolor: 'rgba(30,41,59,0.85)' },
