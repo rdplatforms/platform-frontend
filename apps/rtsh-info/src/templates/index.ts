@@ -9,6 +9,13 @@ import type { CardTemplateProps } from './types';
 
 export type { CardTemplateProps } from './types';
 
+interface TemplateEntry {
+  label: string;
+  /** One line shown on the showcase page (TASK-049) — who/what this template fits best. */
+  description: string;
+  component: ComponentType<CardTemplateProps>;
+}
+
 /**
  * Every layout/component structure a Card can pick via its `template`
  * field — genuinely different DOM composition per entry (avatar
@@ -23,28 +30,40 @@ export type { CardTemplateProps } from './types';
  * one carries a specific, deliberate palette from its own Stitch
  * DESIGN.md spec (see ExecutiveMinimalTemplate's own comment).
  */
-export const CARD_TEMPLATES: Record<
-  string,
-  { label: string; component: ComponentType<CardTemplateProps> }
-> = {
-  'executive-minimal': { label: 'Executive Minimal', component: ExecutiveMinimalTemplate },
-  'whatsapp-storefront': { label: 'WhatsApp Storefront', component: WhatsAppStorefrontTemplate },
-  'creative-portfolio': { label: 'Creative Portfolio', component: CreativePortfolioTemplate },
+export const CARD_TEMPLATES: Record<string, TemplateEntry> = {
+  'executive-minimal': {
+    label: 'Executive Minimal',
+    description: 'Consultants, founders, and other individual professionals.',
+    component: ExecutiveMinimalTemplate,
+  },
+  'whatsapp-storefront': {
+    label: 'WhatsApp Storefront',
+    description: 'Shops and service businesses taking orders over WhatsApp.',
+    component: WhatsAppStorefrontTemplate,
+  },
+  'creative-portfolio': {
+    label: 'Creative Portfolio',
+    description: 'Designers and creatives who lead with their work.',
+    component: CreativePortfolioTemplate,
+  },
   'dark-tech-glassmorphism': {
     label: 'Dark Tech Glassmorphism',
+    description: 'Engineers, founders, and Web3/tech-flavored profiles.',
     component: DarkTechGlassmorphismTemplate,
   },
   'artisanal-jewelry-boutique': {
     label: 'Artisanal Jewelry Boutique',
+    description: 'Jewellery, boutique, and other light-luxury retail.',
     component: ArtisanalJewelryBoutiqueTemplate,
   },
-  'bistro-dining': { label: 'Bistro Dining', component: BistroDiningTemplate },
+  'bistro-dining': {
+    label: 'Bistro Dining',
+    description: 'Restaurants, cafes, and dining spots.',
+    component: BistroDiningTemplate,
+  },
 };
 
-const DEFAULT_TEMPLATE = CARD_TEMPLATES['executive-minimal'] as {
-  label: string;
-  component: ComponentType<CardTemplateProps>;
-};
+const DEFAULT_TEMPLATE = CARD_TEMPLATES['executive-minimal'] as TemplateEntry;
 
 export function resolveCardTemplate(template: string | undefined) {
   return (template && CARD_TEMPLATES[template]) || DEFAULT_TEMPLATE;
