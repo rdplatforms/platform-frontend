@@ -79,4 +79,8 @@ export interface Card {
   catalog?: CardCatalogItem[];
   testimonials?: CardTestimonial[];
   badges?: CardBadge[];
+  /** A short paragraph bio, shown on the personal-professional templates (Executive Minimal, Creative Portfolio, Dark Tech). */
+  bio?: string;
+  /** Skill/stack tags shown alongside `bio`, e.g. ["Kubernetes", "AWS/GCP", "Terraform"]. */
+  skills?: string[];
 }

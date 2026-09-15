@@ -6,8 +6,7 @@
   "email": "ritesh.dhekane@outlook.com",
   "location": "Pune, Maharashtra, India",
   "photoUrl": "",
-  "style": "style3",
-  "template": "template2",
+  "template": "executive-minimal",
   "links": [
     { "type": "call", "value": "+919322527567" },
     { "type": "whatsapp", "value": "+919322527567" },
