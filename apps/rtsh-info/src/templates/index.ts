@@ -8,6 +8,7 @@ import { WhatsAppStorefrontTemplate } from './WhatsAppStorefrontTemplate';
 import { CreativePortfolioTemplate } from './CreativePortfolioTemplate';
 import { DarkTechGlassmorphismTemplate } from './DarkTechGlassmorphismTemplate';
 import { ArtisanalJewelryBoutiqueTemplate } from './ArtisanalJewelryBoutiqueTemplate';
+import { BistroDiningTemplate } from './BistroDiningTemplate';
 import type { CardTemplateProps } from './types';
 
 export type { CardTemplateProps } from './types';
@@ -45,6 +46,7 @@ export const CARD_TEMPLATES: Record<
     label: 'Artisanal Jewelry Boutique',
     component: ArtisanalJewelryBoutiqueTemplate,
   },
+  'bistro-dining': { label: 'Bistro Dining', component: BistroDiningTemplate },
 };
 
 const DEFAULT_TEMPLATE = CARD_TEMPLATES.template1 as {
