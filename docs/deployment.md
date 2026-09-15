@@ -78,51 +78,93 @@ business needs. Which one to use per business is a judgment call (see
 
 ### Netlify
 
-`netlify.toml` at the repo root configures the build:
+`netlify.toml` at the repo root carries only what's genuinely identical
+across _every_ app deployed from this repo:
 
-- **Build command**: `pnpm install && pnpm build:website`
-- **Publish directory**: `apps/website/dist`
-- **SPA redirect**: `/* → /index.html` (200)
+- **SPA redirect**: `/* → /index.html` (200) — every app here is a
+  client-side-routed SPA, so this is safe to share
+- **`NODE_VERSION`**: `20`
 
-**Many free sites from one repo.** Netlify's free tier has no limit on
-the number of sites — each is its own "Add new site" import of this same
-repo, with its own env vars, and gets its own free
-`<site-name>.netlify.app` subdomain (renamed per site, e.g.
-`swami-hair-salon.netlify.app`, `printforge-3d.netlify.app`) with no
-extra config. `netlify.toml` is shared by all of them since the build
-itself never differs — only the env vars do.
+It deliberately does **not** set `[build] command`/`publish` — a
+project-wide build command doesn't make sense once this repo deploys
+more than one app (`apps/website` per business, `apps/rtsh-info`, ...),
+and Netlify's own documented precedence is that `netlify.toml` **always
+overrides each site's own dashboard settings**, not the other way
+around. An earlier version of this doc got that backwards (assumed
+dashboard settings would win), which silently broke the first attempt
+at a second site (`rtsh-info`) built from this repo — its dashboard
+build command/publish directory were configured correctly but
+`netlify.toml`'s (`apps/website`-only) command overrode them every
+build, so it kept deploying the wrong app. See
+[rtsh-info.md](rtsh-info.md#deployment) for that specific case.
 
-**Per-site setup** (repeat once per business):
+**Many free sites from one repo, each with its own Build command.**
+Netlify's free tier has no limit on the number of sites — each is its
+own "Add new site" import of this same repo, with its own env vars
+_and now its own explicit Build command/Publish directory_, and gets
+its own free `<site-name>.netlify.app` subdomain (e.g.
+`swami-hair-salon.netlify.app`, `rtsh-info.netlify.app`).
+
+**Per-site setup** (repeat once per business/app):
 
 1. Netlify → "Add new site" → "Import an existing project" → GitHub →
-   `rdplatforms/platform-frontend`. Build settings come from
-   `netlify.toml` automatically.
-2. Site environment variables → add the table above for this business.
-3. Deploy, then rename the site (Site settings → Site details → Change
+   `rdplatforms/platform-frontend`.
+2. Site settings → Build & deploy → **explicitly set**:
+   - **Build command**: `pnpm install && pnpm build:website` (a
+     business) or `pnpm install && pnpm build:<app>` (a different app,
+     e.g. `build:rtsh-info`)
+   - **Publish directory**: `apps/website/dist` or `apps/<app>/dist`
+     to match
+   - Leave "Base directory" empty/repo root either way — it's a pnpm
+     workspace, the build needs the whole monorepo present
+3. Site environment variables → add whichever table above applies
+   (a business's `VITE_DEFAULT_BUSINESS_SLUG` etc., or nothing at all
+   for a platform-owned app like `rtsh-info`).
+4. Deploy, then rename the site (Site settings → Site details → Change
    site name) to something recognizable.
+
+**If a site was created before this changed** (i.e. it was relying on
+`netlify.toml`'s now-removed `[build]` block instead of its own
+explicit dashboard settings — this includes the original Swami Hair
+Salon site): go set its Build command/Publish directory explicitly too,
+via step 2 above, before its next deploy — otherwise its _next_ build
+has nothing telling it what to build at all.
 
 Connecting GitHub to Netlify is a one-time OAuth step only whoever
 administers the Netlify account can do in Netlify's own dashboard.
 
 ### Vercel
 
-`vercel.json` at the repo root is Netlify's `netlify.toml` equivalent —
-build command, output directory, and the same SPA fallback rewrite.
+`vercel.json` at the repo root carries only the SPA fallback rewrite —
+same reasoning as `netlify.toml` above, and the same real bug that
+motivated it: `vercel.json`'s `buildCommand`/`outputDirectory`
+**override each project's own dashboard settings**, not the other way
+around (Vercel's own documented precedence). A project-wide build
+command doesn't make sense once this repo deploys more than one app, so
+it isn't set here — every project configures its own Build
+command/Output directory entirely via its own dashboard.
 
 **Many free sites from one repo**, same model as Netlify: Vercel's free
 Hobby plan has no limit on the number of _projects_, each importing this
-same repo with its own env vars, each getting its own free
+same repo with its own env vars _and its own explicit Build
+command/Output directory_, each getting its own free
 `<project-name>.vercel.app` subdomain (e.g. `swami-hair-salon.vercel.app`,
-`3d.vercel.app`).
+`rtsh-info.vercel.app`).
 
-**Per-project setup** (repeat once per business):
+**Per-project setup** (repeat once per business/app):
 
 1. Vercel → "Add New..." → "Project" → import
-   `rdplatforms/platform-frontend`. Settings come from `vercel.json`
-   automatically (leave "Root Directory" as the repo root — it's a pnpm
-   workspace, so the build needs the whole monorepo present).
-2. Project → Settings → Environment Variables → add the table above.
-3. Deploy, then rename the project (Settings → General → Project Name) to
+   `rdplatforms/platform-frontend` (leave "Root Directory" as the repo
+   root — it's a pnpm workspace, so the build needs the whole monorepo
+   present).
+2. Project → Settings → General → **explicitly set**:
+   - **Build Command**: `pnpm install && pnpm build:website` (a
+     business) or `pnpm install && pnpm build:<app>` (a different app)
+   - **Output Directory**: `apps/website/dist` or `apps/<app>/dist` to
+     match
+3. Project → Settings → Environment Variables → add the table above (a
+   business's env vars, or nothing at all for a platform-owned app).
+4. Deploy, then rename the project (Settings → General → Project Name) to
    set its `<name>.vercel.app` subdomain.
 
 ### GitHub Pages

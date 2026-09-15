@@ -169,25 +169,32 @@ at a different app:
    site/project from the same repo — this is exactly what
    [deployment.md](deployment.md) already does per business, just for
    a different app this time).
-2. Override that site/project's build settings (Site/Project settings
-   → Build & deploy):
+2. **Explicitly** set that site/project's build settings (Site/Project
+   settings → Build & deploy) — don't rely on `netlify.toml`/
+   `vercel.json` to fill these in, they deliberately don't set a build
+   command/output directory at all now (see
+   [deployment.md](deployment.md#netlify), the real bug this caused
+   the first time this deployment was attempted: `netlify.toml`/
+   `vercel.json` override dashboard settings, not the other way
+   around, so a shared `apps/website`-only build command there was
+   silently winning over this site's own dashboard config and
+   deploying the wrong app):
    - **Build command**: `pnpm install && pnpm build:rtsh-info`
    - **Publish/Output directory**: `apps/rtsh-info/dist`
    - Leave "Root Directory"/"Base directory" at the repo root either
      way — it's a pnpm workspace, the build needs the whole monorepo
      present, same reasoning as every other app here.
 3. SPA fallback (`/:identifier` is a client-side route, so a direct
-   link or refresh must still resolve to `index.html`):
-   - **Netlify**: already handled —
-     [`apps/rtsh-info/public/_redirects`](../apps/rtsh-info/public/_redirects)
+   link or refresh must still resolve to `index.html`) is already
+   handled, no action needed:
+   - **Netlify**: [`apps/rtsh-info/public/_redirects`](../apps/rtsh-info/public/_redirects)
      (`/* /index.html 200`) ships in the app itself and Vite copies it
      into `dist/` on build, so Netlify picks it up automatically no
-     matter which site it's deployed to. No `netlify.toml` entry
-     needed — the root `netlify.toml` stays `apps/website`-only.
-   - **Vercel**: the existing root `vercel.json`'s rewrite rule
+     matter which site it's deployed to.
+   - **Vercel**: the root `vercel.json`'s rewrite rule
      (`/(.*) → /index.html`) is generic, not `apps/website`-specific,
      so a second Vercel project pointed at this same repo picks it up
-     as-is — nothing new to add.
+     as-is.
 4. Add `VITE_GOOGLE_ANALYTICS_ID` as a site/project environment
    variable if this deployment should have its own GA4 property (see
    [analytics.md](analytics.md)) — optional, same as every other app.

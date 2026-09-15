@@ -1,10 +1,14 @@
-# Deploys apps/website only. See docs/deployment.md for the full picture —
-# this is the interim, single-business-per-site setup (Phase 1), not the
-# eventual one-deployment-many-domains shape.
-[build]
-  command = "pnpm install && pnpm build:website"
-  publish = "apps/website/dist"
-
+# Shared by every Netlify site deployed from this repo (apps/website
+# per business, apps/rtsh-info, ...) — see docs/deployment.md.
+#
+# Deliberately no [build] command/publish here: netlify.toml settings
+# override each site's own dashboard UI settings (Netlify's documented
+# precedence, not a bug), so a shared build command here would silently
+# win over every site's own per-app override — which is exactly what
+# broke the first attempt at a second site (rtsh-info) built from this
+# same repo. Each site sets its own Build command/Publish directory
+# entirely via its own dashboard now — see docs/deployment.md and
+# docs/rtsh-info.md for the exact values per app.
 [build.environment]
   NODE_VERSION = "20"
 
