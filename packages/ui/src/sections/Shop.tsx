@@ -1,6 +1,4 @@
-import { Badge, Button, Grid, Skeleton, Stack, Typography } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link as RouterLink } from 'react-router-dom';
+import { Button, Grid, Skeleton, Stack, Typography } from '@mui/material';
 import { useOptionalCart } from '@rdplatforms/contexts';
 import { useLocale, useProducts } from '@rdplatforms/hooks';
 import { formatCurrency, resolveLocalizedText, translateUi } from '@rdplatforms/utils';
@@ -10,17 +8,20 @@ import { SectionTitle } from '../primitives/SectionTitle';
 import type { SectionProps } from './types';
 
 /**
- * Products are backend-only (see HttpProductDataSource) — there's no
- * static-data fallback, so an unconfigured/offline environment just
- * shows an empty shop, same tolerance the Appointment section has for
- * a missing backend.
+ * Products come from activeDataSource (ProductService) — a Tier 1
+ * business with no backend gets its products from
+ * static-data/products.json, same as Services/Gallery/etc.; a Tier 3
+ * business gets them from platform-backend. See docs/shop.md.
  *
  * Cart access is optional (useOptionalCart, not useCart) because
  * @rdplatforms/ui is shared by any app that composes SectionRenderer —
  * only apps/website actually wraps its tree in a CartProvider. A
  * business with the shop section enabled outside that context (there
  * isn't one today, but nothing stops it structurally) still renders
- * correctly, just with "Add to Cart" disabled.
+ * correctly, just with "Add to Cart" disabled. The persistent "view
+ * cart" affordance lives in Navbar now (visible from anywhere on the
+ * page, not just while scrolled to this section) — this section only
+ * needs `cart` to add items and disable "Add to Cart" when unavailable.
  */
 export function Shop({ business, config }: SectionProps) {
   const { locale } = useLocale();
@@ -29,26 +30,10 @@ export function Shop({ business, config }: SectionProps) {
 
   return (
     <PageSection id="shop" tone="subtle">
-      <Stack direction="row" justifyContent="space-between" alignItems="flex-start" flexWrap="wrap" gap={2}>
-        <SectionTitle
-          title={resolveLocalizedText(config.title, locale) || translateUi('ourShop', locale)}
-          subtitle={resolveLocalizedText(config.subtitle, locale)}
-        />
-        {cart && cart.itemCount > 0 ? (
-          <Button
-            component={RouterLink}
-            to="/cart"
-            variant="outlined"
-            startIcon={
-              <Badge badgeContent={cart.itemCount} color="primary">
-                <ShoppingCartIcon />
-              </Badge>
-            }
-          >
-            {translateUi('viewCart', locale)}
-          </Button>
-        ) : null}
-      </Stack>
+      <SectionTitle
+        title={resolveLocalizedText(config.title, locale) || translateUi('ourShop', locale)}
+        subtitle={resolveLocalizedText(config.subtitle, locale)}
+      />
 
       {isLoading ? (
         <Grid container spacing={3}>
@@ -88,7 +73,9 @@ export function Shop({ business, config }: SectionProps) {
                           })
                         }
                       >
-                        {outOfStock ? translateUi('outOfStock', locale) : translateUi('addToCart', locale)}
+                        {outOfStock
+                          ? translateUi('outOfStock', locale)
+                          : translateUi('addToCart', locale)}
                       </Button>
                     </Stack>
                   }

@@ -17,6 +17,8 @@ export interface Product {
   currency: string;
   imageUrl?: string;
   category?: string;
+  /** Internal stock-keeping code for the business's own reference — never shown to customers. */
+  sku?: string;
   /** Undefined/null = not tracked/unlimited, not zero. */
   stockQuantity?: number;
   featured: boolean;

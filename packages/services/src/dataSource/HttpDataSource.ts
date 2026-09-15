@@ -5,6 +5,7 @@ import type {
   FaqItem,
   GalleryItem,
   PageConfig,
+  Product,
   SeoConfig,
   ServiceItem,
   TeamMember,
@@ -16,6 +17,7 @@ import type {
   FaqDataSource,
   GalleryDataSource,
   PageDataSource,
+  ProductCatalogDataSource,
   SeoDataSource,
   ServiceCatalogDataSource,
   SettingsDataSource,
@@ -50,7 +52,8 @@ export class HttpDataSource
     PageDataSource,
     FaqDataSource,
     TeamDataSource,
-    SettingsDataSource
+    SettingsDataSource,
+    ProductCatalogDataSource
 {
   constructor(private readonly options: HttpDataSourceOptions) {}
 
@@ -107,6 +110,10 @@ export class HttpDataSource
     return this.getOptional<BusinessSettings>(
       `/businesses/${encodeURIComponent(businessId)}/settings`,
     );
+  }
+
+  async listProductsByBusiness(businessId: string): Promise<Product[]> {
+    return this.getList<Product>(`/businesses/${encodeURIComponent(businessId)}/products`);
   }
 
   private async getList<T>(path: string): Promise<T[]> {

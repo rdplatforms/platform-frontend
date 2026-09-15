@@ -3,7 +3,10 @@
     {
       "id": "shs-gal-1",
       "businessId": "swami-hair-salon",
-      "title": { "mr": "बाहेरील दृश्य", "en": "Exterior" },
+      "title": {
+        "mr": "बाहेरील दृश्य",
+        "en": "Exterior"
+      },
       "imageUrl": "/assets/businesses/swami-hair-salon/gallery/exterior.jpg",
       "category": "Exterior",
       "order": 1
@@ -11,7 +14,10 @@
     {
       "id": "shs-gal-2",
       "businessId": "swami-hair-salon",
-      "title": { "mr": "आतील भाग", "en": "Interior" },
+      "title": {
+        "mr": "आतील भाग",
+        "en": "Interior"
+      },
       "imageUrl": "/assets/businesses/swami-hair-salon/gallery/interior.jpg",
       "category": "Interior",
       "order": 2
@@ -19,7 +25,10 @@
     {
       "id": "shs-gal-3",
       "businessId": "swami-hair-salon",
-      "title": { "mr": "स्टाइलिंग चेअर", "en": "Styling Chair" },
+      "title": {
+        "mr": "स्टाइलिंग चेअर",
+        "en": "Styling Chair"
+      },
       "imageUrl": "/assets/businesses/swami-hair-salon/gallery/styling-chair.jpg",
       "category": "Interior",
       "order": 3
@@ -143,30 +152,644 @@
       "order": 3
     }
   ],
-  "rupali-imitation-jewellery": [
+  "jagdamb-creation": [
     {
-      "id": "rij-gal-1",
-      "businessId": "rupali-imitation-jewellery",
-      "title": { "en": "Kolhapuri Saaj Collection", "mr": "कोल्हापुरी साज संग्रह" },
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/gallery/1.svg",
-      "category": "Necklaces",
+      "id": "jc-gal-01",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 1",
+        "mr": "जगदंब क्रिएशन — फोटो 1"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-01.jpg",
+      "category": "Collection",
       "order": 1
     },
     {
-      "id": "rij-gal-2",
-      "businessId": "rupali-imitation-jewellery",
-      "title": { "en": "Bridal Display", "mr": "ब्रायडल डिस्प्ले" },
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/gallery/2.svg",
-      "category": "Bridal",
+      "id": "jc-gal-02",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 2",
+        "mr": "जगदंब क्रिएशन — फोटो 2"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-02.jpg",
+      "category": "Collection",
       "order": 2
     },
     {
-      "id": "rij-gal-3",
-      "businessId": "rupali-imitation-jewellery",
-      "title": { "en": "Store Counter", "mr": "दुकानाचा काउंटर" },
-      "imageUrl": "/assets/businesses/rupali-imitation-jewellery/gallery/3.svg",
-      "category": "Store",
+      "id": "jc-gal-03",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 3",
+        "mr": "जगदंब क्रिएशन — फोटो 3"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-03.jpg",
+      "category": "Collection",
       "order": 3
+    },
+    {
+      "id": "jc-gal-04",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 4",
+        "mr": "जगदंब क्रिएशन — फोटो 4"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-04.jpg",
+      "category": "Collection",
+      "order": 4
+    },
+    {
+      "id": "jc-gal-05",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 5",
+        "mr": "जगदंब क्रिएशन — फोटो 5"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-05.jpg",
+      "category": "Collection",
+      "order": 5
+    },
+    {
+      "id": "jc-gal-06",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 6",
+        "mr": "जगदंब क्रिएशन — फोटो 6"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-06.jpg",
+      "category": "Collection",
+      "order": 6
+    },
+    {
+      "id": "jc-gal-07",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 7",
+        "mr": "जगदंब क्रिएशन — फोटो 7"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-07.jpg",
+      "category": "Collection",
+      "order": 7
+    },
+    {
+      "id": "jc-gal-08",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 8",
+        "mr": "जगदंब क्रिएशन — फोटो 8"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-08.jpg",
+      "category": "Collection",
+      "order": 8
+    },
+    {
+      "id": "jc-gal-09",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 9",
+        "mr": "जगदंब क्रिएशन — फोटो 9"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-09.jpg",
+      "category": "Collection",
+      "order": 9
+    },
+    {
+      "id": "jc-gal-10",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 10",
+        "mr": "जगदंब क्रिएशन — फोटो 10"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-10.jpg",
+      "category": "Collection",
+      "order": 10
+    },
+    {
+      "id": "jc-gal-11",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 11",
+        "mr": "जगदंब क्रिएशन — फोटो 11"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-11.jpg",
+      "category": "Collection",
+      "order": 11
+    },
+    {
+      "id": "jc-gal-12",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 12",
+        "mr": "जगदंब क्रिएशन — फोटो 12"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-12.jpg",
+      "category": "Collection",
+      "order": 12
+    },
+    {
+      "id": "jc-gal-13",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 13",
+        "mr": "जगदंब क्रिएशन — फोटो 13"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-13.jpg",
+      "category": "Collection",
+      "order": 13
+    },
+    {
+      "id": "jc-gal-14",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 14",
+        "mr": "जगदंब क्रिएशन — फोटो 14"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-14.jpg",
+      "category": "Collection",
+      "order": 14
+    },
+    {
+      "id": "jc-gal-15",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 15",
+        "mr": "जगदंब क्रिएशन — फोटो 15"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-15.jpg",
+      "category": "Collection",
+      "order": 15
+    },
+    {
+      "id": "jc-gal-16",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 16",
+        "mr": "जगदंब क्रिएशन — फोटो 16"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-16.jpg",
+      "category": "Collection",
+      "order": 16
+    },
+    {
+      "id": "jc-gal-17",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 17",
+        "mr": "जगदंब क्रिएशन — फोटो 17"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-17.jpg",
+      "category": "Collection",
+      "order": 17
+    },
+    {
+      "id": "jc-gal-18",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 18",
+        "mr": "जगदंब क्रिएशन — फोटो 18"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-18.jpg",
+      "category": "Collection",
+      "order": 18
+    },
+    {
+      "id": "jc-gal-19",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 19",
+        "mr": "जगदंब क्रिएशन — फोटो 19"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-19.jpg",
+      "category": "Collection",
+      "order": 19
+    },
+    {
+      "id": "jc-gal-20",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 20",
+        "mr": "जगदंब क्रिएशन — फोटो 20"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-20.jpg",
+      "category": "Collection",
+      "order": 20
+    },
+    {
+      "id": "jc-gal-21",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 21",
+        "mr": "जगदंब क्रिएशन — फोटो 21"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-21.jpg",
+      "category": "Collection",
+      "order": 21
+    },
+    {
+      "id": "jc-gal-22",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 22",
+        "mr": "जगदंब क्रिएशन — फोटो 22"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-22.jpg",
+      "category": "Collection",
+      "order": 22
+    },
+    {
+      "id": "jc-gal-23",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 23",
+        "mr": "जगदंब क्रिएशन — फोटो 23"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-23.jpg",
+      "category": "Collection",
+      "order": 23
+    },
+    {
+      "id": "jc-gal-24",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 24",
+        "mr": "जगदंब क्रिएशन — फोटो 24"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-24.jpg",
+      "category": "Collection",
+      "order": 24
+    },
+    {
+      "id": "jc-gal-25",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 25",
+        "mr": "जगदंब क्रिएशन — फोटो 25"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-25.jpg",
+      "category": "Collection",
+      "order": 25
+    },
+    {
+      "id": "jc-gal-26",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 26",
+        "mr": "जगदंब क्रिएशन — फोटो 26"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-26.jpg",
+      "category": "Collection",
+      "order": 26
+    },
+    {
+      "id": "jc-gal-27",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 27",
+        "mr": "जगदंब क्रिएशन — फोटो 27"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-27.jpg",
+      "category": "Collection",
+      "order": 27
+    },
+    {
+      "id": "jc-gal-28",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 28",
+        "mr": "जगदंब क्रिएशन — फोटो 28"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-28.jpg",
+      "category": "Collection",
+      "order": 28
+    },
+    {
+      "id": "jc-gal-29",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 29",
+        "mr": "जगदंब क्रिएशन — फोटो 29"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-29.jpg",
+      "category": "Collection",
+      "order": 29
+    },
+    {
+      "id": "jc-gal-30",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 30",
+        "mr": "जगदंब क्रिएशन — फोटो 30"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-30.jpg",
+      "category": "Collection",
+      "order": 30
+    },
+    {
+      "id": "jc-gal-31",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 31",
+        "mr": "जगदंब क्रिएशन — फोटो 31"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-31.jpg",
+      "category": "Collection",
+      "order": 31
+    },
+    {
+      "id": "jc-gal-32",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 32",
+        "mr": "जगदंब क्रिएशन — फोटो 32"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-32.jpg",
+      "category": "Collection",
+      "order": 32
+    },
+    {
+      "id": "jc-gal-33",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 33",
+        "mr": "जगदंब क्रिएशन — फोटो 33"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-33.jpg",
+      "category": "Collection",
+      "order": 33
+    },
+    {
+      "id": "jc-gal-34",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 34",
+        "mr": "जगदंब क्रिएशन — फोटो 34"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-34.jpg",
+      "category": "Collection",
+      "order": 34
+    },
+    {
+      "id": "jc-gal-35",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 35",
+        "mr": "जगदंब क्रिएशन — फोटो 35"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-35.jpg",
+      "category": "Collection",
+      "order": 35
+    },
+    {
+      "id": "jc-gal-36",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 36",
+        "mr": "जगदंब क्रिएशन — फोटो 36"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-36.jpg",
+      "category": "Collection",
+      "order": 36
+    },
+    {
+      "id": "jc-gal-37",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 37",
+        "mr": "जगदंब क्रिएशन — फोटो 37"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-37.jpg",
+      "category": "Collection",
+      "order": 37
+    },
+    {
+      "id": "jc-gal-38",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 38",
+        "mr": "जगदंब क्रिएशन — फोटो 38"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-38.jpg",
+      "category": "Collection",
+      "order": 38
+    },
+    {
+      "id": "jc-gal-39",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 39",
+        "mr": "जगदंब क्रिएशन — फोटो 39"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-39.jpg",
+      "category": "Collection",
+      "order": 39
+    },
+    {
+      "id": "jc-gal-40",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 40",
+        "mr": "जगदंब क्रिएशन — फोटो 40"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-40.jpg",
+      "category": "Collection",
+      "order": 40
+    },
+    {
+      "id": "jc-gal-41",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 41",
+        "mr": "जगदंब क्रिएशन — फोटो 41"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-41.jpg",
+      "category": "Collection",
+      "order": 41
+    },
+    {
+      "id": "jc-gal-42",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 42",
+        "mr": "जगदंब क्रिएशन — फोटो 42"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-42.jpg",
+      "category": "Collection",
+      "order": 42
+    },
+    {
+      "id": "jc-gal-43",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 43",
+        "mr": "जगदंब क्रिएशन — फोटो 43"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-43.jpg",
+      "category": "Collection",
+      "order": 43
+    },
+    {
+      "id": "jc-gal-44",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 44",
+        "mr": "जगदंब क्रिएशन — फोटो 44"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-44.jpg",
+      "category": "Collection",
+      "order": 44
+    },
+    {
+      "id": "jc-gal-45",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 45",
+        "mr": "जगदंब क्रिएशन — फोटो 45"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-45.jpg",
+      "category": "Collection",
+      "order": 45
+    },
+    {
+      "id": "jc-gal-46",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 46",
+        "mr": "जगदंब क्रिएशन — फोटो 46"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-46.jpg",
+      "category": "Collection",
+      "order": 46
+    },
+    {
+      "id": "jc-gal-47",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 47",
+        "mr": "जगदंब क्रिएशन — फोटो 47"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-47.jpg",
+      "category": "Collection",
+      "order": 47
+    },
+    {
+      "id": "jc-gal-48",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 48",
+        "mr": "जगदंब क्रिएशन — फोटो 48"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-48.jpg",
+      "category": "Collection",
+      "order": 48
+    },
+    {
+      "id": "jc-gal-49",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 49",
+        "mr": "जगदंब क्रिएशन — फोटो 49"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-49.jpg",
+      "category": "Collection",
+      "order": 49
+    },
+    {
+      "id": "jc-gal-50",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 50",
+        "mr": "जगदंब क्रिएशन — फोटो 50"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-50.jpg",
+      "category": "Collection",
+      "order": 50
+    },
+    {
+      "id": "jc-gal-51",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 51",
+        "mr": "जगदंब क्रिएशन — फोटो 51"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-51.jpg",
+      "category": "Collection",
+      "order": 51
+    },
+    {
+      "id": "jc-gal-52",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 52",
+        "mr": "जगदंब क्रिएशन — फोटो 52"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-52.jpg",
+      "category": "Collection",
+      "order": 52
+    },
+    {
+      "id": "jc-gal-53",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 53",
+        "mr": "जगदंब क्रिएशन — फोटो 53"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-53.jpg",
+      "category": "Collection",
+      "order": 53
+    },
+    {
+      "id": "jc-gal-54",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 54",
+        "mr": "जगदंब क्रिएशन — फोटो 54"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-54.jpg",
+      "category": "Collection",
+      "order": 54
+    },
+    {
+      "id": "jc-gal-55",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 55",
+        "mr": "जगदंब क्रिएशन — फोटो 55"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-55.jpg",
+      "category": "Collection",
+      "order": 55
+    },
+    {
+      "id": "jc-gal-56",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 56",
+        "mr": "जगदंब क्रिएशन — फोटो 56"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-56.jpg",
+      "category": "Collection",
+      "order": 56
+    },
+    {
+      "id": "jc-gal-57",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 57",
+        "mr": "जगदंब क्रिएशन — फोटो 57"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-57.jpg",
+      "category": "Collection",
+      "order": 57
+    },
+    {
+      "id": "jc-gal-58",
+      "businessId": "jagdamb-creation",
+      "title": {
+        "en": "Jagdamb Creation — Photo 58",
+        "mr": "जगदंब क्रिएशन — फोटो 58"
+      },
+      "imageUrl": "/assets/businesses/jagdamb-creation/gallery/jagdamb-creation-58.jpg",
+      "category": "Collection",
+      "order": 58
     }
   ]
 }

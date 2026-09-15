@@ -1,18 +1,18 @@
 import type { Product } from '@rdplatforms/types';
-import { HttpProductDataSource } from './dataSource/HttpProductDataSource';
+import { activeDataSource } from './dataSource/activeDataSource';
 
-// Same local-cast reasoning as activeDataSource.ts — see that file's comment.
-const apiBaseUrl = (import.meta as unknown as { env?: Record<string, string | undefined> }).env
-  ?.VITE_API_BASE_URL;
-
-const httpProductDataSource = new HttpProductDataSource(apiBaseUrl);
-
+/**
+ * Read-only product listing, same tier-selection seam every other
+ * read-only content type uses (activeDataSource.ts) — a Tier 1 business
+ * with no backend gets its products from static-data/products.json, a
+ * Tier 3 business gets them from platform-backend. Write access
+ * (apps/portal's Products page, Owner-only CRUD) stays backend-only,
+ * unaffected by this — see docs/shop.md.
+ */
 export class ProductService {
-  constructor(private readonly dataSource: HttpProductDataSource) {}
-
   getByBusiness(businessId: string): Promise<Product[]> {
-    return this.dataSource.listByBusiness(businessId);
+    return activeDataSource.listProductsByBusiness(businessId);
   }
 }
 
-export const productService = new ProductService(httpProductDataSource);
+export const productService = new ProductService();

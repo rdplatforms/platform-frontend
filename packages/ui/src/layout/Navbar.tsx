@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   AppBar,
+  Badge,
   Box,
   Drawer,
   IconButton,
@@ -14,9 +15,12 @@ import {
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link as RouterLink } from 'react-router-dom';
+import { useOptionalCart } from '@rdplatforms/contexts';
 import type { Business } from '@rdplatforms/types';
 import { useLocale } from '@rdplatforms/hooks';
-import { resolveLocalizedText } from '@rdplatforms/utils';
+import { resolveLocalizedText, translateUi } from '@rdplatforms/utils';
 import { Button } from '../primitives/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -38,25 +42,33 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { locale } = useLocale();
   const brandNote = resolveLocalizedText(business.brandNote, locale);
+  const cart = useOptionalCart();
+
+  const cartButton =
+    cart && cart.itemCount > 0 ? (
+      <IconButton
+        component={RouterLink}
+        to="/cart"
+        aria-label={translateUi('viewCart', locale)}
+        color="inherit"
+      >
+        <Badge badgeContent={cart.itemCount} color="primary">
+          <ShoppingCartIcon />
+        </Badge>
+      </IconButton>
+    ) : null;
 
   const brand = (
-    <Stack spacing={0} sx={{ minWidth: 0, overflow: 'hidden' }}>
-      {brandNote ? (
-        <Typography variant="caption" color="text.secondary" noWrap sx={{ lineHeight: 1.2 }}>
-          {brandNote}
-        </Typography>
-      ) : null}
-      <Stack direction="row" spacing={1.5} alignItems="center" sx={{ minWidth: 0 }}>
-        <Box
-          component="img"
-          src={business.logoUrl}
-          alt={`${business.displayName} logo`}
-          sx={{ height: 36, width: 36, objectFit: 'contain', flexShrink: 0 }}
-        />
-        <Typography variant="h6" component="span" fontWeight={700} noWrap>
-          {business.displayName}
-        </Typography>
-      </Stack>
+    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ minWidth: 0 }}>
+      <Box
+        component="img"
+        src={business.logoUrl}
+        alt={`${business.displayName} logo`}
+        sx={{ height: 36, width: 36, objectFit: 'contain', flexShrink: 0 }}
+      />
+      <Typography variant="h6" component="span" fontWeight={700} noWrap>
+        {business.displayName}
+      </Typography>
     </Stack>
   );
 
@@ -67,36 +79,59 @@ export function Navbar({ business, navItems, ctaLabel, ctaHref = '#contact' }: N
       elevation={0}
       sx={{ borderBottom: 1, borderColor: 'divider' }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
-        {brand}
+      <Toolbar
+        sx={{
+          py: 1,
+          display: 'grid',
+          gridTemplateColumns: brandNote ? '1fr auto 1fr' : 'auto 1fr',
+          alignItems: 'center',
+          columnGap: 2,
+        }}
+      >
+        <Box sx={{ minWidth: 0, justifySelf: 'start' }}>{brand}</Box>
 
-        {isMobile ? (
-          <Stack direction="row" spacing={1} alignItems="center">
-            <LanguageSwitcher />
-            <IconButton onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu">
-              <MenuIcon />
-            </IconButton>
-          </Stack>
-        ) : (
-          <Stack direction="row" spacing={3} alignItems="center">
-            {navItems.map((item) => (
-              <Typography
-                key={item.href}
-                component="a"
-                href={item.href}
-                sx={{ textDecoration: 'none', color: 'text.primary', fontWeight: 500 }}
-              >
-                {item.label}
-              </Typography>
-            ))}
-            <LanguageSwitcher />
-            {ctaLabel ? (
-              <Button href={ctaHref} size="medium">
-                {ctaLabel}
-              </Button>
-            ) : null}
-          </Stack>
-        )}
+        {brandNote ? (
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            noWrap
+            sx={{ minWidth: 0, overflow: 'hidden', justifySelf: 'center' }}
+          >
+            {brandNote}
+          </Typography>
+        ) : null}
+
+        <Box sx={{ justifySelf: 'end' }}>
+          {isMobile ? (
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              {cartButton}
+              <LanguageSwitcher />
+              <IconButton onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu">
+                <MenuIcon />
+              </IconButton>
+            </Stack>
+          ) : (
+            <Stack direction="row" spacing={2.5} alignItems="center">
+              {navItems.map((item) => (
+                <Typography
+                  key={item.href}
+                  component="a"
+                  href={item.href}
+                  sx={{ textDecoration: 'none', color: 'text.primary', fontWeight: 500 }}
+                >
+                  {item.label}
+                </Typography>
+              ))}
+              {cartButton}
+              <LanguageSwitcher />
+              {ctaLabel ? (
+                <Button href={ctaHref} size="medium">
+                  {ctaLabel}
+                </Button>
+              ) : null}
+            </Stack>
+          )}
+        </Box>
       </Toolbar>
 
       <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>

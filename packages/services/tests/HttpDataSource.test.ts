@@ -50,4 +50,13 @@ describe('HttpDataSource', () => {
       'http://localhost:8081/businesses/swami-hair-salon/pages/by-path?path=%2F',
     );
   });
+
+  it('lists products from GET /businesses/{id}/products', async () => {
+    fetchImpl.mockResolvedValue(jsonResponse([{ id: 'p1', sku: 'PF-001' }]));
+    const products = await dataSource.listProductsByBusiness('printforge-3d');
+    expect(fetchImpl).toHaveBeenCalledWith(
+      'http://localhost:8081/businesses/printforge-3d/products',
+    );
+    expect(products).toEqual([{ id: 'p1', sku: 'PF-001' }]);
+  });
 });

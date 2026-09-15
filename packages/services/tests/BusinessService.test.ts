@@ -6,8 +6,8 @@ describe('BusinessService', () => {
     const businesses = await businessService.getAll();
     const slugs = businesses.map((business) => business.slug).sort();
     expect(slugs).toEqual([
+      'jagdamb-creation',
       'printforge-3d',
-      'rupali-imitation-jewellery',
       'swami-hair-salon',
       'urban-bistro',
       'vision3d',

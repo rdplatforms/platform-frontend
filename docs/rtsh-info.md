@@ -94,20 +94,20 @@ and both tolerate a missing/unrecognized value by falling back to the
 first option (`resolveCardStyle` → `style1`, `resolveCardTemplate` →
 `template1`), same as an unrecognized link `type`.
 
-| style key | look |
-| --- | --- |
-| `style1` (default) | Classic — light background, solid dark pill buttons |
-| `style2` | Midnight — dark gradient, translucent outlined buttons |
-| `style3` | Sunset — warm gradient, frosted white buttons |
-| `style4` | Minimal — white background, outlined buttons |
-| `style5` | Ocean — teal/blue gradient, translucent buttons |
+| style key          | look                                                   |
+| ------------------ | ------------------------------------------------------ |
+| `style1` (default) | Classic — light background, solid dark pill buttons    |
+| `style2`           | Midnight — dark gradient, translucent outlined buttons |
+| `style3`           | Sunset — warm gradient, frosted white buttons          |
+| `style4`           | Minimal — white background, outlined buttons           |
+| `style5`           | Ocean — teal/blue gradient, translucent buttons        |
 
-| template key | structure |
-| --- | --- |
-| `template1` (default) | Stack — full-bleed colored background, centered avatar, full-width button list |
-| `template2` | Banner — colored banner strip up top with the avatar overlapping its edge, plain body below |
-| `template3` | Compact — avatar and name side by side (not stacked), links as a 3-column icon grid |
-| `template4` | Framed — a rounded, shadowed card floating on a neutral backdrop, compact icon grid inside |
+| template key          | structure                                                                                   |
+| --------------------- | ------------------------------------------------------------------------------------------- |
+| `template1` (default) | Stack — full-bleed colored background, centered avatar, full-width button list              |
+| `template2`           | Banner — colored banner strip up top with the avatar overlapping its edge, plain body below |
+| `template3`           | Compact — avatar and name side by side (not stacked), links as a 3-column icon grid         |
+| `template4`           | Framed — a rounded, shadowed card floating on a neutral backdrop, compact icon grid inside  |
 
 Adding a 6th style is one entry in `CARD_STYLES`. Adding a 5th template
 is one new component (see `StackTemplate.tsx` for the simplest example)
@@ -152,3 +152,53 @@ pnpm dev:rtsh-info
 ```
 
 Port **5176** — 5173 website, 5174 admin, 5175 portal.
+
+## Deployment
+
+Unlike `apps/website` (deployed once _per business_, see
+[deployment.md](deployment.md)), `rtsh-info` is platform-owned — it
+needs exactly **one** deployment, ever, shared by every card. That
+makes it simpler than the per-business case, not harder.
+
+**Netlify or Vercel (recommended)** — same repo, a second
+site/project alongside the existing Swami Hair Salon one, just pointed
+at a different app:
+
+1. Netlify → "Add new site" / Vercel → "Add New... Project" → import
+   `rdplatforms/platform-frontend` again (a second, independent
+   site/project from the same repo — this is exactly what
+   [deployment.md](deployment.md) already does per business, just for
+   a different app this time).
+2. Override that site/project's build settings (Site/Project settings
+   → Build & deploy):
+   - **Build command**: `pnpm install && pnpm build:rtsh-info`
+   - **Publish/Output directory**: `apps/rtsh-info/dist`
+   - Leave "Root Directory"/"Base directory" at the repo root either
+     way — it's a pnpm workspace, the build needs the whole monorepo
+     present, same reasoning as every other app here.
+3. SPA fallback (`/:identifier` is a client-side route, so a direct
+   link or refresh must still resolve to `index.html`):
+   - **Netlify**: already handled —
+     [`apps/rtsh-info/public/_redirects`](../apps/rtsh-info/public/_redirects)
+     (`/* /index.html 200`) ships in the app itself and Vite copies it
+     into `dist/` on build, so Netlify picks it up automatically no
+     matter which site it's deployed to. No `netlify.toml` entry
+     needed — the root `netlify.toml` stays `apps/website`-only.
+   - **Vercel**: the existing root `vercel.json`'s rewrite rule
+     (`/(.*) → /index.html`) is generic, not `apps/website`-specific,
+     so a second Vercel project pointed at this same repo picks it up
+     as-is — nothing new to add.
+4. Add `VITE_GOOGLE_ANALYTICS_ID` as a site/project environment
+   variable if this deployment should have its own GA4 property (see
+   [analytics.md](analytics.md)) — optional, same as every other app.
+5. Deploy, then rename the site/project to something recognizable
+   (e.g. `rtsh-info` or a real custom domain later).
+
+**GitHub Pages** is possible too, but the
+[multi-business thin-repo pattern](deployment.md#github-pages) built
+for `apps/website` doesn't apply here — `rtsh-info` only ever needs
+one deployment, so a thin external repo would be pure overhead. A
+direct, one-off `.github/workflows/` entry in this repo (build
+`apps/rtsh-info`, deploy straight to this repo's own Pages site) is
+the right shape instead — not built yet, since Netlify/Vercel cover
+the common case with zero extra files.

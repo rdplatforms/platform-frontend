@@ -22,3 +22,4 @@ add a new ADR that supersedes it; don't edit history.
 | [0013](0013-tiered-backend-per-business.md)                    | Three backend tiers (WhatsApp / Apps Script / `platform-backend`), selected per deployment, never mixed          |
 | [0014](0014-multi-host-deployment-templates.md)                | Vercel added as a Netlify analogue; GitHub Pages via one thin per-business repo + a shared reusable workflow     |
 | [0015](0015-whatsapp-checkout-fallback.md)                     | Checkout gets the same best-effort + WhatsApp-handoff pattern as bookings/contact — works with no backend at all |
+| [0016](0016-product-listing-static-fallback.md)                | Product listing gets a static-data fallback, same tier seam as every other read-only content type                |
