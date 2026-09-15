@@ -743,7 +743,7 @@ export function LinkRowList({ tokens, links }: { tokens: GlassTokens; links: Car
  */
 export function LinkValueGrid({ tokens, links }: { tokens: GlassTokens; links: CardLink[] }) {
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1.25 }}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 1.25 }}>
       {links.map((link, index) => {
         const Icon = iconForLink(link);
         return (
@@ -764,6 +764,7 @@ export function LinkValueGrid({ tokens, links }: { tokens: GlassTokens; links: C
               borderRadius: tokens.tileRadius * 0.75,
               p: 1.25,
               minWidth: 0,
+              overflow: 'hidden',
               transition: 'background-color 0.15s ease',
               '&:hover': { bgcolor: tokens.tileHoverBg },
             }}

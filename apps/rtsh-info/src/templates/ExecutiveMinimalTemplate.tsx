@@ -175,7 +175,7 @@ export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
             Save Contact (.vcf)
           </Button>
 
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1.5 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 1.5 }}>
             {card.phone ? (
               <ActionTile
                 tokens={tokens}
