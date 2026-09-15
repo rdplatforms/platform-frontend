@@ -187,6 +187,43 @@ for the full picture.
 - [x] **Product listing gets a static-data fallback** (see [docs/adr/0016-product-listing-static-fallback.md](docs/adr/0016-product-listing-static-fallback.md)) — found while making `jagdamb-creation`'s shop actually usable: `Product` reads were backend-only with no fallback, so a Tier 1 business's shop always rendered an empty grid. New `ProductCatalogDataSource` interface, implemented by both `JsonDataSource` (reads `static-data/products.json`, now exported from `@rdplatforms/static-data`) and `HttpDataSource`, wired into the existing `activeDataSource` tier seam. `ProductService`/`HttpProductDataSource` (the old standalone pair) retired in favor of `activeDataSource`, matching every other read-only content type. `Product` gains an optional `sku?: string` (not yet mirrored to `platform-backend`'s entity) — `jagdamb-creation`'s 6 products each have one (`JC-NEC-001`, etc.) for the owner's own inventory tracking. New tests: `ProductService.test.ts` (3), a `listProductsByBusiness` case added to `HttpDataSource.test.ts`. ✅ Done
 - [x] **`jagdamb-creation`: Team section disabled** — set `enabled: false` on the `team` `SectionConfig` in `pages.json` (data kept, not deleted) at the business's request, removing "Team" from both the nav and the page. ✅ Done
 
+## Milestone 9 — Card Viewer redesign (`rtsh-info`)
+
+A design set (Google Stitch output — two `DESIGN.md` design-system specs, an
+onboarding wizard, a merchant analytics hub, and 6 card templates) proposed a
+full self-serve SaaS ("Card Viewer": accounts, a wizard, per-owner analytics,
+wallet passes, NFC hardware commerce). Scoped down after discussion to a
+visual/architectural upgrade only — see the chat history for the full
+design review and the reasoning behind what's in vs. out this round.
+
+**In scope**: 6 new templates replacing the current 4, a richer `Card` data
+model (still static JSON, still dev-managed — no accounts), a reusable QR
+utility, and a public template-showcase page with a WhatsApp "request this
+style" CTA (the entire "onboarding" story for now — no form, no backend, no
+persistence, just a pre-filled WhatsApp message so a card can be added by
+hand the same way it already is).
+
+**Explicitly deferred**: self-serve accounts/login, the onboarding wizard UI,
+the merchant analytics hub, Apple/Google Wallet passes, NFC hardware
+commerce, real UPI payment processing (the UPI feature here is a QR display
+only — a deep link to the owner's own UPI ID, no processing on our side),
+the 300-DPI print-export tooling.
+
+One task, one commit each, same as everywhere else in this file.
+
+- [ ] **TASK-037** — QR code generation utility (`packages/utils`): `generateQrCodeDataUrl(text): Promise<string>`, backed by the small `qrcode` npm package (pure client-side, no network call). New test. Platform-wide, not rtsh-info-specific — `apps/website` or anything else can use it later without rebuilding it.
+- [ ] **TASK-038** — Extend `Card`/`CardLink` types (`packages/types`) for the business-style templates: `category`, a `whatsapp` field separate from `phone`, `address` + a map-embed URL, `hours`, `upiId`, a `catalog` item list (name/price/image/WhatsApp-inquire), `testimonials`, and a `badge` (verified/available-now/category tag). All optional — a personal card with none of these still works exactly as today.
+- [ ] **TASK-039** — New shared template building blocks (`apps/rtsh-info/src/templates/shared.tsx`, extended): `QrShareButton` (uses TASK-037), `BadgeChip`, `PriceRow` — the pieces every new template needs regardless of vertical. `CatalogCard`/`CatalogCarousel`, `MapEmbed`, `TestimonialCard` get added within whichever template first needs them (TASK-041/044/045/042), not spec'd speculatively ahead of that. `linkPresentation.ts` gains icon/label/href cases for whatever new `CardLink.type`s the templates introduce, same extension pattern it already uses.
+- [ ] **TASK-040** — Template: Executive Minimal, matching the `digital_business_card_platform` `DESIGN.md` tokens. Ritesh Dhekane's own card migrated onto it (closest fit to the current content).
+- [ ] **TASK-041** — Template: WhatsApp Storefront Catalogue (dark, merchant/commerce-oriented — product catalog, UPI settlement QR, hours, map).
+- [ ] **TASK-042** — Template: Creative Portfolio (dark — featured work/case studies, testimonials, press-kit download).
+- [ ] **TASK-043** — Template: Dark Tech Glassmorphism (personal/Web3-flavored — production-stack chips, lead-capture form).
+- [ ] **TASK-044** — Template: Artisanal Jewelry Boutique, matching the `artisanal_warm_luxury` `DESIGN.md` tokens (light luxury retail — certifications, curated catalog, map, UPI billing).
+- [ ] **TASK-045** — Template: Bistro Dining (warm light — menu items with dietary tags, table reservation CTA, WhatsApp pickup ordering, amenities grid, map).
+- [ ] **TASK-046** — Retire the old 4 templates (Stack/Banner/Compact/Framed) and the independent 5-color-style system — each of the 6 new templates carries its own deliberate palette from its `DESIGN.md`, so a separate recolor axis on top no longer makes sense. `DevPreviewSwitcher` updated to cycle the new 6.
+- [ ] **TASK-047** — Public "Card Viewer" showcase page, added to rtsh-info's existing `/` route (alongside the phone-number lookup already there, not replacing it): browse all 6 templates with live mini-previews, each with a "Request this style" button that opens WhatsApp (reusing `useWhatsAppSubmit`/`toWhatsAppLink`, same pattern as `Appointment`/`Contact`/`CartPage`) to a fixed recipient number with a pre-filled, template-specific message. No form, no backend call.
+- [ ] **TASK-048** — Rewrite `docs/rtsh-info.md`'s Styles/Templates section for the new 6-template system and document the showcase page + request flow.
+
 ## Milestone 7 — Customer Accounts
 
 - [ ] **TASK-025** — `Customer` register/login on `apps/website` (separate from staff-side auth), JWT session scoped to one business.
