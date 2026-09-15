@@ -62,9 +62,7 @@ export interface Card {
   email?: string;
   location?: string;
   photoUrl?: string;
-  /** One of apps/rtsh-info's predefined color styles ("style1".."style5") — an unrecognized or missing value falls back to "style1", same tolerance as an unrecognized CardLink.type. */
-  style?: string;
-  /** One of apps/rtsh-info's predefined layout templates ("template1".."template4") — a genuinely different component structure per value, independent of `style`'s colors. Falls back to "template1" if missing/unrecognized. */
+  /** One of apps/rtsh-info's predefined templates (e.g. "executive-minimal", "bistro-dining" — see CARD_TEMPLATES) — each one is a fully self-styled component, not a layout paired with a separate recolorable `style` (that split existed pre-Milestone-9; see docs/rtsh-info.md). Falls back to "executive-minimal" if missing/unrecognized. */
   template?: string;
   links: CardLink[];
   /** A business/professional category tag, e.g. "Fine Jewellery & Heritage Diamonds". */

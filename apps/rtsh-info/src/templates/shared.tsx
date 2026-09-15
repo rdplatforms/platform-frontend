@@ -13,175 +13,31 @@ import {
   type SxProps,
   type Theme,
 } from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import StarIcon from '@mui/icons-material/Star';
 import {
-  formatPhoneForDisplay,
   generateQrCodeDataUrl,
   getAvatarColors,
   getInitials,
   toWhatsAppLink,
 } from '@rdplatforms/utils';
-import type {
-  Card,
-  CardBadge,
-  CardCatalogItem,
-  CardLink,
-  CardTestimonial,
-} from '@rdplatforms/types';
-import type { CardStyleConfig } from '../cardStyles';
+import type { CardBadge, CardCatalogItem, CardLink, CardTestimonial } from '@rdplatforms/types';
 import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
 import type { GlassTokens } from './designTokens';
 
 /**
- * Building blocks every template composes differently — avatar
- * placement/size and link layout are exactly what varies template to
- * template, so they're the pieces worth sharing; each template still
- * owns its own overall structure.
+ * Building blocks every Milestone 9 template composes differently —
+ * each one still owns its own overall structure and design tokens
+ * (designTokens.ts), these are just the pieces worth sharing.
  */
-
-export function AvatarBadge({
-  card,
-  style,
-  size = 128,
-}: {
-  card: Card;
-  style: CardStyleConfig;
-  size?: number;
-}) {
-  const colors = getAvatarColors(card.name);
-  return (
-    <Avatar
-      src={card.photoUrl || undefined}
-      alt={card.name}
-      sx={{
-        width: size,
-        height: size,
-        fontSize: size * 0.32,
-        fontWeight: 700,
-        bgcolor: colors.bg,
-        color: colors.fg,
-        border: `3px solid ${style.avatarRing}`,
-      }}
-    >
-      {getInitials(card.name)}
-    </Avatar>
-  );
-}
-
-export function LinkButtonList({ links, style }: { links: CardLink[]; style: CardStyleConfig }) {
-  return (
-    <Stack spacing={1.5} sx={{ width: '100%' }}>
-      {links.map((link, index) => {
-        const Icon = iconForLink(link);
-        return (
-          <Button
-            key={`${link.type}-${index}`}
-            component="a"
-            href={hrefForLink(link)}
-            target={link.type === 'call' ? undefined : '_blank'}
-            rel="noopener noreferrer"
-            size="large"
-            startIcon={<Icon />}
-            fullWidth
-            sx={style.buttonSx}
-          >
-            {labelForLink(link)}
-          </Button>
-        );
-      })}
-    </Stack>
-  );
-}
-
-export function LinkIconGrid({
-  links,
-  style,
-  columns = 3,
-}: {
-  links: CardLink[];
-  style: CardStyleConfig;
-  columns?: number;
-}) {
-  return (
-    <Box
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gap: 2,
-        width: '100%',
-      }}
-    >
-      {links.map((link, index) => {
-        const Icon = iconForLink(link);
-        return (
-          <Stack key={`${link.type}-${index}`} spacing={0.5} alignItems="center">
-            <Tooltip title={labelForLink(link)}>
-              <IconButton
-                component="a"
-                href={hrefForLink(link)}
-                target={link.type === 'call' ? undefined : '_blank'}
-                rel="noopener noreferrer"
-                sx={style.iconButtonSx}
-              >
-                <Icon />
-              </IconButton>
-            </Tooltip>
-            <Typography variant="caption" sx={{ color: style.secondaryTextColor }} noWrap>
-              {labelForLink(link)}
-            </Typography>
-          </Stack>
-        );
-      })}
-    </Box>
-  );
-}
-
-export function ContactLines({
-  card,
-  style,
-  align = 'center',
-}: {
-  card: Card;
-  style: CardStyleConfig;
-  align?: 'center' | 'flex-start';
-}) {
-  return (
-    <Stack spacing={1} alignItems={align}>
-      <Stack
-        direction="row"
-        spacing={1}
-        alignItems="center"
-        sx={{ color: style.secondaryTextColor }}
-      >
-        <PhoneIcon fontSize="small" />
-        <Typography variant="body2">{formatPhoneForDisplay(card.phone)}</Typography>
-      </Stack>
-      {card.email ? (
-        <Stack
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          sx={{ color: style.secondaryTextColor }}
-        >
-          <EmailIcon fontSize="small" />
-          <Typography variant="body2">{card.email}</Typography>
-        </Stack>
-      ) : null}
-    </Stack>
-  );
-}
 
 /**
  * Renders the card's own QR code in a modal, generated on first open
  * (not eagerly — most visitors never tap it) via generateQrCodeDataUrl
  * (@rdplatforms/utils, Milestone 9). Deliberately style-agnostic beyond
  * the `sx` passed in: each Milestone 9 template hardcodes its own
- * design tokens rather than going through the old CardStyleConfig
- * abstraction (see cardStyles.ts's own comment — that one's scoped to
- * the 4 templates being retired in TASK-046).
+ * design tokens (designTokens.ts) rather than going through a
+ * swappable recolor system — see designTokens.ts's own comment.
  */
 export function QrShareButton({
   url,
