@@ -9,6 +9,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import EmailIcon from '@mui/icons-material/Email';
 import MapIcon from '@mui/icons-material/Map';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import DownloadIcon from '@mui/icons-material/Download';
 import LinkIcon from '@mui/icons-material/Link';
 import type { CardLink } from '@rdplatforms/types';
 import { toWhatsAppLink } from '@rdplatforms/utils';
@@ -29,6 +30,7 @@ const ICONS: Record<string, ComponentType<SvgIconProps>> = {
   email: EmailIcon,
   maps: MapIcon,
   facebook: FacebookIcon,
+  download: DownloadIcon,
 };
 
 const LABELS: Record<string, string> = {
@@ -41,6 +43,7 @@ const LABELS: Record<string, string> = {
   email: 'Email',
   maps: 'Get Directions',
   facebook: 'Facebook',
+  download: 'Download',
 };
 
 export function iconForLink(link: CardLink): ComponentType<SvgIconProps> {

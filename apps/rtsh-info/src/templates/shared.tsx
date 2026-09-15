@@ -16,6 +16,7 @@ import {
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import StarIcon from '@mui/icons-material/Star';
 import {
   formatPhoneForDisplay,
   generateQrCodeDataUrl,
@@ -23,7 +24,13 @@ import {
   getInitials,
   toWhatsAppLink,
 } from '@rdplatforms/utils';
-import type { Card, CardBadge, CardCatalogItem, CardLink } from '@rdplatforms/types';
+import type {
+  Card,
+  CardBadge,
+  CardCatalogItem,
+  CardLink,
+  CardTestimonial,
+} from '@rdplatforms/types';
 import type { CardStyleConfig } from '../cardStyles';
 import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
 import type { GlassTokens } from './designTokens';
@@ -600,6 +607,71 @@ export function UpiPaymentQr({
       <Typography variant="body2" sx={{ color: tokens.onSurfaceVariant }}>
         {upiId}
       </Typography>
+    </Stack>
+  );
+}
+
+/** One quote/review — a star rating (if given), the quote, and the author's initials avatar + name/role. Shared since any template with real client feedback can use it, not just Creative Portfolio. */
+export function TestimonialCard({
+  tokens,
+  testimonial,
+}: {
+  tokens: GlassTokens;
+  testimonial: CardTestimonial;
+}) {
+  const avatarColors = getAvatarColors(testimonial.authorName);
+  return (
+    <Stack
+      spacing={1.5}
+      sx={{
+        bgcolor: tokens.tileBg,
+        border: tokens.tileBorder,
+        boxShadow: tokens.tileShadow,
+        backdropFilter: tokens.blur,
+        borderRadius: tokens.tileRadius,
+        p: 2.5,
+      }}
+    >
+      {testimonial.rating ? (
+        <Stack direction="row" spacing={0.25}>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <StarIcon
+              key={index}
+              fontSize="small"
+              sx={{
+                color: tokens.primaryContainer,
+                opacity: index < (testimonial.rating as number) ? 1 : 0.25,
+              }}
+            />
+          ))}
+        </Stack>
+      ) : null}
+      <Typography variant="body2" sx={{ color: tokens.onSurface, fontStyle: 'italic' }}>
+        &ldquo;{testimonial.quote}&rdquo;
+      </Typography>
+      <Stack direction="row" spacing={1.25} alignItems="center">
+        <Avatar
+          sx={{
+            width: 32,
+            height: 32,
+            fontSize: 13,
+            bgcolor: avatarColors.bg,
+            color: avatarColors.fg,
+          }}
+        >
+          {getInitials(testimonial.authorName)}
+        </Avatar>
+        <Stack>
+          <Typography variant="caption" fontWeight={700} sx={{ color: tokens.onSurface }}>
+            {testimonial.authorName}
+          </Typography>
+          {testimonial.authorRole ? (
+            <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+              {testimonial.authorRole}
+            </Typography>
+          ) : null}
+        </Stack>
+      </Stack>
     </Stack>
   );
 }
