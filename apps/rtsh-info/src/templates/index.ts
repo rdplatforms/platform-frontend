@@ -7,6 +7,7 @@ import { ExecutiveMinimalTemplate } from './ExecutiveMinimalTemplate';
 import { WhatsAppStorefrontTemplate } from './WhatsAppStorefrontTemplate';
 import { CreativePortfolioTemplate } from './CreativePortfolioTemplate';
 import { DarkTechGlassmorphismTemplate } from './DarkTechGlassmorphismTemplate';
+import { ArtisanalJewelryBoutiqueTemplate } from './ArtisanalJewelryBoutiqueTemplate';
 import type { CardTemplateProps } from './types';
 
 export type { CardTemplateProps } from './types';
@@ -39,6 +40,10 @@ export const CARD_TEMPLATES: Record<
   'dark-tech-glassmorphism': {
     label: 'Dark Tech Glassmorphism',
     component: DarkTechGlassmorphismTemplate,
+  },
+  'artisanal-jewelry-boutique': {
+    label: 'Artisanal Jewelry Boutique',
+    component: ArtisanalJewelryBoutiqueTemplate,
   },
 };
 
