@@ -6,6 +6,7 @@ import { FramedTemplate } from './FramedTemplate';
 import { ExecutiveMinimalTemplate } from './ExecutiveMinimalTemplate';
 import { WhatsAppStorefrontTemplate } from './WhatsAppStorefrontTemplate';
 import { CreativePortfolioTemplate } from './CreativePortfolioTemplate';
+import { DarkTechGlassmorphismTemplate } from './DarkTechGlassmorphismTemplate';
 import type { CardTemplateProps } from './types';
 
 export type { CardTemplateProps } from './types';
@@ -35,6 +36,10 @@ export const CARD_TEMPLATES: Record<
   'executive-minimal': { label: 'Executive Minimal', component: ExecutiveMinimalTemplate },
   'whatsapp-storefront': { label: 'WhatsApp Storefront', component: WhatsAppStorefrontTemplate },
   'creative-portfolio': { label: 'Creative Portfolio', component: CreativePortfolioTemplate },
+  'dark-tech-glassmorphism': {
+    label: 'Dark Tech Glassmorphism',
+    component: DarkTechGlassmorphismTemplate,
+  },
 };
 
 const DEFAULT_TEMPLATE = CARD_TEMPLATES.template1 as {

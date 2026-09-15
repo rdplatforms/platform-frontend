@@ -675,3 +675,47 @@ export function TestimonialCard({
     </Stack>
   );
 }
+
+/** A list of link rows (icon + label), each its own tappable tile — the "Quick Links" pattern Executive Minimal and Dark Tech Glassmorphism both use for whatever CardLinks aren't already surfaced as a primary action elsewhere on the page. */
+export function LinkRowList({ tokens, links }: { tokens: GlassTokens; links: CardLink[] }) {
+  return (
+    <Stack spacing={1}>
+      {links.map((link, index) => {
+        const Icon = iconForLink(link);
+        return (
+          <Stack
+            key={`${link.type}-${index}`}
+            component="a"
+            href={hrefForLink(link)}
+            target="_blank"
+            rel="noopener noreferrer"
+            direction="row"
+            spacing={1.5}
+            alignItems="center"
+            sx={{
+              textDecoration: 'none',
+              color: tokens.onSurface,
+              bgcolor: tokens.tileBg,
+              border: tokens.tileBorder,
+              borderRadius: tokens.tileRadius * 0.75,
+              p: 1.5,
+              transition: 'background-color 0.15s ease',
+              '&:hover': { bgcolor: tokens.tileHoverBg },
+            }}
+          >
+            <IconButton
+              size="small"
+              component="span"
+              sx={{ bgcolor: 'rgba(255,255,255,0.08)', color: tokens.primary }}
+            >
+              <Icon fontSize="small" />
+            </IconButton>
+            <Typography variant="body2" fontWeight={600}>
+              {labelForLink(link)}
+            </Typography>
+          </Stack>
+        );
+      })}
+    </Stack>
+  );
+}

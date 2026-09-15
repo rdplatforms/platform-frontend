@@ -1,14 +1,4 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Chip,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Avatar, Box, Button, Chip, Stack, Toolbar, Typography } from '@mui/material';
 import BadgeIcon from '@mui/icons-material/Badge';
 import BusinessIcon from '@mui/icons-material/Business';
 import CallIcon from '@mui/icons-material/Call';
@@ -23,10 +13,10 @@ import {
   BadgeChip,
   GlassSection,
   HeroMesh,
+  LinkRowList,
   QrShareButton,
 } from './shared';
 import { DARK_GLASS_TOKENS as tokens } from './designTokens';
-import { hrefForLink, iconForLink, labelForLink } from '../linkPresentation';
 import type { CardTemplateProps } from './types';
 
 export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
@@ -285,44 +275,7 @@ export function ExecutiveMinimalTemplate({ card }: CardTemplateProps) {
               <Typography variant="subtitle2" fontWeight={700}>
                 Quick Links & Channels
               </Typography>
-              <Stack spacing={1}>
-                {otherLinks.map((link, index) => {
-                  const Icon = iconForLink(link);
-                  return (
-                    <Stack
-                      key={`${link.type}-${index}`}
-                      component="a"
-                      href={hrefForLink(link)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      direction="row"
-                      spacing={1.5}
-                      alignItems="center"
-                      sx={{
-                        textDecoration: 'none',
-                        color: tokens.onSurface,
-                        bgcolor: tokens.tileBg,
-                        border: tokens.tileBorder,
-                        borderRadius: tokens.tileRadius * 0.75,
-                        p: 1.5,
-                        transition: 'background-color 0.15s ease',
-                        '&:hover': { bgcolor: tokens.tileHoverBg },
-                      }}
-                    >
-                      <IconButton
-                        size="small"
-                        component="span"
-                        sx={{ bgcolor: 'rgba(255,255,255,0.08)', color: tokens.primary }}
-                      >
-                        <Icon fontSize="small" />
-                      </IconButton>
-                      <Typography variant="body2" fontWeight={600}>
-                        {labelForLink(link)}
-                      </Typography>
-                    </Stack>
-                  );
-                })}
-              </Stack>
+              <LinkRowList tokens={tokens} links={otherLinks} />
             </GlassSection>
           ) : null}
         </Stack>
