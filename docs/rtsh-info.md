@@ -3,9 +3,11 @@
 A platform-owned product, not a per-tenant business site: one shared app
 serving a mobile-first personal profile page at `<domain>/<identifier>`,
 opened by scanning a QR code printed on someone's physical business
-card. `rtsh-info` is a placeholder app/package name — expected to
-change once a real product name/domain is picked. See
-[TASKS.md](../TASKS.md) Milestone 4.
+card. `rtsh-info` is a placeholder app/package name — the product name
+shown in the app itself is **"Card Viewer"**. See
+[TASKS.md](../TASKS.md) Milestone 4 (the original MVP) and Milestone 9
+(the current 6-template system + showcase page, this doc's "Templates"
+and "Showcase page" sections below).
 
 ## Routing
 
@@ -24,7 +26,9 @@ Path-based, not hostname-based (unlike `apps/website`'s
   is a routing/QR-regeneration change only, not a data migration.
 - A bad identifier still matches the `/:identifier` route — `CardPage`
   renders a "Card not found" state inline rather than redirecting.
-  `NotFoundPage` only handles genuinely unmatched paths (e.g. bare `/`).
+  `/` has its own route (`HomePage`, the template showcase — see
+  "Showcase page" below); `NotFoundPage` only handles paths that match
+  neither (e.g. `/some/nested/path`).
 
 ## Data
 
@@ -75,58 +79,97 @@ X, ...) needs no schema change:
 An unrecognized `type` still renders correctly — generic link icon, the
 raw `type` string as its label, `value` treated as a URL.
 
-## Styles and templates — two independent axes
+## Templates (Milestone 9)
 
-A card's look is controlled by two separate fields, deliberately kept
-apart:
+A card's entire look — layout _and_ colors together — comes from one
+field, `Card.template`. This replaced an earlier two-axis design
+(`Card.style` for colors, `Card.template` for layout, independently
+combinable) once six new templates arrived, each carrying its own
+deliberate, specific palette from a real design spec — a separate
+recolor axis on top of that no longer made sense (see
+[adr's reasoning pattern](adr/README.md) for why a decision like this
+gets superseded rather than silently changed: the six templates below
+are a real replacement of the original 4-template/5-style MVP system,
+not an extension of it).
 
-- **`Card.style`** (`src/cardStyles.ts`) — colors only: background,
-  text colors, button fill/border. Think "which color scheme."
-- **`Card.template`** (`src/templates/`) — actual component structure:
-  where the avatar sits, whether links render as a full-width button
-  list or an icon grid, full-bleed page vs. a framed rounded card on a
-  neutral backdrop. Think "which physical card layout," the way a print
-  shop's card-design series each have a genuinely different layout, not
-  just a recolor of one design.
+Each template is a self-contained component in `src/templates/` that
+hardcodes its own design tokens (`src/templates/designTokens.ts`) —
+`DARK_GLASS_TOKENS` for the four dark ones, `WARM_LUXURY_TOKENS` for
+the two light ones — rather than reading from a swappable style config.
+Both token sets share the same shape (`GlassTokens`), so the shared
+building blocks in `src/templates/shared.tsx` (`GlassSection`,
+`ActionTile`, `AmbientBackdrop`, `HeroMesh`, `CatalogCard`, `MapEmbed`,
+`UpiPaymentQr`, `TestimonialCard`, `BadgeChip`, `LinkRowList`,
+`QrShareButton`) work with either — `WARM_LUXURY_TOKENS` sets `blur:
+undefined` and a tighter `panelRadius`/`tileRadius`, since that spec
+explicitly rejects backdrop blur and heavy shadows in favor of flat
+tonal layering, and the shared components render accordingly rather
+than forcing one aesthetic onto both.
 
-Both are picked entirely from data — no code change needed per card —
-and both tolerate a missing/unrecognized value by falling back to the
-first option (`resolveCardStyle` → `style1`, `resolveCardTemplate` →
-`template1`), same as an unrecognized link `type`.
+| template key                  | fits                                                 | tokens               |
+| ----------------------------- | ---------------------------------------------------- | -------------------- |
+| `executive-minimal` (default) | Consultants, founders, individual professionals      | `DARK_GLASS_TOKENS`  |
+| `whatsapp-storefront`         | Shops/service businesses taking orders over WhatsApp | `DARK_GLASS_TOKENS`  |
+| `creative-portfolio`          | Designers/creatives leading with their work          | `DARK_GLASS_TOKENS`  |
+| `dark-tech-glassmorphism`     | Engineers, founders, Web3/tech-flavored profiles     | `DARK_GLASS_TOKENS`  |
+| `artisanal-jewelry-boutique`  | Jewellery, boutique, light-luxury retail             | `WARM_LUXURY_TOKENS` |
+| `bistro-dining`               | Restaurants, cafes, dining spots                     | `WARM_LUXURY_TOKENS` |
 
-| style key          | look                                                   |
-| ------------------ | ------------------------------------------------------ |
-| `style1` (default) | Classic — light background, solid dark pill buttons    |
-| `style2`           | Midnight — dark gradient, translucent outlined buttons |
-| `style3`           | Sunset — warm gradient, frosted white buttons          |
-| `style4`           | Minimal — white background, outlined buttons           |
-| `style5`           | Ocean — teal/blue gradient, translucent buttons        |
+An unrecognized/missing `Card.template` falls back to
+`executive-minimal` (`resolveCardTemplate`), same tolerance an
+unrecognized link `type` has.
 
-| template key          | structure                                                                                   |
-| --------------------- | ------------------------------------------------------------------------------------------- |
-| `template1` (default) | Stack — full-bleed colored background, centered avatar, full-width button list              |
-| `template2`           | Banner — colored banner strip up top with the avatar overlapping its edge, plain body below |
-| `template3`           | Compact — avatar and name side by side (not stacked), links as a 3-column icon grid         |
-| `template4`           | Framed — a rounded, shadowed card floating on a neutral backdrop, compact icon grid inside  |
+Adding a 7th template: one new component in `src/templates/`, composing
+whichever `shared.tsx` pieces fit (add a new one there first if the
+template needs something none of the existing pieces cover — that's
+exactly how `CatalogCard`/`MapEmbed`/`UpiPaymentQr`/`TestimonialCard`/
+`LinkRowList` were added, each the first time a template actually
+needed it, not speculatively ahead of that), plus one entry in
+`CARD_TEMPLATES` (`src/templates/index.ts`, including a one-line
+`description` — shown on the showcase page below). `CardPage` itself
+never changes.
 
-Adding a 6th style is one entry in `CARD_STYLES`. Adding a 5th template
-is one new component (see `StackTemplate.tsx` for the simplest example)
-plus one entry in `CARD_TEMPLATES` (`src/templates/index.ts`) —
-`CardPage` itself never changes for either. `src/templates/shared.tsx`
-holds the pieces templates compose differently (`AvatarBadge`,
-`ContactLines`, `LinkButtonList`, `LinkIconGrid`) so a new template
-isn't starting from a blank page.
+The richer `Card` fields the business-style templates read —
+`category`, `whatsapp` (distinct from `phone`), `mapEmbedUrl`, `hours`
+(an array of labeled blocks, e.g. separate lunch/dinner rows), `upiId`
+(renders as a payment QR — display only, no processing happens on our
+side), `catalog`, `testimonials`, `badges`, `bio`, `skills` — are all
+optional (`packages/types/src/card.ts`). A personal card that sets none
+of them (Ritesh Dhekane's) renders exactly as a card with just
+name/title/links always has.
 
-### Dev-only style/template preview switcher
+### Dev-only template preview switcher
 
 `CardPage` renders a floating `DevPreviewSwitcher` (bottom-right corner)
 only when `import.meta.env.DEV` is true — i.e. `pnpm dev:rtsh-info`,
 never a production build (verified: the string `"DEV PREVIEW"` doesn't
 appear anywhere in a `vite build` output, meaning it's tree-shaken out,
-not just hidden). It cycles the live preview through every
-style/template combination without touching JSON, for quickly reviewing
-all of them while building. A real visitor scanning a QR code never
-sees it.
+not just hidden). It cycles the live preview through every template
+without touching JSON, for quickly reviewing all of them while
+building. A real visitor scanning a QR code never sees it.
+
+## Showcase page (Milestone 9)
+
+`/` is `HomePage` — a public page (no login, matching this app's
+dev-managed, no-accounts scope) that browses all 6 templates with a
+**genuine live preview** of each: the actual template component,
+rendered at real size against a generic `SAMPLE_CARD`
+(`src/sampleCard.ts` — one value for every optional field, so no
+template's sections render empty) and scaled down with a CSS
+`transform`, not a static screenshot that would go stale the next time
+a template changes.
+
+Each preview has a **"Request this style"** button — the entire
+"onboarding" flow for now, since there's no self-serve signup: it opens
+WhatsApp (`toWhatsAppLink`) to a fixed number with a pre-filled message
+naming the template, and a card gets added by hand from there, same as
+every card today. No form, no backend call, nothing persisted.
+
+The mobile-number lookup that used to be the only thing on `/`
+(previously handled by falling through to `NotFoundPage`, the 404
+catch-all) is still here too, extracted into a shared
+`CardLookupForm` component so it isn't duplicated between `HomePage`
+and the now-genuinely-404-only `NotFoundPage`.
 
 ## Avatar initials/color
 
@@ -139,8 +182,8 @@ the same badge with no stored color field needed.
 
 ## Looking a card up without a QR code
 
-`NotFoundPage` (shown for any path that isn't `/:identifier` — e.g. a
-bare `/`) includes a mobile-number input that navigates to
+`CardLookupForm` (shown on both `HomePage`, `/`, and `NotFoundPage`, any
+genuinely unmatched path) is a mobile-number input that navigates to
 `/<number>`, landing back on the same identifier resolution
 `CardPage`/`findCardByIdentifier` already do.
 
@@ -148,7 +191,8 @@ bare `/`) includes a mobile-number input that navigates to
 
 ```bash
 pnpm dev:rtsh-info
-# open http://localhost:5176/9322527567
+# open http://localhost:5176/9322527567 for a real card
+# open http://localhost:5176/ for the template showcase
 ```
 
 Port **5176** — 5173 website, 5174 admin, 5175 portal.
