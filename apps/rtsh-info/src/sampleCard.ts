@@ -34,10 +34,14 @@ export const SAMPLE_CARD: Card = {
     { label: 'Escrow Guaranteed', icon: 'escrow' },
     { label: 'Avg Reply: 10m', icon: 'reply' },
   ],
-  hours: [{ label: 'Mon - Sat', value: '10:00 AM - 8:00 PM' }],
+  hours: [
+    { label: 'Mon - Sat', value: '10:00 AM - 8:00 PM', note: 'Walk-ins welcome' },
+    { label: 'Sunday', value: '11:00 AM - 4:00 PM', note: 'Reservations recommended' },
+  ],
   openNow: true,
   locationName: 'Flagship Studio & Outlet',
   upiId: 'yourname@upi',
+  reviewUrl: 'https://example.com/review',
   catalog: [
     {
       id: 'sample-1',
@@ -46,6 +50,7 @@ export const SAMPLE_CARD: Card = {
       description: 'A short description of this product or service.',
       badge: 'Popular',
       deliveryInfo: '14 Days Delivery',
+      tags: ['Best Seller', 'Limited Batch'],
       ctaLabel: 'Inquire Package',
       ctaTone: 'solid',
     },
@@ -56,6 +61,7 @@ export const SAMPLE_CARD: Card = {
       description: 'Another short description.',
       badge: 'New',
       deliveryInfo: '48h Turnaround',
+      tags: ['Seasonal', 'Locally Sourced'],
       ctaLabel: 'Instant Booking',
       ctaTone: 'accent',
     },

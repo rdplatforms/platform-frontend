@@ -142,9 +142,14 @@ clock/backend to compute it from `hours`), `highlights` (short
 trust/fulfilment chips, e.g. "Express Delivery"), `locationName` (the
 specific outlet/venue name shown above a map embed), `handle` (a
 social/portfolio handle shown above the name), `stats` (quantified
-achievements, e.g. "9+ / Yrs Exp", rendered by the new `StatRow`) —
-are all optional (`packages/types/src/card.ts`). A personal card that
-sets none of them (Ritesh Dhekane's) renders exactly as a card with
+achievements, e.g. "9+ / Yrs Exp", rendered by `StatRow`), `reviewUrl`
+(a link to leave a public review — renders a small "ask for a review"
+banner) — are all optional (`packages/types/src/card.ts`). A
+`CardCatalogItem` can also carry `tags` (short attribute chips, e.g.
+"Vegetarian", "Organic Flour") and a `CardHoursBlock` can carry a
+`note` footnote (e.g. "Walk-ins welcome") — both optional, same
+backward-compatible pattern. A personal card that sets none of them
+(Ritesh Dhekane's) renders exactly as a card with
 just name/title/links always has.
 
 ### Dev-only template preview switcher

@@ -28,6 +28,8 @@ export interface CardCatalogItem {
   ctaLabel?: string;
   /** Visual weight of the CTA button. Defaults to 'outline' (the original single-style button). */
   ctaTone?: 'solid' | 'accent' | 'outline';
+  /** Short attribute tags, e.g. ["Vegetarian", "Organic Flour"] or ["Gluten Free", "12h Slow Cook"] — for menu-style catalogs where each item has a couple of short facts worth surfacing without a full description. */
+  tags?: string[];
 }
 
 /** A short trust/fulfilment highlight shown near a merchant's contact actions, e.g. "Express Delivery", "Escrow Guaranteed". `icon` only drives which glyph renders. */
@@ -56,6 +58,8 @@ export interface CardTestimonial {
 export interface CardHoursBlock {
   label: string;
   value: string;
+  /** A short footnote under the value, e.g. "Tuesday through Sunday, Walk-ins Welcome". */
+  note?: string;
 }
 
 /** A small status/verification chip (e.g. "Verified Pro", "Available for Hire", "Open Now") — plural, since a card can show more than one at once. `tone` only drives color treatment, not behavior. */
@@ -115,4 +119,6 @@ export interface Card {
   /** A social/portfolio handle shown above the name, e.g. "@ritesh.designs" — distinct from `title` (the role line below the name). */
   handle?: string;
   stats?: CardStat[];
+  /** A link to leave a public review (e.g. a Google Business review link) — renders a small "ask for a review" banner when set. Distinct from `testimonials` (quotes already collected, shown on the card itself). */
+  reviewUrl?: string;
 }

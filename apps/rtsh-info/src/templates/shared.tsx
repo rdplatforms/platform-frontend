@@ -376,10 +376,13 @@ export function CatalogCard({
   tokens,
   item,
   whatsappNumber,
+  defaultCtaLabel = 'Inquire on WhatsApp',
 }: {
   tokens: GlassTokens;
   item: CardCatalogItem;
   whatsappNumber?: string;
+  /** Fallback CTA text when `item.ctaLabel` isn't set — lets a template pick a sensible default for its whole catalog (e.g. "Order for Pickup via WhatsApp") without repeating it on every item. */
+  defaultCtaLabel?: string;
 }) {
   const cta = CTA_TONE_SX[item.ctaTone ?? 'outline'](tokens);
 
@@ -432,6 +435,16 @@ export function CatalogCard({
             </Typography>
           </Stack>
         ) : null}
+        {item.tags && item.tags.length > 0 ? (
+          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap sx={{ opacity: 0.75 }}>
+            {item.tags.map((tag, index) => (
+              <Typography key={tag} variant="caption" color="inherit">
+                {index > 0 ? '· ' : ''}
+                {tag}
+              </Typography>
+            ))}
+          </Stack>
+        ) : null}
         {whatsappNumber ? (
           <Button
             size="small"
@@ -442,7 +455,7 @@ export function CatalogCard({
             rel="noopener noreferrer"
             sx={{ alignSelf: 'flex-start', textTransform: 'none', fontWeight: 600, ...cta.sx }}
           >
-            {item.ctaLabel ?? 'Inquire on WhatsApp'}
+            {item.ctaLabel ?? defaultCtaLabel}
           </Button>
         ) : null}
       </Stack>
