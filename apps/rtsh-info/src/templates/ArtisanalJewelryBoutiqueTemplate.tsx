@@ -1,9 +1,19 @@
-import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Avatar, Box, Button, Collapse, IconButton, Stack, Typography } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 import DownloadIcon from '@mui/icons-material/Download';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { downloadVCard, getAvatarColors, getInitials, toWhatsAppLink } from '@rdplatforms/utils';
-import { BadgeChip, CatalogCard, GlassSection, MapEmbed, UpiPaymentQr } from './shared';
+import {
+  BadgeChip,
+  CatalogCard,
+  GlassSection,
+  HighlightTiles,
+  MapEmbed,
+  UpiPaymentQr,
+} from './shared';
 import { WARM_LUXURY_TOKENS as tokens } from './designTokens';
 import type { CardTemplateProps } from './types';
 
@@ -19,6 +29,7 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
   const avatarColors = getAvatarColors(card.name);
   const whatsappNumber =
     card.whatsapp ?? card.links.find((link) => link.type === 'whatsapp')?.value;
+  const [showPaymentQr, setShowPaymentQr] = useState(false);
 
   const handleSaveContact = () => {
     downloadVCard(
@@ -38,23 +49,47 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
     <Box sx={{ minHeight: '100vh', bgcolor: tokens.pageBackground, color: tokens.onSurface }}>
       <Box sx={{ maxWidth: 480, mx: 'auto', px: 2, py: 3 }}>
         <Stack spacing={3}>
-          <Button
-            fullWidth
-            size="large"
-            startIcon={<DownloadIcon />}
-            onClick={handleSaveContact}
+          <Stack
+            spacing={1.5}
             sx={{
-              py: 1.5,
+              bgcolor: `${tokens.primaryContainer}1a`,
+              border: `1px solid ${tokens.primaryContainer}55`,
               borderRadius: tokens.panelRadius,
-              textTransform: 'none',
-              fontWeight: 700,
-              bgcolor: tokens.onSurface,
-              color: tokens.pageBackground,
-              '&:hover': { bgcolor: tokens.secondary },
+              p: 2.5,
             }}
           >
-            Save to Contacts (.vcf)
-          </Button>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <ContactPageIcon sx={{ fontSize: 18, color: tokens.primary }} />
+              <Typography
+                variant="caption"
+                fontWeight={700}
+                sx={{ color: tokens.primary, letterSpacing: 0.6 }}
+              >
+                QUICK SYNC
+              </Typography>
+            </Stack>
+            <Typography variant="body2" sx={{ color: tokens.onSurfaceVariant }}>
+              Tap once to save {card.name} directly to your phone contacts — number, WhatsApp line,
+              and store location all in one card.
+            </Typography>
+            <Button
+              fullWidth
+              size="large"
+              startIcon={<DownloadIcon />}
+              onClick={handleSaveContact}
+              sx={{
+                py: 1.5,
+                borderRadius: tokens.panelRadius,
+                textTransform: 'none',
+                fontWeight: 700,
+                bgcolor: tokens.onSurface,
+                color: tokens.pageBackground,
+                '&:hover': { bgcolor: tokens.secondary },
+              }}
+            >
+              Save to Contacts (.vcf)
+            </Button>
+          </Stack>
 
           <GlassSection tokens={tokens} sx={{ alignItems: 'center', textAlign: 'center' }}>
             <Avatar
@@ -71,6 +106,13 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
             >
               {getInitials(card.name)}
             </Avatar>
+            {card.badges && card.badges.length > 0 ? (
+              <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" useFlexGap>
+                {card.badges.map((badge, index) => (
+                  <BadgeChip key={`${badge.label}-${index}`} badge={badge} />
+                ))}
+              </Stack>
+            ) : null}
             <Typography variant="h5" fontWeight={700} sx={{ fontFamily: 'serif' }}>
               {card.name}
             </Typography>
@@ -90,12 +132,11 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
                 {card.bio}
               </Typography>
             ) : null}
-            {card.badges && card.badges.length > 0 ? (
-              <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" useFlexGap>
-                {card.badges.map((badge, index) => (
-                  <BadgeChip key={`${badge.label}-${index}`} badge={badge} />
-                ))}
-              </Stack>
+
+            {card.highlights && card.highlights.length > 0 ? (
+              <Box sx={{ width: '100%' }}>
+                <HighlightTiles tokens={tokens} highlights={card.highlights} />
+              </Box>
             ) : null}
 
             <Stack direction="row" spacing={1.5} sx={{ width: '100%' }}>
@@ -143,9 +184,14 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
 
           {card.catalog && card.catalog.length > 0 ? (
             <Stack spacing={1.5}>
-              <Typography variant="subtitle2" fontWeight={700}>
-                Curated Treasures
-              </Typography>
+              <Box>
+                <Typography variant="subtitle2" fontWeight={700}>
+                  Curated Treasures
+                </Typography>
+                <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+                  Handcrafted pieces, available on request
+                </Typography>
+              </Box>
               <Stack spacing={2}>
                 {card.catalog.map((item) => (
                   <CatalogCard
@@ -161,9 +207,14 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
 
           {card.hours && card.hours.length > 0 ? (
             <GlassSection tokens={tokens}>
-              <Typography variant="subtitle2" fontWeight={700}>
-                Boutique Hours
-              </Typography>
+              <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Typography variant="subtitle2" fontWeight={700}>
+                  Boutique Hours
+                </Typography>
+                {card.openNow ? (
+                  <BadgeChip badge={{ label: 'Open Now', tone: 'available' }} />
+                ) : null}
+              </Stack>
               {card.hours.map((block) => (
                 <Stack key={block.label} direction="row" justifyContent="space-between">
                   <Typography variant="body2" sx={{ color: tokens.onSurfaceVariant }}>
@@ -177,14 +228,48 @@ export function ArtisanalJewelryBoutiqueTemplate({ card }: CardTemplateProps) {
             </GlassSection>
           ) : null}
 
-          {card.mapEmbedUrl ? <MapEmbed tokens={tokens} url={card.mapEmbedUrl} /> : null}
+          {card.mapEmbedUrl ? (
+            <MapEmbed
+              tokens={tokens}
+              url={card.mapEmbedUrl}
+              venueName={card.locationName}
+              address={card.location}
+            />
+          ) : null}
 
           {card.upiId ? (
-            <GlassSection tokens={tokens} sx={{ alignItems: 'center' }}>
-              <Typography variant="subtitle2" fontWeight={700}>
-                Instant Billing & UPI
-              </Typography>
-              <UpiPaymentQr tokens={tokens} upiId={card.upiId} payeeName={card.name} />
+            <GlassSection tokens={tokens}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                onClick={() => setShowPaymentQr((open) => !open)}
+                sx={{ cursor: 'pointer' }}
+              >
+                <Box>
+                  <Typography variant="subtitle2" fontWeight={700}>
+                    Instant Billing & UPI
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: tokens.onSurfaceVariant }}>
+                    Tap to show the settlement QR for direct payment
+                  </Typography>
+                </Box>
+                <IconButton
+                  size="small"
+                  sx={{
+                    color: tokens.onSurfaceVariant,
+                    transform: showPaymentQr ? 'rotate(180deg)' : 'none',
+                    transition: 'transform 0.15s ease',
+                  }}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </Stack>
+              <Collapse in={showPaymentQr}>
+                <Box sx={{ pt: 1.5, display: 'flex', justifyContent: 'center' }}>
+                  <UpiPaymentQr tokens={tokens} upiId={card.upiId} payeeName={card.name} />
+                </Box>
+              </Collapse>
             </GlassSection>
           ) : null}
         </Stack>

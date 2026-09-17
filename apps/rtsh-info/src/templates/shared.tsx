@@ -850,6 +850,52 @@ export function HighlightRow({
   );
 }
 
+/** The same Card.highlights data as HighlightRow, rendered instead as equal-width boxed tiles (icon above a centered label) — the "BIS 916 Hallmark Gold / IGI Certified / Lifetime Buyback" trust-badge row on the warm-luxury templates, which reads better as small cards than an inline chip row on a spacious, flat-tonal design. */
+export function HighlightTiles({
+  tokens,
+  highlights,
+}: {
+  tokens: GlassTokens;
+  highlights: CardHighlight[];
+}) {
+  return (
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${highlights.length}, minmax(0, 1fr))`,
+        gap: 1,
+      }}
+    >
+      {highlights.map((highlight, index) => {
+        const Icon = HIGHLIGHT_ICONS[highlight.icon ?? 'check'];
+        return (
+          <Stack
+            key={`${highlight.label}-${index}`}
+            alignItems="center"
+            spacing={0.5}
+            sx={{
+              bgcolor: tokens.tileBg,
+              border: tokens.tileBorder,
+              borderRadius: tokens.tileRadius,
+              p: 1.25,
+              textAlign: 'center',
+            }}
+          >
+            <Icon sx={{ fontSize: 18, color: tokens.primaryContainer }} />
+            <Typography
+              variant="caption"
+              fontWeight={700}
+              sx={{ color: tokens.onSurface, lineHeight: 1.2 }}
+            >
+              {highlight.label}
+            </Typography>
+          </Stack>
+        );
+      })}
+    </Box>
+  );
+}
+
 /** A compact "★ 4.9 · 184 reviews" summary next to a merchant's verification badges. */
 export function RatingSummary({
   tokens,
